@@ -26,7 +26,7 @@ body {
 #profile {
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap:12px;
 }
 
 .menu a {
@@ -84,45 +84,7 @@ body {
   border-radius: 40px;
 }
 
-
-
-@media only screen and (min-width:1165px) and (max-width: 1365px) {
-
-
-  .hamburger-menu {
-    display: block;
-  }
-
-
-  .menu {
-    width: 100%;
-    justify-content: left;
-    padding: 24px !important;
-  }
-
-  .pic {
-    padding-left: 24px;
-  }
-
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-  }
-
-  .everything {
-    padding: 0 24px;
-
-  }
-
-  .menu a {
-    display: none;
-
-  }
-
-
-  #menu__toggle {
+#menu__toggle {
     opacity: 0;
   }
 
@@ -205,6 +167,42 @@ body {
     background-color: #27292b;
     border-radius: 40px;
   }
+@media only screen and (min-width:1165px) and (max-width: 1365px) {
+
+  .hamburger-menu {
+    display: block;
+  }
+
+
+  .menu {
+    width: 100%;
+    justify-content: left;
+    padding: 24px !important;
+  }
+
+  .pic {
+    padding-left: 24px;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  .everything {
+    padding: 0 24px;
+
+  }
+
+  .menu a {
+    display: none;
+
+  }
+
+
+  
 }
 
 @media only screen and (min-width:905px) and (max-width: 1164px) {
@@ -243,94 +241,6 @@ body {
     padding-left: 24px;
   }
 
-  #menu__toggle {
-    opacity: 0;
-  }
-
-  #menu__toggle:checked+.menu__btn>span {
-    transform: rotate(45deg);
-  }
-
-  #menu__toggle:checked+.menu__btn>span::before {
-    top: 0;
-    transform: rotate(0deg);
-  }
-
-  #menu__toggle:checked+.menu__btn>span::after {
-    top: 0;
-    transform: rotate(90deg);
-  }
-
-  #menu__toggle:checked~.menu__box {
-    right: 0 !important;
-  }
-
-  .menu__btn {
-    position: fixed;
-    top: 40px;
-    right: 40px;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-    z-index: 1;
-  }
-
-  .menu__btn>span,
-  .menu__btn>span::before,
-  .menu__btn>span::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
-    transition-duration: .25s;
-  }
-
-  .menu__btn>span::before {
-    content: '';
-    top: -8px;
-  }
-
-  .menu__btn>span::after {
-    content: '';
-    top: 8px;
-  }
-
-  .menu__box {
-    display: block;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 300px;
-    height: 100%;
-    margin: 0;
-    padding: 80px 0;
-    list-style: none;
-    background-color: #1d1f22;
-    transition-duration: .25s;
-  }
-
-  .menu__item {
-    display: block;
-    margin: 8px 16px;
-    padding: 12px 24px;
-    color: #fff;
-    font-family: helvetica;
-    font-size: 20px;
-    font-weight: 600;
-    text-decoration: none;
-    transition-duration: .25s;
-  }
-
-  .menu__item:hover {
-    background-color: #27292b;
-    border-radius: 40px;
-  }
-
-  .menu__item a:active {
-    background-color: #2d2e31;
-
-  }
 
 
 
@@ -370,94 +280,6 @@ body {
 
   .pic {
     padding-left: 24px;
-  }
-
-  #menu__toggle {
-    opacity: 0;
-  }
-
-  #menu__toggle:checked+.menu__btn>span {
-    transform: rotate(45deg);
-  }
-
-  #menu__toggle:checked+.menu__btn>span::before {
-    top: 0;
-    transform: rotate(0deg);
-  }
-
-  #menu__toggle:checked+.menu__btn>span::after {
-    top: 0;
-    transform: rotate(90deg);
-  }
-
-  #menu__toggle:checked~.menu__box {
-    right: 0 !important;
-  }
-
-  .menu__btn {
-    position: fixed;
-    top: 40px;
-    right: 40px;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-    z-index: 1;
-  }
-
-  .menu__btn>span,
-  .menu__btn>span::before,
-  .menu__btn>span::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
-    transition-duration: .25s;
-  }
-
-  .menu__btn>span::before {
-    content: '';
-    top: -8px;
-  }
-
-  .menu__btn>span::after {
-    content: '';
-    top: 8px;
-  }
-
-  .menu__box {
-    display: block;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 300px;
-    height: 100%;
-    margin: 0;
-    padding: 80px 0;
-    list-style: none;
-    background-color: #1d1f22;
-    transition-duration: .25s;
-  }
-
-  .menu__item {
-    display: block;
-    margin: 8px 16px;
-    padding: 12px 24px;
-    color: #fff;
-    font-family: helvetica;
-    font-size: 20px;
-    font-weight: 600;
-    text-decoration: none;
-    transition-duration: .25s;
-  }
-
-  .menu__item:hover {
-    background-color: #27292b;
-    border-radius: 40px;
-  }
-
-  .menu__item a:active {
-    background-color: #2d2e31;
   }
 
 
@@ -531,94 +353,7 @@ body {
     padding-left: 0px;
   }
 
-  #menu__toggle {
-    opacity: 0;
-  }
-
-  #menu__toggle:checked+.menu__btn>span {
-    transform: rotate(45deg);
-  }
-
-  #menu__toggle:checked+.menu__btn>span::before {
-    top: 0;
-    transform: rotate(0deg);
-  }
-
-  #menu__toggle:checked+.menu__btn>span::after {
-    top: 0;
-    transform: rotate(90deg);
-  }
-
-  #menu__toggle:checked~.menu__box {
-    right: 0 !important;
-  }
-
-  .menu__btn {
-    position: fixed;
-    top: 40px;
-    right: 40px;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-    z-index: 1;
-  }
-
-  .menu__btn>span,
-  .menu__btn>span::before,
-  .menu__btn>span::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
-    transition-duration: .25s;
-  }
-
-  .menu__btn>span::before {
-    content: '';
-    top: -8px;
-  }
-
-  .menu__btn>span::after {
-    content: '';
-    top: 8px;
-  }
-
-  .menu__box {
-    display: block;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 300px;
-    height: 100%;
-    margin: 0;
-    padding: 80px 0;
-    list-style: none;
-    background-color: #1d1f22;
-    transition-duration: .25s;
-  }
-
-  .menu__item {
-    display: block;
-    margin: 8px 16px;
-    padding: 12px 24px;
-    color: #fff;
-    font-family: helvetica;
-    font-size: 20px;
-    font-weight: 600;
-    text-decoration: none;
-    transition-duration: .25s;
-  }
-
-  .menu__item:hover {
-    background-color: #27292b;
-    border-radius: 40px;
-  }
-
-  .menu__item a:active {
-    background-color: #2d2e31;
-  }
-
+  
 
   .menu {
     width: 100%;
@@ -649,6 +384,12 @@ body {
 
   .title1{
     padding-top: 16px !important;
+  }
+
+  p{ 
+    font-size: 14px !important;
+    line-height: 20px !important;
+
   }
 }
 
@@ -687,13 +428,12 @@ h2 {
 }
 
 p {
-  color: #b4b4b4;
+  color: #cfcfcf;
   font-size: 16px;
   font-family: Helvetica;
   font-style: normal;
   font-weight: 400;
-  line-height: auto;
-  padding: 8px;
+  line-height: 24px;
 }
 
 .buttonwpp {
@@ -760,6 +500,7 @@ p {
   font-style: normal;
   font-weight: 400;
   margin: 0;
+  padding-top:16px;
 }
 
 .pic {
@@ -800,6 +541,8 @@ p {
   font-size: 12px;
   font-family: Helvetica;
   font-style: normal;
+  width: fit-content;
+  text-align: center;
   font-weight: 500;
   margin: 0;
 }
@@ -816,7 +559,7 @@ p {
 .project1 {
   display: flex;
   width: fit-content;
-  padding: 16px 16px;
+  padding: 16px 24px;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
@@ -832,10 +575,21 @@ p {
 
 .nametag {
   display: flex;
+  justify-content:left;
   align-items: center;
-  gap: 16px;
-  width: fit-content;
+  gap:24px;
+  width: 100%;
 
+
+}
+
+.element{
+  height: 90px;
+  width:fit-content;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-left: 8px;
 
 }
 
@@ -851,6 +605,7 @@ p {
   width: 100%;
   display: flex;
   justify-content: center;
+  text-align: center !important;
 
 }
 
