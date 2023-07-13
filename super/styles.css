@@ -13,7 +13,6 @@ h3{
 }
 
 main{
-    padding-top: 100px;
     margin: 0;
     width: 100%;
 }
@@ -58,6 +57,7 @@ main{
     line-height: 24px;
     text-align: center;
     width: fit-content;
+    padding: 0 16px;
 }
 
 .everything2 {
@@ -94,7 +94,7 @@ main{
     align-items: flex-start;
     gap: 24px;
     position: fixed;
-    top: 100px;
+    top: 75px;
     right: 250px;
   }
 
@@ -125,22 +125,22 @@ main{
     font-family: Helvetica;
     font-style: normal;
     font-weight: 700;
+    width:fit-content;
     padding: 0;
-    margin: 0;
-    width: 100%;
 
 }
 
 
 .hintuser{
+
     display: flex;
     width: fit-content;
-    padding: 32px 32px;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
+    justify-content: center;
+    align-items: center;
     border-radius: 24px;
     background: #171819;
+
     
 }
 
@@ -151,35 +151,104 @@ main{
     gap: 24px;
     align-self: stretch;
     flex-wrap: wrap;
+    padding: 24px;
 }
 
 .percentage{
     display: flex;
-    max-width:305px;
+    flex: 1 1 20%;
     align-items: center;
     gap: 16px;
 }
 
-.percentage2{
+.highlight{
+   padding-top: 100px;
+    border-radius: 24px;
+
+}
+
+.cover{
+    width: 100%;
+    border-radius: 24px;
+}
+
+
+.allsteps{
     display: flex;
-    max-width:485px;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+
+}
+
+.step{
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 16px;
+    width: fit-content;
+}
+
+.circulo{
+    display: flex;
+    padding: 24px 48px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
+    border-radius: 100px;
+    background: #171819;
+}
+
+.card{
+    display: flex;
+    width: fit-content;
+    padding: 24px 32px;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+
+    border-radius: 24px;
+    background: #171819;
+}
+
+.person{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.cardtext{
+    color: #cfcfcf;
+    font-size: 16px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.cuteicon{
+    width: 60px;
 }
 
 @media only screen and (max-width: 904px){
 
-    .icone{
-    padding: 8px !important;
-
-}
 
     h3{
         font-size: 24px;
     }
+
+    
+
 }
 
 @media only screen and (max-width: 1850px){
+
     .spacing{
         width: 520px;
         
@@ -188,6 +257,7 @@ main{
 }
 
 @media only screen and (max-width: 1750px){
+
     .spacing{
         width: 540px;
         
@@ -196,6 +266,7 @@ main{
 }
 
 @media only screen and (max-width: 1650px){
+
     .spacing{
         width: 560px;
         
@@ -204,6 +275,7 @@ main{
 }
 
 @media only screen and (max-width: 1550px){
+
     .spacing{
         width: 580px;
         
@@ -213,6 +285,13 @@ main{
         
     padding: 16px 24px;
     }
+
+    .circulo{
+        padding: 16px 32px;
+        
+    }
+    
+
 
     
 }
@@ -226,6 +305,7 @@ main{
 }
 
 @media only screen and (max-width: 1380px){
+    
     .spacing{
         display: none;
         
@@ -248,25 +328,69 @@ main{
         flex-direction: column;
     }
     
-    .hintuser{
-        border-radius: 24px;
-        background: #171819;
-        justify-content: center;
-        display: inline-flex;
-        align-items: flex-start;
-        gap: 32px;
-        width: fit-content;
-        
-    }
-
-    .percentage{
-        width: fit-content;
-        justify-content: first baseline ;
-        
-    }
+    
     
     .obj{
         padding: 0  16px;
     }
-    
+
 }
+
+@media only screen and (max-width: 800px){
+
+
+    h3{
+        font-size: 24px;
+    }
+
+    .hintuser{
+        width: 100%;
+    }
+    
+    .trio{
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        align-content: center;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: nowrap;
+        padding: 24px;
+    }
+
+    }
+
+    @media only screen and (max-width: 600px){
+
+        .everything2 {
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .allsteps{
+            gap: 12px;
+        }
+
+        .circulo{
+            padding: 8px 20px;
+        }
+
+        .card{
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .person{
+            gap: 0px;
+        }
+        
+        .personpic{
+            width: 80%;
+        }
+
+        .cardtext{
+            text-align: center;
+        }
+    }
