@@ -236,6 +236,79 @@ main{
     width: 60px;
 }
 
+.buttonwpp2 {
+    border-radius: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.30);
+    padding: 12px 48px;
+    display: flex;
+    justify-content: center;
+    width:275px;
+    gap: 8px;
+  
+  }
+
+  .buttonwpp2:hover {
+
+    background-color: #222527;
+  }
+  
+  .buttonwpp2:active {
+    background-color: #292b2e;
+  }
+
+  .image{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  .logoresize{
+    width:35%;
+
+  }
+  
+  .subt{
+
+    color: #cfcfcf;
+    font-size: 12px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    width: 100%;
+    text-align: center;
+  }
+
+  
+  .buttoncall{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+   
+  hr{
+    border: 1px solid rgba(255, 255, 255, 0.30); 
+    width: 100%;"
+  }
+  
+
+  .link2{
+    color: #171819;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: 700;
+    border-radius: 40px;
+    background-color: #fff;
+    padding: 12px 48px;
+    text-align: center;
+    gap: 8px;
+  }
+
+
 @media only screen and (max-width: 904px){
 
 
