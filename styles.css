@@ -332,6 +332,11 @@ body {
 
   }
 
+  .div2,
+.div3 {
+  margin-top: 24px !important;
+}
+
   .container {
     padding-top: 80px;
   }
