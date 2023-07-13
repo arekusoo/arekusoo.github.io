@@ -31,6 +31,20 @@ main{
     
 }
 
+.title3{
+    color: #FFF;
+    text-align: left;
+    font-family: Helvetica;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 48px;
+    display: flex;
+    justify-content: left;
+    margin: 0;
+    width: 100%;
+}
+
 .icone:hover{
     background: #27292b;
     
@@ -428,12 +442,19 @@ main{
 @media only screen and (max-width: 800px){
 
 
-    
+    .buttonup{
+        width: 16px;
+        height: 16px;
+    }
 
     h3{
         font-size: 24px;
     }
 
+    .title3{
+        font-size: 24px;
+    }
+    
     .hintuser{
         width: 100%;
     }
@@ -483,13 +504,5 @@ main{
 
         .cardtext{
             text-align: center;
-        }
-
-        .buttonup{
-            width: 16px;
-            height: 16px;
-            bottom: 16px;
-            right: 16px;
-            
         }
     }
