@@ -378,6 +378,34 @@ main{
     background: #171819;
   }
 
+  .project5{
+    display: flex;
+    width: 100%;
+    padding: 16px 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 16px;
+    background: #1d1e20;
+
+  }
+
+  .link3{
+    color: #fff;
+    text-decoration: none;
+    padding-left: 4px;
+    font-size: 16px;
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .symbol{
+    width: 64px;
+
+  }
+
 
 @media only screen and (max-width: 904px){
 
@@ -390,6 +418,10 @@ main{
         flex-direction: column;
       }
     
+      .symbol{
+        width: 64px;
+        
+      }
 
 }
 
