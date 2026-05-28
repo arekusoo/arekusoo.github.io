@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Persona AI Analyzer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090f;
+      --surface: #111118;
+      --surface2: #1a1a26;
+      --surface3: #22222f;
+      --border: #2a2a3d;
+      --border-hover: #3d3d58;
+      --accent: #7c6fff;
+      --accent2: #ff6b8a;
+      --text: #e2e2ef;
+      --text-muted: #7070a0;
+      --text-dim: #4a4a6a;
+      --success: #4ade80;
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(9,9,15,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 0 18px rgba(124,111,255,0.35);
+    }
+    .header-title {
+      font-size: 17px; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .header-sub { font-size: 11px; color: var(--text-muted); }
+    .api-toggle {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 13px; color: var(--text-muted);
+      font-family: inherit;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .api-toggle:hover { border-color: var(--accent); color: var(--text); }
+    .api-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--text-dim); transition: background 0.3s;
+    }
+    .api-dot.ok { background: var(--success); box-shadow: 0 0 7px rgba(74,222,128,0.5); }
+
+    /* API PANEL */
+    .api-panel {
+      display: none;
+      position: fixed; top: 66px; right: 28px; z-index: 300;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px; width: 340px;
+      box-shadow: var(--shadow);
+      animation: slideDown 0.2s ease;
+    }
+    .api-panel.open { display: block; }
+    @keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+    .api-panel h3 { font-size: 14px; margin-bottom: 6px; }
+    .api-panel p { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+    .api-panel a { color: var(--accent); text-decoration: none; }
+    .api-panel a:hover { text-decoration: underline; }
+    .panel-note { font-size: 11px; color: var(--text-dim); margin-top: 8px; }
+
+    /* PROGRESS */
+    .progress-wrap { max-width: 820px; margin: 0 auto; padding: 24px 28px 0; }
+    .steps { display: flex; align-items: flex-start; }
+    .step-dot {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      flex: 1; position: relative;
+    }
+    .step-dot:not(:last-child)::after {
+      content: ''; position: absolute;
+      top: 15px; left: calc(50% + 16px);
+      width: calc(100% - 32px); height: 2px;
+      background: var(--border); transition: background 0.4s;
+    }
+    .step-dot.done:not(:last-child)::after { background: var(--accent); }
+    .dot-circle {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600; color: var(--text-muted);
+      z-index: 1; position: relative; transition: all 0.3s;
+    }
+    .step-dot.active .dot-circle { border-color: var(--accent); background: var(--accent); color: #fff; box-shadow: 0 0 14px rgba(124,111,255,0.45); }
+    .step-dot.done .dot-circle { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .dot-label { font-size: 11px; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
+    .step-dot.active .dot-label { color: var(--accent); }
+
+    /* CONTAINER */
+    .container { max-width: 820px; margin: 0 auto; padding: 0 28px 60px; }
+
+    /* PANELS */
+    .panel { display: none; animation: fadein 0.3s ease; }
+    .panel.active { display: block; }
+    @keyframes fadein { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .panel-head { margin: 28px 0 22px; }
+    .panel-head h2 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+    .panel-head p { color: var(--text-muted); font-size: 14px; }
+
+    /* PERSONA GRID */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+      gap: 12px; margin-bottom: 20px;
+    }
+    .persona-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      cursor: pointer;
+      transition: all 0.22s;
+      position: relative; overflow: hidden;
+    }
+    .persona-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124,111,255,0.12); }
+    .persona-card.sel { border-color: var(--accent); background: rgba(124,111,255,0.08); }
+    .pcheck {
+      position: absolute; top: 10px; right: 10px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; opacity: 0; transition: opacity 0.2s;
+    }
+    .persona-card.sel .pcheck { opacity: 1; }
+    .pemoji { font-size: 28px; line-height: 1; margin-bottom: 8px; }
+    .pname { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .pdesc { font-size: 11px; color: var(--text-muted); }
+    .custom-extra { display: none; margin-bottom: 20px; }
+    .custom-extra.show { display: block; }
+
+    /* FORM */
+    .form-group { margin-bottom: 18px; }
+    label {
+      display: block; font-size: 11px; font-weight: 600;
+      color: var(--text-muted); margin-bottom: 7px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    input[type=text], input[type=password], textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      color: var(--text); font-size: 14px; font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124,111,255,0.14);
+    }
+    textarea { min-height: 110px; }
+
+    /* ACTIONS */
+    #actionsList { display: flex; flex-direction: column; gap: 9px; margin-bottom: 10px; }
+    .action-row {
+      display: flex; gap: 9px; align-items: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 9px 12px;
+      animation: fadein 0.2s ease;
+    }
+    .action-row .bullet { color: var(--text-dim); font-size: 13px; flex-shrink: 0; }
+    .action-row input { flex: 1; background: none; border: none; padding: 0; font-size: 14px; }
+    .action-row input:focus { box-shadow: none; }
+    .rm-btn {
+      background: none; border: none; color: var(--text-dim);
+      cursor: pointer; padding: 3px; border-radius: 4px;
+      display: flex; align-items: center; transition: color 0.2s;
+      flex-shrink: 0;
+    }
+    .rm-btn:hover { color: var(--accent2); }
+    .add-action-btn {
+      display: flex; align-items: center; gap: 8px;
+      width: 100%; background: var(--surface2);
+      border: 1px dashed var(--border); border-radius: var(--radius-sm);
+      padding: 10px 14px; color: var(--text-muted);
+      cursor: pointer; font-size: 13px; font-family: inherit;
+      transition: all 0.2s;
+    }
+    .add-action-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* DROP ZONE */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 36px; text-align: center;
+      cursor: pointer; transition: all 0.22s;
+      background: var(--surface); margin-bottom: 14px;
+      position: relative;
+    }
+    .drop-zone:hover, .drop-zone.over { border-color: var(--accent); background: rgba(124,111,255,0.05); }
+    .drop-zone input[type=file] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .drop-icon { font-size: 36px; margin-bottom: 10px; }
+    .drop-t { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .drop-s { font-size: 12px; color: var(--text-muted); }
+    .previews {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
+      gap: 10px; margin-bottom: 14px;
+    }
+    .prev-item {
+      position: relative; border-radius: var(--radius-sm);
+      overflow: hidden; aspect-ratio: 1;
+      background: var(--surface2); animation: fadein 0.2s ease;
+    }
+    .prev-item img { width: 100%; height: 100%; object-fit: cover; }
+    .prev-rm {
+      position: absolute; top: 4px; right: 4px;
+      width: 20px; height: 20px;
+      background: rgba(0,0,0,0.7); border: none;
+      border-radius: 50%; color: #fff;
+      cursor: pointer; font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .prev-rm:hover { background: var(--accent2); }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 11px 22px; border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 600; font-family: inherit;
+      cursor: pointer; border: none; transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #8b6dff);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(124,111,255,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(124,111,255,0.45); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-ghost {
+      background: var(--surface2); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--border-hover); }
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 28px; padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* RESULTS */
+    .summary-row {
+      display: flex; gap: 24px; flex-wrap: wrap;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 22px;
+      margin-bottom: 20px;
+    }
+    .sum-item { display: flex; flex-direction: column; gap: 3px; }
+    .sum-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; }
+    .sum-val { font-size: 13px; font-weight: 500; }
+    .result-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 26px;
+    }
+    .result-actions { display: flex; justify-content: flex-end; margin-bottom: 16px; gap: 8px; }
+    .copy-btn {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 6px 14px;
+      color: var(--text-muted); font-size: 12px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .result-body { font-size: 15px; line-height: 1.8; color: var(--text); }
+    .result-body h1 { font-size: 20px; color: var(--accent); margin: 20px 0 8px; font-weight: 700; }
+    .result-body h2 { font-size: 17px; margin: 18px 0 8px; font-weight: 700; }
+    .result-body h3 { font-size: 15px; margin: 14px 0 6px; font-weight: 700; color: #b0aaff; }
+    .result-body p { margin-bottom: 12px; }
+    .result-body ul, .result-body ol { margin: 8px 0 14px 22px; }
+    .result-body li { margin-bottom: 5px; }
+    .result-body strong { font-weight: 700; }
+    .result-body em { font-style: italic; color: var(--text-muted); }
+    .result-body code { background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: monospace; }
+    .result-body blockquote { border-left: 3px solid var(--accent); padding-left: 16px; margin: 12px 0; color: var(--text-muted); }
+    .result-body hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+    /* LOADING */
+    .loading {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 18px; padding: 56px 20px; text-align: center;
+    }
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .load-text { color: var(--text-muted); font-size: 14px; }
+    .load-dots::after { content: ''; animation: dots 1.4s steps(4,end) infinite; }
+    @keyframes dots { 0%,20%{content:'';} 40%{content:'.';} 60%{content:'..';} 80%,100%{content:'...';} }
+
+    /* ERROR */
+    .err-box {
+      background: rgba(255,107,138,0.08); border: 1px solid rgba(255,107,138,0.3);
+      border-radius: var(--radius-sm); padding: 16px;
+      color: #ff8fa8; font-size: 14px; margin-top: 12px;
+    }
+    .err-box a { color: var(--accent2); }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+      padding: 10px 22px; border-radius: var(--radius-sm);
+      font-size: 13px; font-weight: 500; z-index: 9999;
+      backdrop-filter: blur(10px);
+      animation: toastIn 0.28s ease;
+      pointer-events: none;
+    }
+    @keyframes toastIn { from { opacity:0; transform:translateX(-50%) translateY(10px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+    .toast.info { background: rgba(124,111,255,0.15); border: 1px solid rgba(124,111,255,0.35); color: #a89fff; }
+    .toast.err { background: rgba(255,107,138,0.12); border: 1px solid rgba(255,107,138,0.35); color: #ff8fa8; }
+    .toast.ok { background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.3); color: #6fe89a; }
+
+    @media(max-width:600px) {
+      .header { padding: 12px 14px; }
+      .progress-wrap, .container { padding-left: 14px; padding-right: 14px; }
+      .persona-grid { grid-template-columns: repeat(2,1fr); }
+      .drop-zone { padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">🧠</div>
+    <div>
+      <div class="header-title">Persona AI Analyzer</div>
+      <div class="header-sub">Análise visual com perspectiva de persona — powered by Gemini</div>
+    </div>
+  </div>
+  <button class="api-toggle" id="apiToggle">
+    <div class="api-dot" id="apiDot"></div>
+    API Key
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+</header>
+
+<!-- API PANEL -->
+<div class="api-panel" id="apiPanel">
+  <h3>Gemini API Key (gratuita)</h3>
+  <p>Obtenha sua chave grátis em <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a> — sem cartão de crédito. O modelo Gemini 1.5 Flash tem <strong>15 req/min e 1M tokens/dia</strong> no free tier.</p>
+  <div class="form-group">
+    <input type="password" id="apiInput" placeholder="AIzaSy..." style="margin-bottom:8px">
+    <button class="btn btn-primary" style="width:100%;justify-content:center" id="saveKeyBtn">Salvar chave</button>
+  </div>
+  <p class="panel-note">Salva apenas no localStorage do seu navegador. Nunca enviada a servidores externos.</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="steps">
+    <div class="step-dot active" id="sd1"><div class="dot-circle">1</div><span class="dot-label">Persona</span></div>
+    <div class="step-dot" id="sd2"><div class="dot-circle">2</div><span class="dot-label">Objetivo</span></div>
+    <div class="step-dot" id="sd3"><div class="dot-circle">3</div><span class="dot-label">Imagens & Ações</span></div>
+    <div class="step-dot" id="sd4"><div class="dot-circle">4</div><span class="dot-label">Resultado</span></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- STEP 1 -->
+  <div class="panel active" id="p1">
+    <div class="panel-head">
+      <h2>Escolha uma Persona</h2>
+      <p>Selecione o papel que a IA vai adotar para analisar as imagens</p>
+    </div>
+    <div class="persona-grid" id="personaGrid"></div>
+    <div class="custom-extra" id="customExtra">
+      <div class="form-group">
+        <label>Nome da Persona</label>
+        <input type="text" id="cName" placeholder="Ex: Especialista em Growth Hacking">
+      </div>
+      <div class="form-group">
+        <label>Descrição</label>
+        <input type="text" id="cDesc" placeholder="Ex: Focado em métricas de crescimento e aquisição">
+      </div>
+    </div>
+    <div class="nav">
+      <div></div>
+      <button class="btn btn-primary" id="next1">Próximo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="panel" id="p2">
+    <div class="panel-head">
+      <h2>Defina o Objetivo</h2>
+      <p>Qual é o objetivo estratégico da persona nessa análise?</p>
+    </div>
+    <div class="form-group">
+      <label>Objetivo Principal</label>
+      <textarea id="objInput" placeholder="Ex: Identificar oportunidades de melhoria na experiência do usuário no fluxo de checkout para aumentar a taxa de conversão..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Contexto Adicional (opcional)</label>
+      <textarea id="ctxInput" style="min-height:80px" placeholder="Ex: Produto B2C, público 18-35 anos, mercado brasileiro..."></textarea>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="back2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Voltar</button>
+      <button class="btn btn-primary" id="next2">Próximo <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="panel" id="p3">
+    <div class="panel-head">
+      <h2>Imagens &amp; Ações</h2>
+      <p>Faça upload das imagens e liste as ações ou sub-objetivos da persona</p>
+    </div>
+    <div class="form-group">
+      <label>Imagens para Análise</label>
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" accept="image/*" multiple>
+        <div class="drop-icon">🖼️</div>
+        <div class="drop-t">Arraste imagens aqui ou clique para selecionar</div>
+        <div class="drop-s">PNG, JPG, WebP, GIF — até 10 imagens</div>
+      </div>
+      <div class="previews" id="previews"></div>
+    </div>
+    <div class="form-group">
+      <label>Ações &amp; Sub-objetivos</label>
+      <div id="actionsList"></div>
+      <button class="add-action-btn" id="addActionBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Adicionar ação ou sub-objetivo
+      </button>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="back3"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Voltar</button>
+      <button class="btn btn-primary" id="analyzeBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Analisar com IA
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="panel" id="p4">
+    <div class="panel-head">
+      <h2>Análise da IA</h2>
+      <p>Resultado gerado pela perspectiva da persona selecionada</p>
+    </div>
+    <div class="summary-row" id="summaryRow"></div>
+    <div class="result-box">
+      <div class="result-actions">
+        <button class="copy-btn" id="copyBtn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copiar
+        </button>
+      </div>
+      <div class="result-body" id="resultBody"></div>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="back4"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Voltar</button>
+      <button class="btn btn-primary" id="resetBtn">Nova Análise</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+'use strict';
+
+const PERSONAS = [
+  { id:'analyst',    emoji:'🔍', name:'Analista de Dados',      desc:'Padrões, métricas e insights baseados em evidências' },
+  { id:'strategist', emoji:'🎯', name:'Estrategista',           desc:'Visão macro, oportunidades e planejamento estratégico' },
+  { id:'creative',   emoji:'🎨', name:'Diretor Criativo',       desc:'Estética, identidade visual e comunicação' },
+  { id:'ux',         emoji:'👥', name:'UX Researcher',          desc:'Comportamento do usuário, flows e friction points' },
+  { id:'pm',         emoji:'📦', name:'Product Manager',        desc:'Priorização, roadmap e valor para o usuário' },
+  { id:'marketing',  emoji:'📢', name:'Marketing Lead',         desc:'Posicionamento, conversão e proposta de valor' },
+  { id:'tech',       emoji:'🔧', name:'Tech Lead',              desc:'Viabilidade técnica, arquitetura e escalabilidade' },
+  { id:'custom',     emoji:'✨', name:'Persona Customizada',    desc:'Defina sua própria perspectiva de análise' }
+];
+
+const state = {
+  persona: null,
+  objective: '',
+  context: '',
+  images: [],   // {id, mimeType, base64, preview}
+  actions: [],  // {id, value}
+  rawResult: ''
+};
+
+let actionIdCtr = 0;
+let imageIdCtr  = 0;
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  renderPersonas();
+  loadKey();
+  setupDrop();
+  addAction();
+  bindEvents();
+});
+
+function bindEvents() {
+  // API panel
+  document.getElementById('apiToggle').addEventListener('click', e => { e.stopPropagation(); togglePanel(); });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#apiPanel') && !e.target.closest('#apiToggle')) closePanel();
+  });
+  document.getElementById('saveKeyBtn').addEventListener('click', saveKey);
+
+  // Step navigation
+  document.getElementById('next1').addEventListener('click', () => goStep(2));
+  document.getElementById('back2').addEventListener('click', () => goStep(1));
+  document.getElementById('next2').addEventListener('click', () => goStep(3));
+  document.getElementById('back3').addEventListener('click', () => goStep(2));
+  document.getElementById('analyzeBtn').addEventListener('click', analyze);
+  document.getElementById('back4').addEventListener('click', () => goStep(3));
+  document.getElementById('resetBtn').addEventListener('click', reset);
+
+  // Actions list (event delegation)
+  const list = document.getElementById('actionsList');
+  list.addEventListener('input', e => {
+    if (e.target.tagName !== 'INPUT') return;
+    const id = +e.target.closest('.action-row').dataset.id;
+    const a = state.actions.find(x => x.id === id);
+    if (a) a.value = e.target.value;
+  });
+  list.addEventListener('click', e => {
+    const btn = e.target.closest('.rm-btn');
+    if (!btn) return;
+    const id = +btn.closest('.action-row').dataset.id;
+    state.actions = state.actions.filter(x => x.id !== id);
+    renderActions();
+  });
+  list.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' && e.key === 'Enter') addAction();
+  });
+  document.getElementById('addActionBtn').addEventListener('click', addAction);
+
+  // Images
+  document.getElementById('fileInput').addEventListener('change', e => handleFiles(e.target.files));
+  document.getElementById('previews').addEventListener('click', e => {
+    const btn = e.target.closest('.prev-rm');
+    if (!btn) return;
+    const id = +btn.dataset.id;
+    state.images = state.images.filter(x => x.id !== id);
+    renderPreviews();
+  });
+
+  // Copy result
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(state.rawResult).then(() => toast('Copiado!', 'ok'));
+  });
+}
+
+// ── PERSONAS ──
+function renderPersonas() {
+  const grid = document.getElementById('personaGrid');
+  grid.innerHTML = PERSONAS.map(p => `
+    <div class="persona-card" data-id="${p.id}">
+      <div class="pcheck">✓</div>
+      <div class="pemoji">${p.emoji}</div>
+      <div class="pname">${p.name}</div>
+      <div class="pdesc">${p.desc}</div>
+    </div>
+  `).join('');
+  grid.addEventListener('click', e => {
+    const card = e.target.closest('.persona-card');
+    if (!card) return;
+    grid.querySelectorAll('.persona-card').forEach(c => c.classList.remove('sel'));
+    card.classList.add('sel');
+    state.persona = card.dataset.id;
+    document.getElementById('customExtra').classList.toggle('show', state.persona === 'custom');
+  });
+}
+
+function getPersonaLabel() {
+  if (state.persona === 'custom') {
+    return {
+      name: document.getElementById('cName').value.trim() || 'Especialista Customizado',
+      desc: document.getElementById('cDesc').value.trim()
+    };
+  }
+  const p = PERSONAS.find(x => x.id === state.persona);
+  return { name: p.name, desc: p.desc };
+}
+
+// ── API KEY ──
+let panelOpen = false;
+function togglePanel() { panelOpen ? closePanel() : openPanel(); }
+function openPanel() { panelOpen = true; document.getElementById('apiPanel').classList.add('open'); }
+function closePanel() { panelOpen = false; document.getElementById('apiPanel').classList.remove('open'); }
+function loadKey() {
+  const k = localStorage.getItem('gem_key');
+  if (k) { document.getElementById('apiInput').value = k; setDot(true); }
+}
+function saveKey() {
+  const k = document.getElementById('apiInput').value.trim();
+  if (!k) { toast('Cole sua API key', 'err'); return; }
+  localStorage.setItem('gem_key', k);
+  setDot(true); closePanel(); toast('Chave salva!', 'ok');
+}
+function setDot(on) { document.getElementById('apiDot').classList.toggle('ok', on); }
+
+// ── NAVIGATION ──
+function goStep(n) {
+  if (n === 2 && !state.persona) { toast('Selecione uma persona', 'err'); return; }
+  if (n === 3) {
+    const obj = document.getElementById('objInput').value.trim();
+    if (!obj) { toast('Defina um objetivo', 'err'); return; }
+    state.objective = obj;
+    state.context = document.getElementById('ctxInput').value.trim();
+  }
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('p' + i).classList.toggle('active', i === n);
+    const dot = document.getElementById('sd' + i);
+    dot.classList.toggle('active', i === n);
+    dot.classList.toggle('done', i < n);
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── ACTIONS ──
+function addAction() {
+  const id = ++actionIdCtr;
+  state.actions.push({ id, value: '' });
+  renderActions();
+  setTimeout(() => {
+    const rows = document.querySelectorAll('.action-row input');
+    if (rows.length) rows[rows.length - 1].focus();
+  }, 50);
+}
+function renderActions() {
+  document.getElementById('actionsList').innerHTML = state.actions.map(a => `
+    <div class="action-row" data-id="${a.id}">
+      <span class="bullet">→</span>
+      <input type="text" value="${esc(a.value)}" placeholder="Descreva uma ação ou sub-objetivo...">
+      <button class="rm-btn" title="Remover">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+// ── IMAGES ──
+function setupDrop() {
+  const zone = document.getElementById('dropZone');
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+  zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('over'); handleFiles(e.dataTransfer.files); });
+}
+function handleFiles(files) {
+  const valid = ['image/jpeg','image/png','image/webp','image/gif'];
+  Array.from(files).forEach(f => {
+    if (!valid.includes(f.type)) return;
+    if (state.images.length >= 10) { toast('Máximo de 10 imagens', 'err'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      const full = e.target.result;
+      state.images.push({ id: ++imageIdCtr, mimeType: f.type, base64: full.split(',')[1], preview: full });
+      renderPreviews();
+    };
+    reader.readAsDataURL(f);
+  });
+}
+function renderPreviews() {
+  document.getElementById('previews').innerHTML = state.images.map(img => `
+    <div class="prev-item">
+      <img src="${img.preview}" alt="">
+      <button class="prev-rm" data-id="${img.id}">×</button>
+    </div>
+  `).join('');
+}
+
+// ── ANALYZE ──
+async function analyze() {
+  const key = localStorage.getItem('gem_key');
+  if (!key) { toast('Configure sua API key gratuita (⚙ no topo)', 'err'); openPanel(); return; }
+  if (!state.images.length) { toast('Adicione pelo menos uma imagem', 'err'); return; }
+
+  state.objective = document.getElementById('objInput').value.trim();
+  state.context   = document.getElementById('ctxInput').value.trim();
+  const { name: pName, desc: pDesc } = getPersonaLabel();
+  const pEmoji = PERSONAS.find(x => x.id === state.persona)?.emoji || '✨';
+  const validActs = state.actions.filter(a => a.value.trim());
+
+  // Navigate to step 4 and show loading
+  goStep(4);
+
+  document.getElementById('summaryRow').innerHTML = `
+    <div class="sum-item"><span class="sum-lbl">Persona</span><span class="sum-val">${pEmoji} ${pName}</span></div>
+    <div class="sum-item"><span class="sum-lbl">Imagens</span><span class="sum-val">${state.images.length}</span></div>
+    <div class="sum-item"><span class="sum-lbl">Ações</span><span class="sum-val">${validActs.length}</span></div>
+    <div class="sum-item"><span class="sum-lbl">Objetivo</span><span class="sum-val" style="max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(state.objective)}</span></div>
+  `;
+
+  document.getElementById('resultBody').innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      <div class="load-text"><strong>${pName}</strong> analisando<span class="load-dots"></span><br><span style="font-size:12px;margin-top:6px;display:block">Aguarde alguns segundos</span></div>
+    </div>
+  `;
+  document.getElementById('copyBtn').style.display = 'none';
+
+  // Build Gemini parts
+  const actsText = validActs.length
+    ? validActs.map((a,i) => `${i+1}. ${a.value}`).join('\n')
+    : 'Nenhuma ação listada.';
+
+  const prompt = buildPrompt(pName, pDesc, state.objective, state.context, actsText, state.images.length);
+
+  const parts = [{ text: prompt }];
+  state.images.forEach((img, i) => {
+    parts.push({ text: `\n[Imagem ${i+1}]` });
+    parts.push({ inline_data: { mime_type: img.mimeType, data: img.base64 } });
+  });
+  parts.push({ text: '\nForneça sua análise completa agora.' });
+
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 3500, topP: 0.9 }
+        })
+      }
+    );
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || `HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) throw new Error('Resposta vazia da API');
+
+    state.rawResult = text;
+    document.getElementById('resultBody').innerHTML = md(text);
+    document.getElementById('copyBtn').style.display = 'flex';
+  } catch(err) {
+    document.getElementById('resultBody').innerHTML = `
+      <div class="err-box">
+        <strong>Erro:</strong> ${esc(err.message)}<br><br>
+        Verifique se sua API key é válida e tem acesso ao Gemini 1.5 Flash.<br>
+        <a href="https://aistudio.google.com/app/apikey" target="_blank">Obter chave gratuita →</a>
+      </div>
+    `;
+  }
+}
+
+function buildPrompt(name, desc, obj, ctx, acts, imgCount) {
+  return `Você é um(a) ${name}${desc ? ` — ${desc}` : ''}.
+
+## Objetivo Estratégico
+${obj}
+${ ctx ? `\n## Contexto\n${ctx}\n` : '' }
+## Ações e Sub-objetivos
+${acts}
+
+## Imagens
+${imgCount} imagem${imgCount>1?'s foram':' foi'} fornecida${imgCount>1?'s':''} para análise.
+
+## Sua Tarefa
+Como ${name}, analise as imagens fornecidas à luz do objetivo e das ações listadas. Estruture assim:
+
+### 1. Observações Principais
+O que mais se destaca nas imagens sob sua perspectiva?
+
+### 2. Análise por Imagem
+Insights específicos para cada imagem, alinhados ao seu papel.
+
+### 3. Avaliação das Ações e Sub-objetivos
+Como o observado nas imagens se alinha (ou não) com as ações listadas?
+
+### 4. Recomendações (em ordem de prioridade)
+Ações mais importantes com base na análise.
+
+### 5. Riscos e Pontos de Atenção
+Desafios ou questões que merecem atenção imediata.
+
+Seja específico(a), prático(a) e orientado(a) a resultados. Mantenha sempre a voz de ${name}. Responda em português.`;
+}
+
+// ── MARKDOWN RENDERER ──
+function md(raw) {
+  const lines = raw
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .split('\n');
+  const out = [];
+  let inUl = false, inOl = false;
+
+  function closeList() {
+    if (inUl) { out.push('</ul>'); inUl = false; }
+    if (inOl) { out.push('</ol>'); inOl = false; }
+  }
+
+  function inline(t) {
+    return t
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`(.+?)`/g, '<code>$1</code>');
+  }
+
+  for (const raw of lines) {
+    const line = raw.trimEnd();
+    if (line.startsWith('### ')) { closeList(); out.push(`<h3>${inline(line.slice(4))}</h3>`); }
+    else if (line.startsWith('## ')) { closeList(); out.push(`<h2>${inline(line.slice(3))}</h2>`); }
+    else if (line.startsWith('# '))  { closeList(); out.push(`<h1>${inline(line.slice(2))}</h1>`); }
+    else if (line.startsWith('&gt; ')) { closeList(); out.push(`<blockquote>${inline(line.slice(5))}</blockquote>`); }
+    else if (line.startsWith('---') || line.startsWith('***')) { closeList(); out.push('<hr>'); }
+    else if (/^[-*] /.test(line)) {
+      if (inOl) { out.push('</ol>'); inOl = false; }
+      if (!inUl) { out.push('<ul>'); inUl = true; }
+      out.push(`<li>${inline(line.slice(2))}</li>`);
+    }
+    else if (/^\d+\. /.test(line)) {
+      if (inUl) { out.push('</ul>'); inUl = false; }
+      if (!inOl) { out.push('<ol>'); inOl = true; }
+      out.push(`<li>${inline(line.replace(/^\d+\.\s*/,''))}</li>`);
+    }
+    else if (line.trim() === '') { closeList(); out.push('<p style="margin:0"></p>'); }
+    else { closeList(); out.push(`<p>${inline(line)}</p>`); }
+  }
+  closeList();
+  return out.join('\n');
+}
+
+// ── RESET ──
+function reset() {
+  state.persona = null; state.objective = ''; state.context = '';
+  state.images = []; state.actions = []; state.rawResult = '';
+  document.querySelectorAll('.persona-card').forEach(c => c.classList.remove('sel'));
+  document.getElementById('customExtra').classList.remove('show');
+  document.getElementById('objInput').value = '';
+  document.getElementById('ctxInput').value = '';
+  document.getElementById('cName').value = '';
+  document.getElementById('cDesc').value = '';
+  document.getElementById('previews').innerHTML = '';
+  document.getElementById('fileInput').value = '';
+  addAction();
+  goStep(1);
+}
+
+// ── UTILS ──
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function toast(msg, type='info') {
+  document.querySelectorAll('.toast').forEach(t => t.remove());
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3200);
+}
+</script>
+</body>
+</html>
