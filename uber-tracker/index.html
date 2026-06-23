@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <title>Lucro Real — Controle Uber</title>
+  <meta name="theme-color" content="#0b0d10">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <header class="app-header">
+      <div class="header-top">
+        <div class="brand">
+          <span class="brand-dot"></span>
+          <h1>Lucro Real</h1>
+        </div>
+        <span class="brand-sub">Controle de ganhos e gastos</span>
+      </div>
+
+      <div class="month-nav">
+        <button type="button" id="prevMonth" class="nav-arrow" aria-label="Mês anterior">‹</button>
+        <select id="monthSelect" aria-label="Selecionar mês"></select>
+        <button type="button" id="nextMonth" class="nav-arrow" aria-label="Próximo mês">›</button>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <section class="summary-grid">
+        <div class="summary-card profit">
+          <span class="label">Lucro real</span>
+          <span class="value" id="profitValue">R$ 0,00</span>
+        </div>
+        <div class="summary-card income">
+          <span class="label">Ganhos</span>
+          <span class="value" id="incomeValue">R$ 0,00</span>
+        </div>
+        <div class="summary-card expense">
+          <span class="label">Gastos</span>
+          <span class="value" id="expenseValue">R$ 0,00</span>
+        </div>
+        <div class="summary-card km">
+          <span class="label">KM rodado</span>
+          <span class="value" id="kmValue">0 km</span>
+        </div>
+      </section>
+
+      <p class="sub-stat" id="perKmValue"></p>
+
+      <section class="transactions">
+        <div class="transactions-header">
+          <h2>Lançamentos do mês</h2>
+          <span class="count-pill" id="countPill">0</span>
+        </div>
+
+        <ul id="transactionList" class="transaction-list"></ul>
+        <p id="emptyState" class="empty-state">Nenhum lançamento neste mês ainda.<br>Toque no botão + para começar.</p>
+      </section>
+
+    </main>
+
+    <button type="button" id="fabAdd" class="fab" aria-label="Adicionar lançamento">+</button>
+
+    <div id="sheetOverlay" class="sheet-overlay"></div>
+
+    <div id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet-handle"></div>
+      <h3 id="sheetTitle" class="sheet-title">Novo lançamento</h3>
+
+      <form id="transactionForm">
+        <input type="hidden" id="formId">
+        <input type="hidden" id="formOriginalMonth">
+
+        <div class="type-toggle" id="typeToggle">
+          <button type="button" class="type-btn active" data-type="income">Ganho</button>
+          <button type="button" class="type-btn" data-type="expense">Gasto</button>
+        </div>
+
+        <label class="field">
+          <span>Categoria</span>
+          <select id="formCategory"></select>
+        </label>
+
+        <label class="field">
+          <span>Valor (R$)</span>
+          <input type="number" id="formAmount" inputmode="decimal" step="0.01" min="0" placeholder="0,00" required>
+        </label>
+
+        <label class="field">
+          <span>Quilometragem (opcional)</span>
+          <input type="number" id="formKm" inputmode="decimal" step="0.1" min="0" placeholder="0">
+        </label>
+
+        <label class="field">
+          <span>Data</span>
+          <input type="date" id="formDate" required>
+        </label>
+
+        <label class="field">
+          <span>Observação (opcional)</span>
+          <input type="text" id="formNote" placeholder="Ex: Posto Ipiranga" maxlength="60">
+        </label>
+
+        <div class="sheet-actions">
+          <button type="button" id="deleteBtn" class="btn-delete">Excluir</button>
+          <button type="submit" class="btn-save">Salvar</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
