@@ -8,5 +8,5 @@ var Q = window.QueroObras, h = React.createElement, useState = React.useState;
 function C(v, t) { return h(Q.Card, { variant: v, style: { flex: '1 1 180px' } }, h('strong', { style: { font: '700 16px/22px var(--font-display)' } }, t), h('p', { style: { margin: '6px 0 0', color: 'var(--tinta-suave)', fontSize: 14, lineHeight: '20px' } }, 'Raio 20 px · padding 20 px')); }
 ReactDOM.createRoot(document.getElementById('root')).render(h('div', { className: 'qo-demo', style: { alignItems: 'stretch' } }, C('elevado', 'Elevado'), C('contorno', 'Contorno'), C('destaque', 'Destaque')));
 </script>
-<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300);["click","keyup"].forEach(function(e){addEventListener(e,function(){setTimeout(s,60)})})})();</script></body>
 </html>

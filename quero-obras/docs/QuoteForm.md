@@ -4,7 +4,7 @@ Formulário completo de pedido de orçamento: serviço, cidade, descrição, pra
 
 ## Quando usar
 
-- Fluxo de “solicitar orçamento”, em tela cheia ou dentro de um cartão no desktop.
+- Fluxo de “solicitar orçamento”, em tela cheia ou dentro de um cartão no desktop. Usa Select, TextField, Radio, DatePicker e Checkbox.
 
 ## Regras
 

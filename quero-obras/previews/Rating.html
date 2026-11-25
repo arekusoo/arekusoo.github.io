@@ -8,5 +8,5 @@ var Q = window.QueroObras, h = React.createElement, useState = React.useState;
 ReactDOM.createRoot(document.getElementById('root')).render(
   h('div', { className: 'qo-demo qo-demo--col' }, h(Q.Rating, { value: 4.8, count: 126 }), h(Q.Rating, { value: 3.2, count: 9 }), h(Q.Rating, { value: 4.9, count: 312, compact: true })));
 </script>
-<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300);["click","keyup"].forEach(function(e){addEventListener(e,function(){setTimeout(s,60)})})})();</script></body>
 </html>

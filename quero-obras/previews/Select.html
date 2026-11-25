@@ -5,10 +5,12 @@
 <div id="root" class="qo-root"></div>
 <script>
 var Q = window.QueroObras, h = React.createElement, useState = React.useState;
-ReactDOM.createRoot(document.getElementById('root')).render(
-  h('div', { className: 'qo-demo qo-demo--col', style: { maxWidth: 420 } },
-    h(Q.Select, { label: 'Serviço', options: ['Pintura', 'Reforma', 'Elétrica', 'Hidráulica'], defaultValue: 'Pintura' }),
-    h(Q.Select, { label: 'Cidade', icon: 'map-pin', options: ['São Paulo', 'Rio de Janeiro', 'Manaus'], defaultValue: 'São Paulo' })));
+function Demo() { var a = useState('pintura'), b = useState('');
+  return h('div', { className: 'qo-demo', style: { alignItems: 'flex-start', minHeight: 360 } },
+    h('div', { style: { width: 280 } }, h(Q.Select, { label: 'Serviço', defaultOpen: true, value: a[0], onChange: function (e) { a[1](e.target.value); },
+      options: [{ value: 'pintura', label: 'Pintura', icon: 'pintura' }, { value: 'reforma', label: 'Reforma', icon: 'reforma' }, { value: 'eletrica', label: 'Elétrica', icon: 'eletrica' }, { value: 'hidraulica', label: 'Hidráulica', icon: 'hidraulica' }] })),
+    h('div', { style: { width: 280 } }, h(Q.Select, { label: 'Cidade', icon: 'map-pin', placeholder: 'Escolha a cidade', value: b[0], onChange: function (e) { b[1](e.target.value); }, options: ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Manaus', 'Salvador', 'Curitiba'], helper: 'Atendemos estas cidades.' }))); }
+ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
 </script>
-<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300);["click","keyup"].forEach(function(e){addEventListener(e,function(){setTimeout(s,60)})})})();</script></body>
 </html>

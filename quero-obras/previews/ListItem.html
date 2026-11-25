@@ -13,5 +13,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     h(Q.Divider, { inset: true }),
     h(Q.ListItem, { leadingIcon: 'eletrica', title: 'Elétrica · Casa', subtitle: 'Aguardando propostas', trailing: h(Q.Badge, { tone: 'aviso' }, 'Aberto') }))));
 </script>
-<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300);["click","keyup"].forEach(function(e){addEventListener(e,function(){setTimeout(s,60)})})})();</script></body>
 </html>

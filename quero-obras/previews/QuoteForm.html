@@ -11,5 +11,5 @@ function Demo() { var t = useState(null);
     t[0] ? h('div', { style: { marginTop: 12 } }, h(Q.Toast, { tone: 'sucesso', message: t[0] })) : null); }
 ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
 </script>
-<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300);["click","keyup"].forEach(function(e){addEventListener(e,function(){setTimeout(s,60)})})})();</script></body>
 </html>

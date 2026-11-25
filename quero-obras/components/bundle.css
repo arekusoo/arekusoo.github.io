@@ -2,6 +2,7 @@
 
 /* Quero Obras — estilos dos componentes. Todos os valores vêm dos tokens (tokens.css). */
 
+:root { color-scheme: light; }
 body { margin: 0; font-family: var(--font-sans); font-size: 16px; line-height: 24px; background: var(--base-respiro); color: var(--tinta-leitura); -webkit-font-smoothing: antialiased; }
 .qo-root { container-type: inline-size; }
 .qo-root, .qo-root *, .qo-root *::before, .qo-root *::after { box-sizing: border-box; }
@@ -120,8 +121,6 @@ textarea.qo-field__input { padding: 12px 0; resize: vertical; min-height: 96px; 
 .qo-field--erro .qo-field__helper { color: var(--erro); }
 .qo-field--disabled .qo-field__box { background: var(--superficie-alt); border-color: var(--borda); }
 .qo-field--disabled .qo-field__input, .qo-field--disabled .qo-field__label { color: var(--tinta-desabilitada); }
-.qo-field select.qo-field__input { appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 28px; }
-.qo-field__chev { position: absolute; right: 14px; pointer-events: none; color: var(--tinta-leitura); }
 
 .qo-search { display: flex; align-items: center; gap: var(--space-3); height: var(--controle-md); padding: 0 var(--space-2) 0 var(--space-4); background: var(--superficie);
   border: 1.5px solid var(--borda); border-radius: var(--radius-md); color: var(--tinta-leitura); box-shadow: var(--sombra-1); transition: border-color .15s, box-shadow .15s; }
@@ -289,3 +288,41 @@ button.qo-listitem:hover { background: var(--superficie-alt); }
 .qo-demo__cap:first-child { margin-top: 0; }
 .qo-phone { width: 375px; height: 760px; border-radius: 36px; border: 10px solid var(--tinta-leitura); overflow: hidden; background: var(--base-respiro); box-shadow: var(--sombra-2); margin: var(--space-5) auto; position: relative; }
 @media (max-width: 420px) { .qo-phone { width: 100%; height: 760px; border-width: 0; border-radius: 0; margin: 0; box-shadow: none; } }
+
+/* ───── Select e DatePicker (lista e calendário no padrão da marca) ───── */
+.qo-select { position: relative; }
+.qo-select__trigger { width: 100%; font: 400 16px/24px var(--font-sans); color: var(--tinta-leitura); text-align: left; cursor: pointer; }
+.qo-select__trigger:focus-visible { outline: none; }
+.qo-select__trigger > .qo-icon:first-child { color: var(--tinta-suave); }
+.qo-select__value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qo-select__placeholder { color: var(--tinta-suave); }
+.qo-select__chev { color: var(--tinta-leitura); transition: transform .15s; }
+.qo-select__trigger--open { border-color: var(--azul-estrutura); box-shadow: 0 0 0 3px var(--azul-suave); }
+.qo-select__trigger--open .qo-select__chev { transform: rotate(180deg); }
+.qo-select__trigger:disabled { cursor: not-allowed; }
+.qo-menu { position: absolute; z-index: 40; top: calc(100% + 6px); left: 0; right: 0; margin: 0; padding: 6px; list-style: none; background: var(--superficie);
+  border: 1px solid var(--borda); border-radius: var(--radius-md); box-shadow: var(--sombra-3); max-height: 288px; overflow-y: auto; outline: none; animation: qo-pop .14s ease-out; }
+.qo-menu__opt { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 8px; font: 400 16px/22px var(--font-sans); color: var(--tinta-leitura); cursor: pointer; }
+.qo-menu__opt .qo-icon { color: var(--tinta-suave); }
+.qo-menu__label { flex: 1; min-width: 0; }
+.qo-menu__opt--active { background: var(--superficie-alt); }
+.qo-menu__opt--sel { background: var(--azul-suave); color: var(--azul-forte); font-weight: 600; }
+.qo-menu__opt--sel .qo-icon { color: var(--azul-estrutura); }
+.qo-menu__check { color: var(--azul-estrutura) !important; }
+.qo-cal { position: absolute; z-index: 40; top: calc(100% + 6px); left: 0; width: 328px; max-width: calc(100vw - 32px); padding: 12px; background: var(--superficie);
+  border: 1px solid var(--borda); border-radius: var(--radius-lg); box-shadow: var(--sombra-3); animation: qo-pop .14s ease-out; }
+.qo-cal__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.qo-cal__head .qo-iconbtn { width: 40px; height: 40px; }
+.qo-cal__title { font: 700 16px/22px var(--font-display); }
+.qo-cal__week, .qo-cal__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; text-align: center; }
+.qo-cal__week span { font: 600 12px/28px var(--font-sans); color: var(--tinta-suave); }
+.qo-cal__day { height: 40px; border: 0; border-radius: var(--radius-md); background: transparent; color: var(--tinta-leitura); font: 500 15px/1 var(--font-sans); cursor: pointer; position: relative; }
+.qo-cal__day:hover:not(:disabled) { background: var(--superficie-alt); }
+.qo-cal__day:focus-visible { outline: 2px solid var(--foco); outline-offset: -2px; }
+.qo-cal__day--out { color: var(--tinta-desabilitada); }
+.qo-cal__day--today { box-shadow: inset 0 0 0 1.5px var(--azul-estrutura); color: var(--azul-forte); font-weight: 700; }
+.qo-cal__day--sel, .qo-cal__day--sel:hover:not(:disabled) { background: var(--azul-estrutura); color: #fff; font-weight: 700; box-shadow: none; }
+.qo-cal__day:disabled { color: var(--tinta-desabilitada); cursor: not-allowed; opacity: .55; }
+.qo-cal__foot { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--borda); }
+@keyframes qo-pop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .qo-menu, .qo-cal { animation: none; } }

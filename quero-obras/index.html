@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/logo-quero-obras.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 <link rel="stylesheet" href="tokens.css">
 <style>
 /*
@@ -19,6 +19,7 @@ COLOUR  base-respiro como chão, azul-estrutura como estrutura, laranja só em a
 TYPE    Manrope 700 títulos, Inter texto, JetBrains Mono no código
 LAYOUT  sidebar fixa 272px ≥ 900px; abaixo vira gaveta; conteúdo até 1080px
 */
+:root{color-scheme:light}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:72px}
 body{margin:0;background:var(--base-respiro);color:var(--tinta-leitura);font:16px/1.6 var(--font-sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
@@ -122,35 +123,42 @@ body.ws .page{max-width:none;margin:0;display:contents}
 .resizer{background:var(--superficie);border-top:1px solid var(--borda);cursor:row-resize;display:grid;place-items:center;touch-action:none}
 .resizer::before{content:"";width:40px;height:4px;border-radius:2px;background:var(--borda-forte)}
 .resizer:focus-visible{outline:2px solid var(--foco);outline-offset:-2px}
-.panel{background:#0d2230;color:#e6eef3;display:flex;flex-direction:column;min-height:0}
-.tabs{display:flex;align-items:center;gap:4px;padding:0 12px;border-bottom:1px solid rgba(255,255,255,.1);background:#0a1c28;flex:none;overflow-x:auto}
-.tab{position:relative;flex:none;height:48px;padding:0 16px;border:0;background:none;color:#9fb3c1;font:600 14px var(--font-sans);cursor:pointer;white-space:nowrap}
-.tab:hover{color:#fff}
-.tab[aria-selected=true]{color:#fff}
-.tab[aria-selected=true]::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--ambar-apoio)}
+.panel{background:var(--superficie);color:var(--tinta-leitura);display:flex;flex-direction:column;min-height:0;border-top:1px solid var(--borda)}
+.tabs{display:flex;align-items:center;gap:4px;padding:0 8px 0 12px;border-bottom:1px solid var(--borda);background:var(--superficie);flex:none;overflow-x:auto}
+.tab{position:relative;flex:none;height:48px;padding:0 16px;border:0;background:none;color:var(--tinta-suave);font:600 14px var(--font-sans);cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--tinta-leitura)}
+.tab[aria-selected=true]{color:var(--azul-forte)}
+.tab[aria-selected=true]::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--azul-estrutura)}
 .tabs .spacer{flex:1}
+.collapse{width:40px;height:40px;margin-left:6px;border:1px solid var(--borda);border-radius:10px;background:var(--superficie);color:var(--tinta-leitura);display:grid;place-items:center;cursor:pointer;flex:none}
+.collapse:hover{background:var(--superficie-alt)}
+.collapse:focus-visible{outline:2px solid var(--foco);outline-offset:1px}
+body.ws.collapsed main{grid-template-rows:auto minmax(0,1fr) 0 49px}
+body.ws.collapsed .panel__body{display:none}
+body.ws.collapsed .resizer{visibility:hidden;overflow:hidden}
+body.ws.collapsed .tab[aria-selected=true]::after{display:none}
 .cp{height:34px;padding:0 14px;border:0;border-radius:8px;background:var(--cta);color:#fff;font:600 13px var(--font-sans);cursor:pointer;display:inline-flex;align-items:center;gap:6px;flex:none}
 .cp:hover{background:var(--cta-forte)}
 .cp[hidden]{display:none}
-.cp:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.cp:focus-visible{outline:2px solid var(--foco);outline-offset:2px}
 .panel__body{flex:1;min-height:0;overflow:auto}
 .codeview{display:grid;grid-template-columns:auto minmax(0,1fr);font:400 14px/1.7 'JetBrains Mono',ui-monospace,monospace;min-width:max-content}
-.codeview .gut{padding:16px 12px 16px 20px;text-align:right;color:#4f6a7c;user-select:none;white-space:pre;border-right:1px solid rgba(255,255,255,.06)}
+.codeview .gut{padding:16px 12px 16px 20px;text-align:right;color:var(--tinta-desabilitada);user-select:none;white-space:pre;border-right:1px solid var(--borda);background:var(--base-respiro)}
 .codeview pre{margin:0;padding:16px 24px;white-space:pre;tab-size:2}
 .codeview pre code.hljs{background:none;padding:0}
-.codehint{padding:10px 20px;font-size:13px;color:#9fb3c1;border-bottom:1px solid rgba(255,255,255,.06);background:#0b1f2c}
-.codehint code{color:#ffd29b;font-family:'JetBrains Mono',monospace}
+.codehint{padding:10px 20px;font-size:13px;color:var(--tinta-suave);border-bottom:1px solid var(--borda);background:var(--base-respiro)}
+.codehint code{color:var(--cta-forte);font-family:'JetBrains Mono',monospace;background:var(--cta-suave);padding:1px 5px;border-radius:5px}
 .props{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
-.props th{position:sticky;top:0;background:#0a1c28;text-align:left;font:600 12px var(--font-sans);color:#9fb3c1;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
-.props td{padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;line-height:1.5}
-.props td:first-child{font:500 14px 'JetBrains Mono',monospace;color:#7fd0ff;white-space:nowrap}
-.props td:nth-child(2) code{font:400 13px 'JetBrains Mono',monospace;color:#ffd29b;overflow-wrap:anywhere}
-.req{display:inline-block;margin-left:6px;font:600 10px var(--font-sans);color:#ffb4a8;vertical-align:middle}
-.guide{padding:8px 24px 32px;max-width:80ch;color:#e6eef3}
-.guide h2{font:700 16px var(--font-display);margin:20px 0 8px;color:#fff}
-.guide li,.guide p{color:#d3dee5;font-size:15px;line-height:1.6}
-.guide code{font:500 .88em 'JetBrains Mono',monospace;background:rgba(255,255,255,.08);padding:1px 5px;border-radius:5px;color:#ffd29b}
-.guide a{color:#7fd0ff}
+.props th{position:sticky;top:0;background:var(--base-respiro);text-align:left;font:600 12px var(--font-sans);color:var(--tinta-suave);padding:10px 20px;border-bottom:1px solid var(--borda)}
+.props td{padding:12px 20px;border-bottom:1px solid var(--borda);vertical-align:top;line-height:1.5;color:var(--tinta-leitura)}
+.props td:first-child{font:500 14px 'JetBrains Mono',monospace;color:var(--azul-forte);white-space:nowrap}
+.props td:nth-child(2) code{font:400 13px 'JetBrains Mono',monospace;color:var(--cta-forte);overflow-wrap:anywhere}
+.req{display:inline-block;margin-left:8px;font:600 11px var(--font-sans);color:var(--erro);background:var(--erro-suave);padding:1px 6px;border-radius:999px;vertical-align:middle}
+.guide{padding:8px 24px 32px;max-width:80ch;color:var(--tinta-leitura)}
+.guide h2{font:700 16px var(--font-display);margin:20px 0 8px;color:var(--tinta-leitura)}
+.guide li,.guide p{color:var(--tinta-leitura);font-size:15px;line-height:1.6}
+.guide code{font:500 .88em 'JetBrains Mono',monospace;background:var(--superficie-alt);padding:1px 5px;border-radius:5px;color:var(--tinta-leitura)}
+.guide a{color:var(--azul-estrutura)}
 nav a .dot{width:6px;height:6px;border-radius:50%;background:var(--borda-forte);margin-right:10px;flex:none}
 nav a[aria-current=page] .dot{background:var(--azul-estrutura)}
 @media (max-width:900px){
@@ -164,6 +172,8 @@ nav a[aria-current=page] .dot{background:var(--azul-estrutura)}
   .tab{padding:0 12px;font-size:13px}
   .tabs{padding:0 4px}
   .cp{position:fixed;right:16px;bottom:16px;z-index:5;height:44px;box-shadow:var(--sombra-3)}
+  body.ws.collapsed .cp{display:none}
+  body.ws.collapsed .panel{min-height:0}
 }
 
 @media (max-width:900px){
@@ -171,7 +181,7 @@ nav a[aria-current=page] .dot{background:var(--azul-estrutura)}
   aside{position:fixed;inset:0 auto 0 0;width:min(300px,86vw);z-index:20;transform:translateX(-102%);transition:transform .2s;box-shadow:var(--sombra-3)}
   body.nav-open aside{transform:none}
   body.nav-open .veil{display:block}
-  .veil{display:none;position:fixed;inset:0;background:var(--scrim);z-index:15}
+  .veil{display:none;position:fixed;inset:0;background:rgba(16,42,58,.2);z-index:15}
   .topbar{display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10;height:60px;padding:0 12px;background:var(--superficie);border-bottom:1px solid var(--borda)}
   .topbar button{width:44px;height:44px;border:0;background:none;border-radius:10px;display:grid;place-items:center;color:var(--tinta-leitura);cursor:pointer}
   .topbar img{height:32px;border-radius:6px}
@@ -340,7 +350,7 @@ function component(id){
   <div class="canvas" id="canvas"><p class="canvas__dim" id="dim"></p><div class="canvas__frame" id="frame"><iframe title="Visualização de ${esc(c.title)}" src="previews/${c.id}.html"></iframe></div></div>
   <div class="resizer" id="resizer" role="separator" aria-orientation="horizontal" aria-label="Redimensionar painel de código" tabindex="0"></div>
   <section class="panel" aria-label="Código e documentação">
-    <div class="tabs" role="tablist">${tabs.map(t => `<button class="tab" role="tab" type="button" data-tab="${t[0]}" aria-selected="${t[0]===tab}">${t[1]}</button>`).join('')}<span class="spacer"></span><button class="cp" id="copy" type="button">Copiar código</button></div>
+    <div class="tabs" role="tablist">${tabs.map(t => `<button class="tab" role="tab" type="button" data-tab="${t[0]}" aria-selected="${t[0]===tab}">${t[1]}</button>`).join('')}<span class="spacer"></span><button class="cp" id="copy" type="button">Copiar código</button><button class="collapse" id="collapse" type="button"></button></div>
     <div class="panel__body" id="pbody" role="tabpanel"></div>
   </section>`;
   const canvas = document.getElementById('canvas'), frame = document.getElementById('frame'), fr = frame.querySelector('iframe'), dim = document.getElementById('dim');
@@ -372,7 +382,18 @@ function component(id){
     else { pbody.innerHTML = '<div class="guide">' + marked.parse(c.guide || '') + '</div>'; copy.hidden = true; }
     pbody.scrollTop = 0;
   }
-  page.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => { tab = b.dataset.tab; store('qo-tab', tab); show(); }));
+  const col = document.getElementById('collapse');
+  const ICMIN = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></svg>';
+  const ICMAX = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+  function setCollapsed(v){
+    document.body.classList.toggle('collapsed', v); store('qo-collapsed', v ? '1' : '0');
+    col.innerHTML = v ? ICMAX : ICMIN;
+    col.setAttribute('aria-label', v ? 'Mostrar código' : 'Recolher código'); col.title = v ? 'Mostrar código' : 'Recolher código';
+    col.setAttribute('aria-expanded', String(!v));
+  }
+  col.addEventListener('click', () => setCollapsed(!document.body.classList.contains('collapsed')));
+  setCollapsed(store('qo-collapsed') === '1');
+  page.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => { tab = b.dataset.tab; store('qo-tab', tab); if (document.body.classList.contains('collapsed')) setCollapsed(false); show(); }));
   page.querySelector('.tabs').addEventListener('keydown', e => {
     const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return;
     const i = (tabs.findIndex(t => t[0] === tab) + d + tabs.length) % tabs.length; tab = tabs[i][0]; store('qo-tab', tab); show();
@@ -400,7 +421,7 @@ const VIEWS = {introducao:intro, cores, tipografia, espacamento, forma, grade};
 async function render(){
   const id = current();
   if (wsCleanup) { wsCleanup(); wsCleanup = null; }
-  document.body.classList.remove('ws');
+  document.body.classList.remove('ws', 'collapsed');
   if (VIEWS[id]) { VIEWS[id](); page.insertAdjacentHTML('beforeend', pager(id)); } else component(id);
   document.title = label(id) + ' · Quero Obras DS';
   mark(); document.body.classList.remove('nav-open');

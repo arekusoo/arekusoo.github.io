@@ -484,15 +484,15 @@
    "id": "Select",
    "title": "Select",
    "group": "2 · Moléculas",
-   "height": 190,
+   "height": 400,
    "width": null,
    "subtitle": "",
-   "summary": "Lista de escolha única, como os campos “Serviço” e “Cidade” do painel.",
-   "react": "<Select label=\"Serviço\" options={['Pintura', 'Reforma', 'Elétrica']} value={servico} onChange={e => setServico(e.target.value)} />",
-   "html": "<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"servico\">Serviço</label>\n  <div class=\"qo-field__box\">\n    <select id=\"servico\" class=\"qo-field__input\"><option>Pintura</option><option>Reforma</option></select>\n  </div>\n</div>",
-   "guide": "## Quando usar\n\n- Mais de 5 opções conhecidas: serviço, cidade, tipo de imóvel.\n\n## Regras\n\n- Rótulo acima e o mesmo visual do TextField. Usa o seletor nativo do sistema, que é o mais rápido no celular.\n- Campos relacionados ficam lado a lado ou próximos (Gestalt: proximidade).",
+   "summary": "Lista de escolha única com menu próprio no padrão da marca, como os campos “Serviço” e “Cidade” do painel. Substitui o select nativo do sistema, que muda de cara em cada aparelho.",
+   "react": "<Select label=\"Serviço\" value={servico} onChange={e => setServico(e.target.value)}\n  options={[\n    { value: 'pintura', label: 'Pintura', icon: 'pintura' },\n    { value: 'reforma', label: 'Reforma', icon: 'reforma' },\n    { value: 'eletrica', label: 'Elétrica', icon: 'eletrica' },\n  ]} />\n\n<Select label=\"Cidade\" icon=\"map-pin\" placeholder=\"Escolha a cidade\"\n  options={['São Paulo', 'Rio de Janeiro', 'Manaus']} />",
+   "html": "<!-- Fechado -->\n<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"servico\">Serviço</label>\n  <div class=\"qo-select\">\n    <button id=\"servico\" class=\"qo-field__box qo-select__trigger\" aria-haspopup=\"listbox\" aria-expanded=\"false\">\n      <span class=\"qo-select__value\">Pintura</span>\n      <svg class=\"qo-icon qo-select__chev\">…chevron-down…</svg>\n    </button>\n    <!-- Aberto: adicione qo-select__trigger--open no botão e mostre a lista -->\n    <ul class=\"qo-menu\" role=\"listbox\">\n      <li class=\"qo-menu__opt qo-menu__opt--sel\" role=\"option\" aria-selected=\"true\"><span class=\"qo-menu__label\">Pintura</span>✓</li>\n      <li class=\"qo-menu__opt\" role=\"option\"><span class=\"qo-menu__label\">Reforma</span></li>\n    </ul>\n  </div>\n</div>",
+   "guide": "## Quando usar\n\n- Mais de 5 opções conhecidas: serviço, cidade, tipo de imóvel.\n- Com até 5 opções, prefira Radio (todas visíveis de uma vez).\n\n## Regras\n\n- Fechado, tem o mesmo visual do TextField: 48px de altura, raio de 12px e rótulo acima.\n- Aberto: menu branco com raio de 12px e sombra-3, itens de 44px. O item escolhido fica em azul-suave, com texto azul-forte e um check.\n- Teclado: ↑ ↓ navegam, Enter escolhe, Esc fecha, e digitar uma letra pula para a opção que começa com ela.\n- Opções podem ter ícone (`{ value, label, icon }`). Campos relacionados ficam lado a lado (Gestalt: proximidade).\n\n## Propriedades\n\n`options` (texto ou `{ value, label, icon }`), `value`, `defaultValue`, `onChange(e)` com `e.target.value`, `placeholder`, `icon`, `label`, `helper`, `error`, `disabled`, `name`, `defaultOpen`.",
    "props": {
-    "extends": "React.SelectHTMLAttributes<HTMLSelectElement>",
+    "extends": "",
     "fields": [
      {
       "name": "label",
@@ -522,12 +522,167 @@
       "name": "placeholder",
       "required": false,
       "type": "string",
+      "doc": "Texto quando nada está escolhido. Padrão 'Selecione'"
+     },
+     {
+      "name": "value",
+      "required": false,
+      "type": "string",
       "doc": ""
      },
      {
-      "name": "options",
-      "required": true,
-      "type": "Array<string | { value: string; label: string }>",
+      "name": "defaultValue",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "onChange",
+      "required": false,
+      "type": "(e: { target: { value: string; name?: string } }) => void",
+      "doc": "Recebe { target: { value, name } }, como um select nativo"
+     },
+     {
+      "name": "name",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "disabled",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "required",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "defaultOpen",
+      "required": false,
+      "type": "boolean",
+      "doc": "Começa aberto (útil em documentação)"
+     },
+     {
+      "name": "id",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "DatePicker",
+   "title": "DatePicker",
+   "group": "2 · Moléculas",
+   "height": 520,
+   "width": null,
+   "subtitle": "",
+   "summary": "Campo de data com calendário próprio no padrão da marca, em português e no formato dd/mm/aaaa. Substitui o seletor de data nativo, que é diferente em cada navegador.",
+   "react": "const hoje = new Date().toISOString().slice(0, 10);\nconst [data, setData] = useState('');\n\n<DatePicker label=\"Data preferida para a visita\" value={data} onChange={setData}\n  min={hoje} helper=\"Opcional. O profissional confirma com você.\" />",
+   "html": "<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"visita\">Data da visita</label>\n  <div class=\"qo-select\">\n    <button id=\"visita\" class=\"qo-field__box qo-select__trigger\" aria-haspopup=\"dialog\">\n      <svg class=\"qo-icon\">…calendar…</svg><span class=\"qo-select__value\">28/11/2026</span>\n    </button>\n    <div class=\"qo-cal\" role=\"dialog\" aria-label=\"Escolher data\">\n      <div class=\"qo-cal__head\">…‹ <span class=\"qo-cal__title\">novembro de 2026</span> ›…</div>\n      <div class=\"qo-cal__week\"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>\n      <div class=\"qo-cal__grid\">\n        <button class=\"qo-cal__day qo-cal__day--out\">26</button> …\n        <button class=\"qo-cal__day qo-cal__day--today\">25</button>\n        <button class=\"qo-cal__day qo-cal__day--sel\">28</button> …\n      </div>\n    </div>\n  </div>\n</div>",
+   "guide": "## Quando usar\n\n- Escolher a data da visita, do início da obra ou de um prazo.\n\n## Regras\n\n- Fechado, tem o mesmo visual do Select, com ícone de calendário e a data em dd/mm/aaaa.\n- Calendário: cartão branco com raio de 20px e sombra-3. Semana começa no domingo. Hoje tem um anel azul; o dia escolhido fica em azul-estrutura com texto branco.\n- Use `min` e `max` para bloquear datas impossíveis (ex.: visita no passado). Datas bloqueadas ficam apagadas.\n- Teclado: setas andam pelos dias, PageUp e PageDown trocam de mês, Enter escolhe e Esc fecha.\n- O valor é sempre `AAAA-MM-DD`, pronto para enviar ao servidor. Só a exibição é em formato brasileiro.\n\n## Propriedades\n\n`value` e `defaultValue` (AAAA-MM-DD), `onChange(iso)`, `min`, `max`, `label`, `helper`, `error`, `placeholder`, `disabled`, `name`, `defaultOpen`.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "label",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "helper",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "error",
+      "required": false,
+      "type": "string | null",
+      "doc": ""
+     },
+     {
+      "name": "value",
+      "required": false,
+      "type": "string",
+      "doc": "Data no formato AAAA-MM-DD"
+     },
+     {
+      "name": "defaultValue",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "onChange",
+      "required": false,
+      "type": "(iso: string) => void",
+      "doc": "Recebe a data em AAAA-MM-DD ('' ao limpar)"
+     },
+     {
+      "name": "min",
+      "required": false,
+      "type": "string",
+      "doc": "Primeira data permitida (AAAA-MM-DD)"
+     },
+     {
+      "name": "max",
+      "required": false,
+      "type": "string",
+      "doc": "Última data permitida (AAAA-MM-DD)"
+     },
+     {
+      "name": "placeholder",
+      "required": false,
+      "type": "string",
+      "doc": "Padrão 'dd/mm/aaaa'"
+     },
+     {
+      "name": "name",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "disabled",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "required",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "defaultOpen",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "id",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
       "doc": ""
      }
     ]
@@ -1438,13 +1593,13 @@
    "id": "QuoteForm",
    "title": "QuoteForm",
    "group": "3 · Organismos",
-   "height": 720,
+   "height": 860,
    "width": null,
    "subtitle": "",
    "summary": "Formulário completo de pedido de orçamento: serviço, cidade, descrição, prazo e fotos.",
    "react": "<QuoteForm onSubmit={valores => enviarPedido(valores)} />",
    "html": "",
-   "guide": "## Quando usar\n\n- Fluxo de “solicitar orçamento”, em tela cheia ou dentro de um cartão no desktop.\n\n## Regras\n\n- Campos agrupados por assunto em blocos com título (Gestalt: proximidade). No celular, Serviço e Cidade empilham; a partir de 600px ficam lado a lado.\n- Valida ao enviar e mostra o erro no campo, dizendo como corrigir.\n- Um único botão primário no fim, ocupando toda a largura.",
+   "guide": "## Quando usar\n\n- Fluxo de “solicitar orçamento”, em tela cheia ou dentro de um cartão no desktop. Usa Select, TextField, Radio, DatePicker e Checkbox.\n\n## Regras\n\n- Campos agrupados por assunto em blocos com título (Gestalt: proximidade). No celular, Serviço e Cidade empilham; a partir de 600px ficam lado a lado.\n- Valida ao enviar e mostra o erro no campo, dizendo como corrigir.\n- Um único botão primário no fim, ocupando toda a largura.",
    "props": {
     "extends": "",
     "fields": [

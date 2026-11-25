@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"QueroObras","components":[{"name":"Icon"},{"name":"Badge"},{"name":"Avatar"},{"name":"Divider"},{"name":"Spinner"},{"name":"Checkbox"},{"name":"Radio"},{"name":"Switch"},{"name":"Rating"},{"name":"Button"},{"name":"IconButton"},{"name":"TextField"},{"name":"Select"},{"name":"SearchField"},{"name":"ServiceTile"},{"name":"Chip"},{"name":"ListItem"},{"name":"Toast"},{"name":"AppBar"},{"name":"GreetingHeader"},{"name":"Card"},{"name":"PromoCard"},{"name":"ProfessionalCard"},{"name":"Stepper"},{"name":"ServiceGrid"},{"name":"BottomNav"},{"name":"Tabs"},{"name":"Modal"},{"name":"BottomSheet"},{"name":"EmptyState"},{"name":"QuoteForm"},{"name":"Container"},{"name":"Grid"},{"name":"Col"},{"name":"Stack"},{"name":"AppShell"}]} */
+/* @ds-bundle: {"format":4,"namespace":"QueroObras","components":[{"name":"Icon"},{"name":"Badge"},{"name":"Avatar"},{"name":"Divider"},{"name":"Spinner"},{"name":"Checkbox"},{"name":"Radio"},{"name":"Switch"},{"name":"Rating"},{"name":"Button"},{"name":"IconButton"},{"name":"TextField"},{"name":"Select"},{"name":"DatePicker"},{"name":"SearchField"},{"name":"ServiceTile"},{"name":"Chip"},{"name":"ListItem"},{"name":"Toast"},{"name":"AppBar"},{"name":"GreetingHeader"},{"name":"Card"},{"name":"PromoCard"},{"name":"ProfessionalCard"},{"name":"Stepper"},{"name":"ServiceGrid"},{"name":"BottomNav"},{"name":"Tabs"},{"name":"Modal"},{"name":"BottomSheet"},{"name":"EmptyState"},{"name":"QuoteForm"},{"name":"Container"},{"name":"Grid"},{"name":"Col"},{"name":"Stack"},{"name":"AppShell"}]} */
 (function () {
   var React = window.React;
   var h = React.createElement;
@@ -172,20 +172,153 @@
         props.icon ? h(Icon, { name: props.icon }) : null, input, props.iconRight ? h(Icon, { name: props.iconRight }) : null));
   }
 
+  function useOutside(ref, open, close) {
+    useEffect(function () {
+      if (!open) return;
+      function f(e) { if (ref.current && !ref.current.contains(e.target)) close(); }
+      document.addEventListener('mousedown', f); document.addEventListener('touchstart', f);
+      return function () { document.removeEventListener('mousedown', f); document.removeEventListener('touchstart', f); };
+    }, [open]);
+  }
+
   function Select(props) {
     var id = useFieldId(props.id);
-    var other = rest(props, ['label', 'helper', 'error', 'icon', 'className', 'options', 'placeholder', 'id']);
-    var opts = (props.options || []).map(function (o) {
-      var v = typeof o === 'string' ? o : o.value, l = typeof o === 'string' ? o : o.label;
-      return h('option', { key: v, value: v }, l);
-    });
-    if (props.placeholder) opts.unshift(h('option', { key: '__p', value: '', disabled: true }, props.placeholder));
+    var opts = (props.options || []).map(function (o) { return typeof o === 'string' ? { value: o, label: o } : o; });
+    var controlled = props.value !== undefined;
+    var st = useState(props.defaultValue != null ? props.defaultValue : ''), inner = st[0], setInner = st[1];
+    var value = controlled ? props.value : inner;
+    var sel = -1; opts.forEach(function (o, i) { if (o.value === value) sel = i; });
+    var os = useState(!!props.defaultOpen), open = os[0], setOpen = os[1];
+    var as = useState(sel < 0 ? 0 : sel), active = as[0], setActive = as[1];
+    var wrap = useRef(null), btn = useRef(null), list = useRef(null);
+    useOutside(wrap, open, function () { setOpen(false); });
+    useEffect(function () {
+      if (!open || !list.current) return;
+      var el = list.current.children[active]; if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+    }, [open, active]);
+    function openList() { if (props.disabled) return; setActive(sel < 0 ? 0 : sel); setOpen(true); }
+    function choose(i) {
+      var v = opts[i].value;
+      if (!controlled) setInner(v);
+      if (props.onChange) props.onChange({ target: { value: v, name: props.name }, currentTarget: { value: v, name: props.name } });
+      setOpen(false); if (btn.current) btn.current.focus();
+    }
+    function key(e) {
+      var k = e.key;
+      if (!open) { if (k === 'ArrowDown' || k === 'ArrowUp' || k === 'Enter' || k === ' ') { e.preventDefault(); openList(); } return; }
+      if (k === 'ArrowDown') { e.preventDefault(); setActive(Math.min(opts.length - 1, active + 1)); }
+      else if (k === 'ArrowUp') { e.preventDefault(); setActive(Math.max(0, active - 1)); }
+      else if (k === 'Home') { e.preventDefault(); setActive(0); }
+      else if (k === 'End') { e.preventDefault(); setActive(opts.length - 1); }
+      else if (k === 'Enter' || k === ' ') { e.preventDefault(); choose(active); }
+      else if (k === 'Escape') { e.preventDefault(); setOpen(false); }
+      else if (k === 'Tab') setOpen(false);
+      else if (k.length === 1) {
+        var q = k.toLowerCase();
+        for (var n = 1; n <= opts.length; n++) { var j = (active + n) % opts.length; if (String(opts[j].label).toLowerCase().indexOf(q) === 0) { setActive(j); break; } }
+      }
+    }
+    var current = sel >= 0 ? opts[sel] : null;
     return Field(Object.assign({}, props, { __id: id }),
-      h('div', { className: 'qo-field__box' },
-        props.icon ? h(Icon, { name: props.icon }) : null,
-        h('select', Object.assign({ id: id, className: 'qo-field__input', 'aria-invalid': props.error ? true : undefined, 'aria-describedby': (props.error || props.helper) ? id + '-help' : undefined },
-          props.placeholder && props.value === undefined && props.defaultValue === undefined ? { defaultValue: '' } : {}, other), opts),
-        h(Icon, { name: 'chevron-down', className: 'qo-field__chev' })));
+      h('div', { className: 'qo-select', ref: wrap },
+        h('button', {
+          ref: btn, id: id, type: 'button', className: cx('qo-field__box qo-select__trigger', open && 'qo-select__trigger--open'), disabled: props.disabled,
+          'aria-haspopup': 'listbox', 'aria-expanded': open, 'aria-controls': id + '-list', 'aria-invalid': props.error ? true : undefined,
+          'aria-describedby': (props.error || props.helper) ? id + '-help' : undefined,
+          'aria-activedescendant': open ? id + '-o' + active : undefined,
+          onClick: function () { open ? setOpen(false) : openList(); }, onKeyDown: key
+        },
+          props.icon ? h(Icon, { name: props.icon }) : (current && current.icon ? h(Icon, { name: current.icon }) : null),
+          h('span', { className: cx('qo-select__value', !current && 'qo-select__placeholder') }, current ? current.label : (props.placeholder || 'Selecione')),
+          h(Icon, { name: 'chevron-down', className: 'qo-select__chev' })),
+        open ? h('ul', { ref: list, id: id + '-list', role: 'listbox', className: 'qo-menu', 'aria-labelledby': id, tabIndex: -1 },
+          opts.map(function (o, i) {
+            return h('li', {
+              key: o.value, id: id + '-o' + i, role: 'option', 'aria-selected': i === sel,
+              className: cx('qo-menu__opt', i === active && 'qo-menu__opt--active', i === sel && 'qo-menu__opt--sel'),
+              onMouseEnter: function () { setActive(i); }, onMouseDown: function (e) { e.preventDefault(); }, onClick: function () { choose(i); }
+            }, o.icon ? h(Icon, { name: o.icon, size: 20 }) : null, h('span', { className: 'qo-menu__label' }, o.label), i === sel ? h(Icon, { name: 'check', size: 18, className: 'qo-menu__check' }) : null);
+          })) : null,
+        props.name ? h('input', { type: 'hidden', name: props.name, value: value }) : null));
+  }
+
+  /* ───── DatePicker ───── */
+  var MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+  var SEMANA = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+  var SEMANA_LONGO = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function toISO(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function fromISO(s) { if (!s) return null; var p = String(s).split('-'); if (p.length !== 3) return null; return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function fmtBR(s) { var d = fromISO(s); return d ? pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() : ''; }
+  function addDays(s, n) { var d = fromISO(s); d.setDate(d.getDate() + n); return toISO(d); }
+  function addMonths(s, n) { var d = fromISO(s), day = d.getDate(); d.setDate(1); d.setMonth(d.getMonth() + n); var last = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(); d.setDate(Math.min(day, last)); return toISO(d); }
+
+  function DatePicker(props) {
+    var id = useFieldId(props.id);
+    var today = toISO(new Date());
+    var controlled = props.value !== undefined;
+    var st = useState(props.defaultValue || ''), inner = st[0], setInner = st[1];
+    var value = controlled ? (props.value || '') : inner;
+    var os = useState(!!props.defaultOpen), open = os[0], setOpen = os[1];
+    var fs = useState(value || today), focus = fs[0], setFocus = fs[1];
+    var kb = useRef(false), wrap = useRef(null), btn = useRef(null), grid = useRef(null);
+    useOutside(wrap, open, function () { setOpen(false); });
+    function allowed(s) { return (!props.min || s >= props.min) && (!props.max || s <= props.max); }
+    useEffect(function () {
+      if (open && kb.current && grid.current) { var el = grid.current.querySelector('[data-day="' + focus + '"]'); if (el) el.focus(); }
+    }, [open, focus]);
+    function openCal() { if (props.disabled) return; setFocus(value || (props.min && props.min > today ? props.min : today)); setOpen(true); }
+    function choose(s) {
+      if (!allowed(s)) return;
+      if (!controlled) setInner(s);
+      if (props.onChange) props.onChange(s);
+      setOpen(false); kb.current = false; if (btn.current) btn.current.focus();
+    }
+    function key(e) {
+      var map = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+      kb.current = true;
+      if (map[e.key] != null) { e.preventDefault(); setFocus(addDays(focus, map[e.key])); }
+      else if (e.key === 'PageUp') { e.preventDefault(); setFocus(addMonths(focus, -1)); }
+      else if (e.key === 'PageDown') { e.preventDefault(); setFocus(addMonths(focus, 1)); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(focus); }
+      else if (e.key === 'Escape') { e.preventDefault(); setOpen(false); if (btn.current) btn.current.focus(); }
+    }
+    var f = fromISO(focus), y = f.getFullYear(), m = f.getMonth();
+    var first = new Date(y, m, 1), start = new Date(y, m, 1 - first.getDay());
+    var cells = [];
+    for (var i = 0; i < 42; i++) {
+      var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i), iso = toISO(d);
+      var out = d.getMonth() !== m, ok = allowed(iso);
+      cells.push(h('button', {
+        key: iso, type: 'button', role: 'gridcell', 'data-day': iso, tabIndex: iso === focus ? 0 : -1, disabled: !ok,
+        'aria-selected': iso === value, 'aria-current': iso === today ? 'date' : undefined,
+        'aria-label': d.getDate() + ' de ' + MESES[d.getMonth()] + ', ' + SEMANA_LONGO[d.getDay()],
+        className: cx('qo-cal__day', out && 'qo-cal__day--out', iso === today && 'qo-cal__day--today', iso === value && 'qo-cal__day--sel'),
+        onClick: (function (s) { return function () { choose(s); }; })(iso)
+      }, d.getDate()));
+    }
+    return Field(Object.assign({}, props, { __id: id }),
+      h('div', { className: 'qo-select', ref: wrap },
+        h('button', {
+          ref: btn, id: id, type: 'button', className: cx('qo-field__box qo-select__trigger', open && 'qo-select__trigger--open'), disabled: props.disabled,
+          'aria-haspopup': 'dialog', 'aria-expanded': open, 'aria-describedby': (props.error || props.helper) ? id + '-help' : undefined,
+          onClick: function () { kb.current = false; open ? setOpen(false) : openCal(); },
+          onKeyDown: function (e) { if (!open && (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); kb.current = true; openCal(); } }
+        },
+          h(Icon, { name: 'calendar' }),
+          h('span', { className: cx('qo-select__value', !value && 'qo-select__placeholder') }, value ? fmtBR(value) : (props.placeholder || 'dd/mm/aaaa')),
+          h(Icon, { name: 'chevron-down', className: 'qo-select__chev' })),
+        open ? h('div', { className: 'qo-cal', role: 'dialog', 'aria-modal': false, 'aria-label': 'Escolher data', onKeyDown: key },
+          h('div', { className: 'qo-cal__head' },
+            h(IconButton, { icon: 'chevron-left', label: 'Mês anterior', onClick: function () { setFocus(addMonths(focus, -1)); } }),
+            h('span', { className: 'qo-cal__title', 'aria-live': 'polite' }, MESES[m].charAt(0).toUpperCase() + MESES[m].slice(1) + ' de ' + y),
+            h(IconButton, { icon: 'chevron-right', label: 'Próximo mês', onClick: function () { setFocus(addMonths(focus, 1)); } })),
+          h('div', { className: 'qo-cal__week', 'aria-hidden': true }, SEMANA.map(function (w, i) { return h('span', { key: i }, w); })),
+          h('div', { className: 'qo-cal__grid', role: 'grid', ref: grid }, cells),
+          h('div', { className: 'qo-cal__foot' },
+            h(Button, { variant: 'link', size: 'sm', disabled: !allowed(today), onClick: function () { choose(today); } }, 'Hoje'),
+            value ? h(Button, { variant: 'link', size: 'sm', onClick: function () { if (!controlled) setInner(''); if (props.onChange) props.onChange(''); setOpen(false); } }, 'Limpar') : null)) : null,
+        props.name ? h('input', { type: 'hidden', name: props.name, value: value }) : null));
   }
 
   function SearchField(props) {
@@ -385,7 +518,7 @@
   function QuoteForm(props) {
     var services = props.services || ['Pintura', 'Reforma', 'Elétrica', 'Hidráulica'];
     var cities = props.cities || ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Manaus'];
-    var st = useState({ servico: props.defaultService || services[0], cidade: cities[0], descricao: '', prazo: 'Este mês', fotos: false });
+    var st = useState({ servico: props.defaultService || services[0], cidade: cities[0], descricao: '', prazo: 'Este mês', data: '', fotos: false });
     var v = st[0], set = st[1];
     var er = useState(null), err = er[0], setErr = er[1];
     function upd(k) { return function (e) { var o = Object.assign({}, v); o[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.value; set(o); }; }
@@ -406,6 +539,7 @@
         h('div', { role: 'radiogroup', 'aria-label': 'Prazo', style: { display: 'flex', flexDirection: 'column' } }, ['Este mês', 'Nos próximos 3 meses', 'Só estou pesquisando'].map(function (p) {
           return h(Radio, { key: p, name: 'prazo', value: p, label: p, checked: v.prazo === p, onChange: upd('prazo') });
         })),
+        h(DatePicker, { label: 'Data preferida para a visita', helper: 'Opcional. O profissional confirma com você.', min: toISO(new Date()), value: v.data, onChange: function (d) { set(Object.assign({}, v, { data: d })); } }),
         h(Checkbox, { label: 'Quero enviar fotos depois', description: 'Fotos ajudam o profissional a estimar o valor.', checked: v.fotos, onChange: upd('fotos') })),
       h(Button, { type: 'submit', variant: 'primario', size: 'lg', block: true, loading: props.loading }, props.submitLabel || 'solicitar orçamento'));
   }
@@ -432,7 +566,7 @@
 
   var api = {
     Icon: Icon, Badge: Badge, Avatar: Avatar, Divider: Divider, Spinner: Spinner, Checkbox: Checkbox, Radio: Radio, Switch: Switch, Rating: Rating,
-    Button: Button, IconButton: IconButton, TextField: TextField, Select: Select, SearchField: SearchField, ServiceTile: ServiceTile, Chip: Chip, ListItem: ListItem, Toast: Toast,
+    Button: Button, IconButton: IconButton, TextField: TextField, Select: Select, DatePicker: DatePicker, SearchField: SearchField, ServiceTile: ServiceTile, Chip: Chip, ListItem: ListItem, Toast: Toast,
     AppBar: AppBar, GreetingHeader: GreetingHeader, Card: Card, PromoCard: PromoCard, ProfessionalCard: ProfessionalCard, Stepper: Stepper, ServiceGrid: ServiceGrid,
     BottomNav: BottomNav, Tabs: Tabs, Modal: Modal, BottomSheet: BottomSheet, EmptyState: EmptyState, QuoteForm: QuoteForm,
     Container: Container, Grid: Grid, Col: Col, Stack: Stack, AppShell: AppShell
