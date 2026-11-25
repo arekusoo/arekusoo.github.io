@@ -6,7 +6,46 @@
    "group": "1 · Átomos",
    "height": 220,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Ícones de traço (2px, grade 24×24, pontas arredondadas) desenhados para a Quero Obras — os mesmos dos tiles Pintura, Reforma e Elétrica do painel.",
+   "react": "import { Icon } from './queroobras';\n\n<Icon name=\"pintura\" />\n<Icon name=\"eletrica\" size={28} />\n<Icon name=\"bell\" label=\"Notificações\" />",
+   "html": "<!-- Copie o <svg> do ícone; a cor vem de \"color\" -->\n<svg class=\"qo-icon\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\"\n     stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\">\n  <path d=\"M13 3 5 13.5h6L10 21l8-10.5h-6z\"/>\n</svg>",
+   "guide": "## Quando usar\n\n- Sempre ao lado de um texto, ou dentro de um IconButton com `label`.\n- Para reforçar a categoria de um serviço (pintura, reforma, elétrica, hidráulica).\n\n## Regras\n\n- Tamanhos: `icone-sm` 20px (em botões e campos), `icone-md` 24px (barras e navegação), `icone-lg` 28px (tiles de serviço).\n- Cor herdada do texto (`currentColor`): tinta-leitura por padrão, azul-estrutura quando ativo.\n- Ícone sozinho precisa de `label` (lido pelo leitor de tela); ao lado de texto fica decorativo.\n\n## Propriedades\n\nNomes disponíveis: home, search, pintura, reforma, eletrica, hidraulica, grid, chat, bell, user, check, check-circle, shield, chevron-right, chevron-left, chevron-down, arrow-left, close, plus, star, map-pin, calendar, clock, filter, heart, menu, more, pedidos, image, info, alert, camera, phone, edit, trash, send.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "name",
+      "required": true,
+      "type": "IconName",
+      "doc": "Nome do ícone"
+     },
+     {
+      "name": "size",
+      "required": false,
+      "type": "number",
+      "doc": "Tamanho em px. Padrão 24"
+     },
+     {
+      "name": "strokeWidth",
+      "required": false,
+      "type": "number",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "style",
+      "required": false,
+      "type": "React.CSSProperties",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Badge",
@@ -14,7 +53,46 @@
    "group": "1 · Átomos",
    "height": 96,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Selo curto de status, como o “Verificado” do painel. Também serve de contador de notificações.",
+   "react": "<Badge tone=\"sucesso\" icon=\"check\">Verificado</Badge>\n<Badge tone=\"aviso\">Aguardando</Badge>\n<Badge count={3} />",
+   "html": "<span class=\"qo-badge qo-badge--sucesso\">✓ Verificado</span>\n<span class=\"qo-badge qo-badge--aviso\">Aguardando</span>\n<span class=\"qo-badge qo-badge--count\">3</span>",
+   "guide": "## Quando usar\n\n- Status de um profissional ou de um pedido: Verificado, Novo, Aguardando, Recusado.\n- Contador sobre ícones (sino, navegação).\n\n## Regras\n\n- Uma ou duas palavras, com inicial maiúscula.\n- A cor tem significado: sucesso = verificado/concluído, marca = novidade, info = categoria, aviso = pendente, erro = problema. Nunca decorativa.\n- Sempre `radius-full`, 24px de altura, Inter 600 12px.\n\n## Propriedades\n\n`tone`: neutro · sucesso · marca · info · aviso · erro · `icon` · `count`",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "tone",
+      "required": false,
+      "type": "Tone",
+      "doc": "Padrão 'neutro'"
+     },
+     {
+      "name": "icon",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "count",
+      "required": false,
+      "type": "number",
+      "doc": "Mostra um contador vermelho (notificações) no lugar do texto"
+     },
+     {
+      "name": "children",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Avatar",
@@ -22,7 +100,40 @@
    "group": "1 · Átomos",
    "height": 96,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Foto ou iniciais de uma pessoa: profissional, cliente ou usuário logado.",
+   "react": "<Avatar name=\"Marcos Ribeiro\" size=\"lg\" />\n<Avatar name=\"Ana Souza\" src=\"/fotos/ana.jpg\" />",
+   "html": "<span class=\"qo-avatar qo-avatar--lg\">MR</span>",
+   "guide": "## Quando usar\n\n- Cartões de profissional, listas de propostas, conversas e topo do perfil.\n\n## Regras\n\n- Tamanhos: sm 32px (listas densas), md 40px (padrão), lg 56px (cartões e perfil).\n- Sem foto, mostra as iniciais sobre azul-suave, cta-suave ou ambar-suave, conforme o nome.\n- Sempre redondo (`radius-full`).",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "name",
+      "required": false,
+      "type": "string",
+      "doc": "Nome da pessoa: gera as iniciais e o texto alternativo"
+     },
+     {
+      "name": "src",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "size",
+      "required": false,
+      "type": "'sm' | 'md' | 'lg'",
+      "doc": "Padrão 'md' (40px)"
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Divider",
@@ -30,7 +141,28 @@
    "group": "1 · Átomos",
    "height": 120,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Linha de 1px na cor `borda` que separa itens de uma lista ou grupos dentro de um cartão.",
+   "react": "<Divider />\n<Divider inset />",
+   "html": "<hr class=\"qo-divider\" />",
+   "guide": "## Quando usar\n\n- Entre itens de lista e entre seções de um mesmo cartão.\n\n## Regras\n\n- Prefira espaço (Gestalt: proximidade) a linhas. Use divisor só quando o espaço não bastar.\n- `inset` recua 16px dos dois lados, para listas dentro de cartões.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "inset",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Spinner",
@@ -38,7 +170,40 @@
    "group": "1 · Átomos",
    "height": 88,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Indicador de carregamento circular em azul-estrutura.",
+   "react": "<Spinner />\n<Spinner size=\"sm\" />",
+   "html": "<span class=\"qo-spinner\" role=\"status\" aria-label=\"Carregando\"></span>",
+   "guide": "## Quando usar\n\n- Carregamentos curtos (menos de 3 segundos) e dentro de botões com `loading`.\n\n## Regras\n\n- Em listas e telas, prefira esqueletos com a forma do conteúdo.\n- Use `inverse` sobre fundos escuros ou coloridos.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "size",
+      "required": false,
+      "type": "'sm' | 'md'",
+      "doc": ""
+     },
+     {
+      "name": "inverse",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "label",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Checkbox",
@@ -46,7 +211,28 @@
    "group": "1 · Átomos",
    "height": 200,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Caixa de seleção para escolher várias opções independentes ou aceitar algo.",
+   "react": "const [ok, setOk] = useState(false);\n<Checkbox label=\"Quero enviar fotos depois\" checked={ok} onChange={e => setOk(e.target.checked)} />",
+   "html": "<label class=\"qo-check\">\n  <input type=\"checkbox\" checked />\n  <span class=\"qo-check__text\">Quero enviar fotos depois</span>\n</label>",
+   "guide": "## Quando usar\n\n- Filtros com várias escolhas, preferências e aceite de termos.\n\n## Regras\n\n- Rótulo à direita, clicável; área de toque de 48px.\n- Marcado: fundo azul-estrutura com check branco. Borda em repouso: borda-forte (3:1).\n- `description` adiciona uma linha de apoio em tinta-suave.",
+   "props": {
+    "extends": "React.InputHTMLAttributes<HTMLInputElement>",
+    "fields": [
+     {
+      "name": "label",
+      "required": true,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "description",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Radio",
@@ -54,7 +240,28 @@
    "group": "1 · Átomos",
    "height": 190,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Escolha única dentro de um grupo pequeno (até 5 opções). Com mais opções, use Select.",
+   "react": "<Radio name=\"prazo\" value=\"mes\" label=\"Este mês\" checked={prazo === 'mes'} onChange={e => setPrazo(e.target.value)} />",
+   "html": "<label class=\"qo-check qo-check--radio\">\n  <input type=\"radio\" name=\"prazo\" checked />\n  <span class=\"qo-check__text\">Este mês</span>\n</label>",
+   "guide": "## Quando usar\n\n- Prazo da obra, forma de contato, tipo de imóvel.\n\n## Regras\n\n- Todas as opções visíveis, empilhadas, com 12px entre elas (Gestalt: proximidade).\n- Sempre com uma opção marcada por padrão, quando fizer sentido.",
+   "props": {
+    "extends": "React.InputHTMLAttributes<HTMLInputElement>",
+    "fields": [
+     {
+      "name": "label",
+      "required": true,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "description",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Switch",
@@ -62,7 +269,22 @@
    "group": "1 · Átomos",
    "height": 150,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Liga e desliga uma configuração que vale na hora, sem botão de salvar.",
+   "react": "<Switch label=\"Receber propostas por WhatsApp\" checked={on} onChange={e => setOn(e.target.checked)} />",
+   "html": "<label class=\"qo-switch\"><input type=\"checkbox\" role=\"switch\" checked /><span>Receber propostas por WhatsApp</span></label>",
+   "guide": "## Quando usar\n\n- Notificações, disponibilidade do profissional, preferências.\n\n## Regras\n\n- O efeito é imediato. Se precisa confirmar, use Checkbox + botão.\n- Ligado: trilho azul-estrutura e botão branco.",
+   "props": {
+    "extends": "React.InputHTMLAttributes<HTMLInputElement>",
+    "fields": [
+     {
+      "name": "label",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Rating",
@@ -70,7 +292,40 @@
    "group": "1 · Átomos",
    "height": 120,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Nota de avaliação de 0 a 5 com estrelas em âmbar-apoio.",
+   "react": "<Rating value={4.8} count={126} />\n<Rating value={4.8} count={126} compact />",
+   "html": "<span class=\"qo-rating\" role=\"img\" aria-label=\"Nota 4,8 de 5\">★ <span class=\"qo-rating__value\">4,8</span><span class=\"qo-rating__count\">(126)</span></span>",
+   "guide": "## Quando usar\n\n- Cartões de profissional, avaliações e propostas.\n\n## Regras\n\n- O número fica sempre visível ao lado das estrelas (a cor sozinha não basta).\n- `compact` mostra uma estrela e o número, para cartões e listas.\n- Formato brasileiro: vírgula decimal (4,8).",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "value",
+      "required": true,
+      "type": "number",
+      "doc": "Nota de 0 a 5"
+     },
+     {
+      "name": "count",
+      "required": false,
+      "type": "number",
+      "doc": "Número de avaliações"
+     },
+     {
+      "name": "compact",
+      "required": false,
+      "type": "boolean",
+      "doc": "Uma estrela + número"
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Button",
@@ -78,7 +333,58 @@
    "group": "2 · Moléculas",
    "height": 300,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Botão de ação. O primário em laranja CTA (#C84318 com texto branco) é a ação principal da tela, como “solicitar orçamento”.",
+   "react": "import { Button } from './queroobras';\n\n<Button onClick={enviar}>solicitar orçamento</Button>\n<Button variant=\"secundario\" block>solicitar orçamento</Button>\n<Button variant=\"link\" iconRight=\"chevron-right\">Ver profissionais</Button>\n<Button variant=\"contorno\" icon=\"chat\" size=\"sm\">Conversar</Button>\n<Button loading>Enviando</Button>",
+   "html": "<button class=\"qo-btn qo-btn--primario\">solicitar orçamento</button>\n<button class=\"qo-btn qo-btn--secundario qo-btn--block\">solicitar orçamento</button>\n<button class=\"qo-btn qo-btn--link\">Ver profissionais</button>\n<button class=\"qo-btn qo-btn--contorno qo-btn--sm\">Conversar</button>",
+   "guide": "## Quando usar\n\n- `primario`: a ação que é o objetivo da tela, uma por tela.\n- `secundario` (azul-estrutura): ação forte de apoio, como no cartão “Sua ideia começa aqui”.\n- `tonal` e `contorno`: ações alternativas. `link`: ação de baixa ênfase, como “Ver profissionais”.\n- `perigo`: excluir ou cancelar algo que não tem volta.\n\n## Regras\n\n- Raio de 12px (`radius-md`) e Inter 600 16px.\n- Alturas: sm 36px, md 48px (padrão, área de toque mínima), lg 56px (rodapé de formulário).\n- Texto começa com verbo: “Solicitar orçamento”, “Ver perfil”, “Enviar proposta”. O painel usa minúsculas no CTA (“solicitar orçamento”); mantenha um padrão só.\n- No celular, o botão principal de rodapé ocupa toda a largura (`block`).\n- Nunca use laranja-marca (#F85D31) com texto branco: o contraste é 3,1:1. Por isso o CTA é o #C84318 (4,9:1).\n\n## Propriedades\n\n`variant`: primario · secundario · tonal · contorno · link · perigo — `size`: sm · md · lg — `icon`, `iconRight`, `loading`, `block`, `disabled`, `href` (vira link) e todos os atributos de `<button>`.",
+   "props": {
+    "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+    "fields": [
+     {
+      "name": "variant",
+      "required": false,
+      "type": "'primario' | 'secundario' | 'tonal' | 'contorno' | 'link' | 'perigo'",
+      "doc": "Padrão 'primario' (CTA laranja). Um primário por tela."
+     },
+     {
+      "name": "size",
+      "required": false,
+      "type": "'sm' | 'md' | 'lg'",
+      "doc": "sm 36px · md 48px · lg 56px. Padrão 'md'"
+     },
+     {
+      "name": "icon",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "iconRight",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "loading",
+      "required": false,
+      "type": "boolean",
+      "doc": "Mostra um spinner e desabilita o botão"
+     },
+     {
+      "name": "block",
+      "required": false,
+      "type": "boolean",
+      "doc": "Ocupa toda a largura"
+     },
+     {
+      "name": "href",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "IconButton",
@@ -86,7 +392,40 @@
    "group": "2 · Moléculas",
    "height": 100,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Botão só com ícone, para ações recorrentes em barras: voltar, notificações, favoritar, mais opções.",
+   "react": "<IconButton icon=\"bell\" label=\"Notificações\" badge={2} />\n<IconButton icon=\"heart\" label=\"Favoritar\" variant=\"contorno\" />",
+   "html": "<button class=\"qo-iconbtn\" aria-label=\"Notificações\"><svg class=\"qo-icon\">…</svg></button>",
+   "guide": "## Quando usar\n\n- Barras do topo, cartões e campos.\n\n## Regras\n\n- `label` é obrigatório: vira o nome lido pelo leitor de tela e a dica ao passar o mouse.\n- Área de toque de 48×48px, mesmo com ícone de 24px.\n- `badge` mostra um contador.",
+   "props": {
+    "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+    "fields": [
+     {
+      "name": "icon",
+      "required": true,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "label",
+      "required": true,
+      "type": "string",
+      "doc": "Obrigatório: nome acessível"
+     },
+     {
+      "name": "variant",
+      "required": false,
+      "type": "'contorno' | 'secundario' | 'tonal'",
+      "doc": ""
+     },
+     {
+      "name": "badge",
+      "required": false,
+      "type": "number",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "TextField",
@@ -94,7 +433,52 @@
    "group": "2 · Moléculas",
    "height": 380,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Campo de texto com rótulo acima, ajuda abaixo e estado de erro. Aceita várias linhas (`multiline`).",
+   "react": "<TextField label=\"Telefone\" type=\"tel\" placeholder=\"(92) 99999-0000\" icon=\"phone\" />\n<TextField label=\"Descreva a obra\" multiline helper=\"Quanto mais detalhes, melhores as propostas.\" />\n<TextField label=\"CEP\" error=\"CEP não encontrado. Confira os números.\" />",
+   "html": "<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"tel\">Telefone</label>\n  <div class=\"qo-field__box\"><input id=\"tel\" class=\"qo-field__input\" type=\"tel\" placeholder=\"(92) 99999-0000\" /></div>\n  <span class=\"qo-field__helper\">Usaremos só para as propostas.</span>\n</div>",
+   "guide": "## Quando usar\n\n- Nome, telefone, endereço e descrição da obra.\n\n## Regras\n\n- Rótulo sempre visível acima do campo (Inter 600 13px). O placeholder só dá exemplo, não substitui o rótulo.\n- Altura de 48px, raio de 12px, borda borda-forte; com foco, borda azul-estrutura e halo azul-suave.\n- Texto em 16px, para o iPhone não dar zoom.\n- Erro: borda e mensagem em `erro`, com ícone e texto dizendo como resolver (“Informe um telefone com DDD”).",
+   "props": {
+    "extends": "React.InputHTMLAttributes<HTMLInputElement>",
+    "fields": [
+     {
+      "name": "label",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "helper",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "error",
+      "required": false,
+      "type": "string | null",
+      "doc": "Mensagem de erro: deixa o campo vermelho e substitui o helper"
+     },
+     {
+      "name": "icon",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "iconRight",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "multiline",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Select",
@@ -102,7 +486,52 @@
    "group": "2 · Moléculas",
    "height": 190,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Lista de escolha única, como os campos “Serviço” e “Cidade” do painel.",
+   "react": "<Select label=\"Serviço\" options={['Pintura', 'Reforma', 'Elétrica']} value={servico} onChange={e => setServico(e.target.value)} />",
+   "html": "<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"servico\">Serviço</label>\n  <div class=\"qo-field__box\">\n    <select id=\"servico\" class=\"qo-field__input\"><option>Pintura</option><option>Reforma</option></select>\n  </div>\n</div>",
+   "guide": "## Quando usar\n\n- Mais de 5 opções conhecidas: serviço, cidade, tipo de imóvel.\n\n## Regras\n\n- Rótulo acima e o mesmo visual do TextField. Usa o seletor nativo do sistema, que é o mais rápido no celular.\n- Campos relacionados ficam lado a lado ou próximos (Gestalt: proximidade).",
+   "props": {
+    "extends": "React.SelectHTMLAttributes<HTMLSelectElement>",
+    "fields": [
+     {
+      "name": "label",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "helper",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "error",
+      "required": false,
+      "type": "string | null",
+      "doc": ""
+     },
+     {
+      "name": "icon",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "placeholder",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "options",
+      "required": true,
+      "type": "Array<string | { value: string; label: string }>",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "SearchField",
@@ -110,7 +539,64 @@
    "group": "2 · Moléculas",
    "height": 160,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Busca de serviços com ícone de lupa e botão de limpar, como “Buscar serviço” no painel.",
+   "react": "<SearchField placeholder=\"Buscar serviço\" onSubmit={buscar} />",
+   "html": "<form role=\"search\" class=\"qo-search\">\n  <svg class=\"qo-icon\">…lupa…</svg>\n  <input class=\"qo-field__input\" type=\"search\" placeholder=\"Buscar serviço\" aria-label=\"Buscar serviço\" />\n</form>",
+   "guide": "## Quando usar\n\n- Topo da tela inicial e listas longas de profissionais ou pedidos.\n\n## Regras\n\n- Padrão: superfície branca com sombra-1, para parecer uma figura sobre o fundo. `preenchida`: dentro de cartões e barras.\n- O placeholder diz o que se busca: “Buscar serviço”, “Buscar profissional”.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "value",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "defaultValue",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "onChange",
+      "required": false,
+      "type": "(value: string) => void",
+      "doc": ""
+     },
+     {
+      "name": "onSubmit",
+      "required": false,
+      "type": "(value: string) => void",
+      "doc": ""
+     },
+     {
+      "name": "placeholder",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "label",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "variant",
+      "required": false,
+      "type": "'padrao' | 'preenchida'",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "ServiceTile",
@@ -118,7 +604,34 @@
    "group": "2 · Moléculas",
    "height": 150,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Bloco de categoria com ícone e nome (Pintura, Reforma, Elétrica), do painel “Da marca à interface”.",
+   "react": "<ServiceTile icon=\"pintura\" label=\"Pintura\" onClick={() => abrir(\"pintura\")} />",
+   "html": "<button class=\"qo-tile\"><svg class=\"qo-icon\">…</svg><span>Pintura</span></button>",
+   "guide": "## Quando usar\n\n- Atalhos para categorias de serviço na tela inicial e para escolher o serviço num pedido.\n\n## Regras\n\n- Mesma forma, tamanho e cor para todos os tiles (Gestalt: semelhança). Função igual, aparência igual.\n- Raio de 12px, borda `borda`, ícone de 28px em tinta-leitura e rótulo em Inter 600 14px.\n- Selecionado (`selected`): borda azul-estrutura, fundo azul-suave e ícone azul.",
+   "props": {
+    "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+    "fields": [
+     {
+      "name": "icon",
+      "required": true,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "label",
+      "required": true,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "selected",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Chip",
@@ -126,7 +639,34 @@
    "group": "2 · Moléculas",
    "height": 110,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Filtro compacto e liga/desliga, em formato de pílula.",
+   "react": "<Chip selected={so} onClick={() => setSo(!so)}>Verificados</Chip>\n<Chip icon=\"map-pin\">Perto de mim</Chip>",
+   "html": "<button class=\"qo-chip\" aria-pressed=\"true\">✓ Verificados</button>",
+   "guide": "## Quando usar\n\n- Filtros de lista (Verificados, Melhor avaliados, Perto de mim) e escolhas que podem ser removidas.\n\n## Regras\n\n- Ativo: fundo azul-suave, borda azul-estrutura e um check.\n- Em fila horizontal com 8px entre eles; no celular a fila rola de lado.",
+   "props": {
+    "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+    "fields": [
+     {
+      "name": "icon",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "selected",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "onRemove",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "ListItem",
@@ -134,7 +674,70 @@
    "group": "2 · Moléculas",
    "height": 250,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Linha de lista com elemento à esquerda, título, subtítulo e informação ou seta à direita.",
+   "react": "<ListItem leadingIcon=\"pintura\" title=\"Pintura · Apartamento\" subtitle=\"3 propostas recebidas\" trailing=\"Hoje\" chevron onClick={abrir} />",
+   "html": "<button class=\"qo-listitem\">\n  <span class=\"qo-listitem__lead qo-listitem__lead--box\"><svg class=\"qo-icon\">…</svg></span>\n  <span class=\"qo-listitem__text\"><span class=\"qo-listitem__title\">Pintura · Apartamento</span><span class=\"qo-listitem__sub\">3 propostas recebidas</span></span>\n  <span class=\"qo-listitem__trail\">Hoje</span>\n</button>",
+   "guide": "## Quando usar\n\n- Pedidos, propostas, notificações, configurações.\n\n## Regras\n\n- Altura mínima de 64px. Título em Inter 600 16px e subtítulo em tinta-suave 14px; textos longos são cortados com reticências.\n- Com `onClick` vira botão e ganha a cor de hover. Use `chevron` quando abre outra tela.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "title",
+      "required": true,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "subtitle",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "leading",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "leadingIcon",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "trailing",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "chevron",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "onClick",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "href",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Toast",
@@ -142,7 +745,52 @@
    "group": "2 · Moléculas",
    "height": 180,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Aviso curto que aparece embaixo da tela e some sozinho, com uma ação opcional (ex.: Desfazer).",
+   "react": "<Toast tone=\"sucesso\" message=\"Pedido enviado. Você recebe propostas em até 24 h.\" actionLabel=\"Ver pedido\" onAction={abrir} />",
+   "html": "<div class=\"qo-toast qo-toast--sucesso\" role=\"status\"><span class=\"qo-toast__msg\">Pedido enviado.</span><button class=\"qo-toast__action\">Ver pedido</button></div>",
+   "guide": "## Quando usar\n\n- Confirmar algo que acabou de acontecer: “Pedido enviado”, “Proposta salva”.\n\n## Regras\n\n- Fundo tinta-leitura (escuro) para se destacar de qualquer tela; no máximo uma ação.\n- Some em 4–6 segundos. Erros que bloqueiam algo ficam na tela até a pessoa agir, dentro do próprio formulário.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "message",
+      "required": true,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "tone",
+      "required": false,
+      "type": "'neutro' | 'sucesso' | 'erro'",
+      "doc": ""
+     },
+     {
+      "name": "actionLabel",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "onAction",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "onClose",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "AppBar",
@@ -150,7 +798,64 @@
    "group": "3 · Organismos",
    "height": 230,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Barra do topo da tela: logo ou título, botão voltar e ações.",
+   "react": "<AppBar logo=\"/logo-quero-obras.png\" actions={[{ icon: 'bell', label: 'Notificações', badge: 2 }]} />\n<AppBar surface title=\"Solicitar orçamento\" onBack={() => history.back()} />",
+   "html": "<header class=\"qo-appbar qo-appbar--surface\">\n  <button class=\"qo-iconbtn\" aria-label=\"Voltar\">…</button>\n  <h1 class=\"qo-appbar__title\">Solicitar orçamento</h1>\n</header>",
+   "guide": "## Quando usar\n\n- Tela inicial: logo à esquerda e ações (notificações, perfil).\n- Telas internas: voltar + título, com `surface` (branca, com borda).\n\n## Regras\n\n- Altura de 64px. Título em Manrope 700 18px.\n- No máximo 2 ações; o resto vai no menu “mais”.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "title",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "logo",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "logoAlt",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "onBack",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "actions",
+      "required": false,
+      "type": "AppBarAction[]",
+      "doc": ""
+     },
+     {
+      "name": "surface",
+      "required": false,
+      "type": "boolean",
+      "doc": "Fundo branco com borda (telas internas)"
+     },
+     {
+      "name": "center",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "GreetingHeader",
@@ -158,7 +863,40 @@
    "group": "3 · Organismos",
    "height": 170,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Saudação de abertura da tela inicial: “Olá! Vamos transformar?” com a pergunta-guia e um selo opcional.",
+   "react": "<GreetingHeader title=\"Olá! Vamos transformar?\" subtitle=\"Qual serviço você precisa?\"\n  badge={<Badge tone=\"sucesso\" icon=\"check\">Verificado</Badge>} />",
+   "html": "<div class=\"qo-greeting\"><div class=\"qo-greeting__text\">\n  <h1 class=\"qo-greeting__title\">Olá! Vamos transformar?</h1>\n  <p class=\"qo-greeting__sub\">Qual serviço você precisa?</p>\n</div><span class=\"qo-badge qo-badge--sucesso\">Verificado</span></div>",
+   "guide": "## Quando usar\n\n- Topo da tela inicial, acima da busca.\n\n## Regras\n\n- Título em Manrope 700 28px no celular e 32px a partir de 600px.\n- Subtítulo em forma de pergunta, conduzindo à próxima ação (“Qual serviço você precisa?”).",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "title",
+      "required": true,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "subtitle",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "badge",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Card",
@@ -166,7 +904,28 @@
    "group": "3 · Organismos",
    "height": 220,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Superfície branca com raio de 20px que agrupa um conteúdo: a “figura” sobre o fundo base-respiro.",
+   "react": "<Card>…</Card>\n<Card variant=\"contorno\" onClick={abrir}>…</Card>",
+   "html": "<div class=\"qo-card qo-card--elevado qo-card__pad\">…</div>",
+   "guide": "## Quando usar\n\n- Qualquer bloco de conteúdo relacionado: resumo do pedido, proposta, dados do imóvel.\n\n## Regras\n\n- Raio de 20px (`radius-lg`) e padding de 20px (`space-5`).\n- `elevado` (sombra-1) é o padrão; `contorno` em listas densas; `destaque` (sombra-2) para o cartão principal da tela.\n- Com `onClick`, o cartão inteiro é clicável e ganha foco de teclado.",
+   "props": {
+    "extends": "React.HTMLAttributes<HTMLDivElement>",
+    "fields": [
+     {
+      "name": "variant",
+      "required": false,
+      "type": "'elevado' | 'contorno' | 'destaque'",
+      "doc": "Padrão 'elevado'"
+     },
+     {
+      "name": "padded",
+      "required": false,
+      "type": "boolean",
+      "doc": "Padding de 20px. Padrão true"
+     }
+    ]
+   }
   },
   {
    "id": "PromoCard",
@@ -174,7 +933,76 @@
    "group": "3 · Organismos",
    "height": 330,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Cartão de destaque com imagem, título, texto e CTA, o “Sua ideia começa aqui” do painel.",
+   "react": "<PromoCard image={casa} title=\"Sua ideia começa aqui\" text=\"Encontre profissionais para sua obra.\"\n  primaryLabel=\"solicitar orçamento\" primaryVariant=\"secundario\" onPrimary={pedir}\n  secondaryLabel=\"Ver profissionais\" onSecondary={listar} />",
+   "html": "<div class=\"qo-card qo-card--destaque\"><div class=\"qo-promo\">\n  <img class=\"qo-promo__img\" src=\"casa.jpg\" alt=\"\" />\n  <div><h2 class=\"qo-promo__title\">Sua ideia começa aqui</h2><p class=\"qo-promo__text\">Encontre profissionais para sua obra.</p></div>\n  <div class=\"qo-promo__actions\"><button class=\"qo-btn qo-btn--secundario qo-btn--block\">solicitar orçamento</button><button class=\"qo-btn qo-btn--link\">Ver profissionais</button></div>\n</div></div>",
+   "guide": "## Quando usar\n\n- Um por tela, para puxar a ação principal (pedir orçamento) ou uma campanha.\n\n## Regras\n\n- Imagem à esquerda e texto à direita; botões ocupando a largura toda embaixo (Gestalt: continuidade da leitura).\n- Título em Manrope 700 22px na cor azul-forte; texto em tinta-suave 14px.\n- O CTA pode ser `primario` (laranja) ou `secundario` (azul, como no painel). Se já houver um primário na tela, use o azul.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "title",
+      "required": true,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "text",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "image",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "imageAlt",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "primaryLabel",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "primaryVariant",
+      "required": false,
+      "type": "'primario' | 'secundario'",
+      "doc": ""
+     },
+     {
+      "name": "onPrimary",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "secondaryLabel",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "onSecondary",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "ProfessionalCard",
@@ -182,7 +1010,88 @@
    "group": "3 · Organismos",
    "height": 320,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Cartão de um profissional com foto, especialidade, selo Verificado, nota, cidade, tempo de resposta e ações.",
+   "react": "<ProfessionalCard name=\"Marcos Ribeiro\" role=\"Pintor residencial\" verified rating={4.9} reviews={126}\n  city=\"São Paulo · 3 km\" responseTime=\"Responde em 1 h\" tags={['Pintura', 'Textura']} onQuote={pedir} />",
+   "html": "",
+   "guide": "## Quando usar\n\n- Resultados de busca, listas de profissionais e propostas recebidas.\n\n## Regras\n\n- Ordem de leitura fixa: quem é → por que confiar (selo e nota) → onde e quando → o que fazer.\n- Duas ações: “Ver perfil” (contorno) e “Pedir orçamento” (primário).\n- Nas grades: 1 coluna no celular, 2 no tablet, 3 no desktop.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "role",
+      "required": true,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "photo",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "verified",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "rating",
+      "required": false,
+      "type": "number",
+      "doc": ""
+     },
+     {
+      "name": "reviews",
+      "required": false,
+      "type": "number",
+      "doc": ""
+     },
+     {
+      "name": "city",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "responseTime",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "tags",
+      "required": false,
+      "type": "string[]",
+      "doc": ""
+     },
+     {
+      "name": "onProfile",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "onQuote",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Stepper",
@@ -190,7 +1099,40 @@
    "group": "3 · Organismos",
    "height": 200,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Linha do tempo do pedido: Pedido → Propostas → Escolha, como no painel (Gestalt: continuidade).",
+   "react": "<Stepper steps={[\"Pedido\", \"Propostas\", \"Escolha\"]} current={1} />",
+   "html": "<ol class=\"qo-stepper\">\n  <li class=\"qo-step qo-step--feito\"><span class=\"qo-step__dot\">✓</span><span class=\"qo-step__label\">Pedido</span></li>\n  <li class=\"qo-step qo-step--atual\" aria-current=\"step\"><span class=\"qo-step__dot\"></span><span class=\"qo-step__label\">Propostas</span></li>\n  <li class=\"qo-step\"><span class=\"qo-step__dot\"></span><span class=\"qo-step__label\">Escolha</span></li>\n</ol>",
+   "guide": "## Quando usar\n\n- Acompanhar em que etapa está um pedido de orçamento.\n- Formulários de várias etapas.\n\n## Regras\n\n- De 3 a 5 etapas, com rótulos de uma palavra.\n- Etapas feitas: bolinha azul com check e linha azul. Atual: anel azul com halo. Futuras: cinza.\n- A etapa atual também fica em negrito, para não depender só da cor.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "steps",
+      "required": false,
+      "type": "string[]",
+      "doc": "Padrão ['Pedido','Propostas','Escolha']"
+     },
+     {
+      "name": "current",
+      "required": false,
+      "type": "number",
+      "doc": "Índice da etapa atual (0…)"
+     },
+     {
+      "name": "label",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "ServiceGrid",
@@ -198,7 +1140,46 @@
    "group": "3 · Organismos",
    "height": 160,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Grade de ServiceTiles: 3 colunas no celular e 6 a partir de 600px.",
+   "react": "<ServiceGrid onSelect={servico => abrir(servico)} />",
+   "html": "<div class=\"qo-servicegrid\"><button class=\"qo-tile\">…Pintura</button><button class=\"qo-tile\">…Reforma</button><button class=\"qo-tile\">…Elétrica</button></div>",
+   "guide": "## Quando usar\n\n- Atalhos de categoria na tela inicial; escolha de serviço no começo do pedido.\n\n## Regras\n\n- 12px entre os tiles (`space-3`). Todos iguais (semelhança) e juntos (proximidade).\n- No celular, 3 por linha. Se houver mais de 6 categorias, o último tile vira “Mais”, com o ícone grid.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "items",
+      "required": false,
+      "type": "Array<{ icon: IconName; label: string }>",
+      "doc": ""
+     },
+     {
+      "name": "value",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "onSelect",
+      "required": false,
+      "type": "(label: string) => void",
+      "doc": ""
+     },
+     {
+      "name": "label",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "BottomNav",
@@ -206,7 +1187,46 @@
    "group": "3 · Organismos",
    "height": 140,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Navegação principal do app no celular, com 3 a 5 destinos.",
+   "react": "<BottomNav value={aba} onChange={setAba} items={[\n  { icon: 'home', label: 'Início' }, { icon: 'pedidos', label: 'Pedidos' },\n  { icon: 'chat', label: 'Mensagens', badge: 2 }, { icon: 'user', label: 'Perfil' }]} />",
+   "html": "<nav class=\"qo-navbar\" aria-label=\"Navegação principal\">\n  <button class=\"qo-navbar__item\" aria-current=\"page\"><span class=\"qo-navbar__pill\">…</span><span>Início</span></button>\n  …\n</nav>",
+   "guide": "## Quando usar\n\n- Telas de primeiro nível: Início, Pedidos, Mensagens, Perfil.\n\n## Regras\n\n- Ícone + rótulo sempre visíveis. Ativo: pílula azul-suave, ícone e texto azul-forte em negrito.\n- A partir de 1024px, troque por navegação no topo ou na lateral.\n- Respeita a área segura do iPhone (`env(safe-area-inset-bottom)`).",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "items",
+      "required": true,
+      "type": "Array<{ icon: IconName; label: string; badge?: number }>",
+      "doc": ""
+     },
+     {
+      "name": "value",
+      "required": true,
+      "type": "number | string",
+      "doc": ""
+     },
+     {
+      "name": "onChange",
+      "required": false,
+      "type": "(index: number, label: string) => void",
+      "doc": ""
+     },
+     {
+      "name": "label",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Tabs",
@@ -214,7 +1234,40 @@
    "group": "3 · Organismos",
    "height": 110,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Abas que trocam o conteúdo de uma mesma tela, como pedidos Abertos / Em andamento / Concluídos.",
+   "react": "<Tabs items={[\"Abertos\", \"Em andamento\", \"Concluídos\"]} value={aba} onChange={setAba} />",
+   "html": "<div class=\"qo-tabs\" role=\"tablist\"><button class=\"qo-tab\" role=\"tab\" aria-selected=\"true\">Abertos</button>…</div>",
+   "guide": "## Quando usar\n\n- De 2 a 4 visões do mesmo tipo de conteúdo.\n\n## Regras\n\n- Ativa: texto azul-estrutura com barra de 3px embaixo.\n- Setas ← → do teclado trocam de aba.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "items",
+      "required": true,
+      "type": "string[]",
+      "doc": ""
+     },
+     {
+      "name": "value",
+      "required": true,
+      "type": "number",
+      "doc": ""
+     },
+     {
+      "name": "onChange",
+      "required": false,
+      "type": "(index: number) => void",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Modal",
@@ -222,7 +1275,64 @@
    "group": "3 · Organismos",
    "height": 380,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Janela de confirmação sobre um véu escuro, para decisões que interrompem o fluxo.",
+   "react": "<Modal open={aberto} onClose={fechar} icon=\"check-circle\" title=\"Aceitar proposta de Marcos?\"\n  actions={<><Button variant=\"link\" onClick={fechar}>Agora não</Button><Button onClick={aceitar}>Aceitar proposta</Button></>}>\n  As outras propostas serão recusadas automaticamente.\n</Modal>",
+   "html": "",
+   "guide": "## Quando usar\n\n- Confirmar algo importante ou que não tem volta: aceitar proposta, cancelar pedido.\n\n## Regras\n\n- Título que diz a decisão (“Aceitar proposta de Marcos?”), texto curto com a consequência e no máximo 2 botões: o de ação à direita.\n- Raio de 28px, sombra-3, véu `scrim`. Fecha com Esc e com clique fora.\n- Para escolher opções ou ver detalhes no celular, prefira BottomSheet.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "open",
+      "required": true,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "onClose",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "title",
+      "required": true,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "icon",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "actions",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "children",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "contained",
+      "required": false,
+      "type": "boolean",
+      "doc": "Prende o modal ao elemento pai (position:absolute)"
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "BottomSheet",
@@ -230,7 +1340,52 @@
    "group": "3 · Organismos",
    "height": 420,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Folha que sobe da parte de baixo da tela com opções ou detalhes, sem tirar a pessoa do contexto.",
+   "react": "<BottomSheet open={aberto} onClose={fechar} title=\"Ordenar por\">…</BottomSheet>",
+   "html": "",
+   "guide": "## Quando usar\n\n- Filtros, ordenação, escolha rápida de opções no celular.\n\n## Regras\n\n- Puxador no topo, raio de 28px só nos cantos de cima, largura máxima de 640px.\n- Fecha com Esc, clique fora ou um botão de confirmar.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "open",
+      "required": true,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "onClose",
+      "required": false,
+      "type": "() => void",
+      "doc": ""
+     },
+     {
+      "name": "title",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "children",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "contained",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "EmptyState",
@@ -238,7 +1393,46 @@
    "group": "3 · Organismos",
    "height": 300,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Tela ou área vazia que explica o que vai aparecer ali e oferece o próximo passo.",
+   "react": "<EmptyState icon=\"pedidos\" title=\"Você ainda não tem pedidos\"\n  text=\"Descreva sua obra e receba propostas de profissionais verificados.\"\n  action={<Button>solicitar orçamento</Button>} />",
+   "html": "",
+   "guide": "## Quando usar\n\n- Listas sem itens: nenhum pedido, nenhuma mensagem, busca sem resultado.\n\n## Regras\n\n- Título dizendo o que falta, uma frase dizendo como resolver e um botão para isso.\n- Tom acolhedor, sem culpar a pessoa.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "icon",
+      "required": false,
+      "type": "IconName",
+      "doc": ""
+     },
+     {
+      "name": "title",
+      "required": true,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "text",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "action",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "QuoteForm",
@@ -246,7 +1440,58 @@
    "group": "3 · Organismos",
    "height": 720,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Formulário completo de pedido de orçamento: serviço, cidade, descrição, prazo e fotos.",
+   "react": "<QuoteForm onSubmit={valores => enviarPedido(valores)} />",
+   "html": "",
+   "guide": "## Quando usar\n\n- Fluxo de “solicitar orçamento”, em tela cheia ou dentro de um cartão no desktop.\n\n## Regras\n\n- Campos agrupados por assunto em blocos com título (Gestalt: proximidade). No celular, Serviço e Cidade empilham; a partir de 600px ficam lado a lado.\n- Valida ao enviar e mostra o erro no campo, dizendo como corrigir.\n- Um único botão primário no fim, ocupando toda a largura.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "services",
+      "required": false,
+      "type": "string[]",
+      "doc": ""
+     },
+     {
+      "name": "cities",
+      "required": false,
+      "type": "string[]",
+      "doc": ""
+     },
+     {
+      "name": "defaultService",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "onSubmit",
+      "required": false,
+      "type": "(values: QuoteFormValues) => void",
+      "doc": ""
+     },
+     {
+      "name": "loading",
+      "required": false,
+      "type": "boolean",
+      "doc": ""
+     },
+     {
+      "name": "submitLabel",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Container",
@@ -254,7 +1499,34 @@
    "group": "4 · Layout e templates",
    "height": 110,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Centraliza o conteúdo, limita a largura a 1200px e aplica as margens laterais de cada tamanho de tela.",
+   "react": "<Container>…</Container>",
+   "html": "<div class=\"qo-container\">…</div>",
+   "guide": "## Quando usar\n\n- Em volta de toda a página web ou de cada seção que vai de borda a borda.\n\n## Regras\n\n- Margens: 16px (celular), 24px (600px+), 32px (1024px+). Largura máxima `container-max` de 1200px.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "children",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "style",
+      "required": false,
+      "type": "React.CSSProperties",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Grid",
@@ -262,7 +1534,34 @@
    "group": "4 · Layout e templates",
    "height": 330,
    "width": 1200,
-   "subtitle": "Preview em 1200px (desktop, 12 colunas)"
+   "subtitle": "Preview em 1200px (desktop, 12 colunas)",
+   "summary": "Grade responsiva de colunas: 4 no celular, 8 no tablet (600px+) e 12 no desktop (1024px+). Use com Col e Container.",
+   "react": "<Container>\n  <Grid>\n    <Col sm={4} md={8} lg={8}>Conteúdo principal</Col>\n    <Col sm={4} md={8} lg={4}>Barra lateral</Col>\n  </Grid>\n</Container>",
+   "html": "<div class=\"qo-container\"><div class=\"qo-grid\">\n  <div class=\"qo-col\" style=\"--sm:4; --md:8; --lg:8\">Conteúdo principal</div>\n  <div class=\"qo-col\" style=\"--sm:4; --md:8; --lg:4\">Barra lateral</div>\n</div></div>",
+   "guide": "## Quando usar\n\n- Montar qualquer layout de página que muda de forma entre celular, tablet e desktop.\n\n## Regras\n\n- Gutter de 16px (celular e tablet) e 24px (desktop). Margens laterais de 16 / 24 / 32px (Container).\n- Col recebe quantas colunas ocupa em cada tamanho: `sm` de 4, `md` de 8, `lg` de 12.\n- Mobile first: pense primeiro no celular e diga o que muda nos tamanhos maiores.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "children",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "style",
+      "required": false,
+      "type": "React.CSSProperties",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Col",
@@ -270,7 +1569,52 @@
    "group": "4 · Layout e templates",
    "height": 90,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Coluna da Grid: define quantas colunas o bloco ocupa no celular (`sm`, de 4), no tablet (`md`, de 8) e no desktop (`lg`, de 12).",
+   "react": "<Col sm={4} md={4} lg={3}>…</Col>",
+   "html": "<div class=\"qo-col\" style=\"--sm:4; --md:4; --lg:3\">…</div>",
+   "guide": "## Quando usar\n\n- Sempre como filha direta de Grid.\n\n## Regras\n\n- Sem valores, ocupa a linha inteira em todos os tamanhos.\n- Se só `sm` for dado, o tablet usa o dobro.",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "sm",
+      "required": false,
+      "type": "number",
+      "doc": "Colunas no celular (de 4). Padrão 4"
+     },
+     {
+      "name": "md",
+      "required": false,
+      "type": "number",
+      "doc": "Colunas no tablet (de 8)"
+     },
+     {
+      "name": "lg",
+      "required": false,
+      "type": "number",
+      "doc": "Colunas no desktop (de 12)"
+     },
+     {
+      "name": "children",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "style",
+      "required": false,
+      "type": "React.CSSProperties",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "Stack",
@@ -278,7 +1622,52 @@
    "group": "4 · Layout e templates",
    "height": 120,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Empilha elementos (em coluna ou em linha) com um espaçamento da escala, sem CSS extra.",
+   "react": "<Stack gap={3}>…</Stack>\n<Stack direction=\"row\" gap={2}>…</Stack>",
+   "html": "<div class=\"qo-stack\" style=\"gap: var(--space-3)\">…</div>",
+   "guide": "## Quando usar\n\n- Qualquer grupo de elementos com espaço regular entre eles.\n\n## Regras\n\n- `gap` usa a escala de espaçamento: 2 = 8px, 3 = 12px, 4 = 16px, 6 = 24px…\n- Itens do mesmo grupo: gap 2–3. Grupos diferentes: gap 6 ou mais (proximidade).",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "direction",
+      "required": false,
+      "type": "'column' | 'row'",
+      "doc": ""
+     },
+     {
+      "name": "gap",
+      "required": false,
+      "type": "1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16",
+      "doc": "Passo da escala de espaçamento (space-N). Padrão 4"
+     },
+     {
+      "name": "as",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "children",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "style",
+      "required": false,
+      "type": "React.CSSProperties",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "AppShell",
@@ -286,7 +1675,58 @@
    "group": "4 · Layout e templates",
    "height": 800,
    "width": null,
-   "subtitle": ""
+   "subtitle": "",
+   "summary": "Estrutura de tela de app no celular: barra do topo, área com rolagem, botão flutuante opcional e navegação inferior. É o template que as páginas preenchem.",
+   "react": "<AppShell\n  appBar={<AppBar logo={logo} actions={[{ icon: 'bell', label: 'Notificações' }]} />}\n  bottomNav={<BottomNav value={0} items={itens} />}>\n  …conteúdo…\n</AppShell>",
+   "html": "",
+   "guide": "## Quando usar\n\n- Toda tela de primeiro nível do app (Início, Pedidos, Mensagens, Perfil).\n- Telas de fluxo usam `footer` (botão fixo embaixo) no lugar da navegação.\n\n## Regras\n\n- Só a área do meio rola; o topo e a navegação ficam fixos.\n- Fundo base-respiro; o conteúdo entra em cartões brancos (figura-fundo).\n- Padding lateral do conteúdo: 16px (`space-4`).",
+   "props": {
+    "extends": "",
+    "fields": [
+     {
+      "name": "appBar",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "bottomNav",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "fab",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "footer",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "children",
+      "required": false,
+      "type": "React.ReactNode",
+      "doc": ""
+     },
+     {
+      "name": "className",
+      "required": false,
+      "type": "string",
+      "doc": ""
+     },
+     {
+      "name": "style",
+      "required": false,
+      "type": "React.CSSProperties",
+      "doc": ""
+     }
+    ]
+   }
   },
   {
    "id": "PaginaInicio",
@@ -294,7 +1734,12 @@
    "group": "5 · Páginas",
    "height": 800,
    "width": null,
-   "subtitle": "Tela inicial do app, recriada do painel"
+   "subtitle": "Tela inicial do app, recriada do painel",
+   "summary": "A tela inicial do painel “Da marca à interface” montada só com componentes do sistema: AppShell + AppBar + GreetingHeader + SearchField + ServiceGrid + PromoCard + Stepper + BottomNav.",
+   "react": "<AppShell appBar={<AppBar logo={logo} actions={[{ icon: 'bell', label: 'Notificações', badge: 2 }]} />}\n  bottomNav={<BottomNav value={0} items={itens} />}>\n  <Stack gap={5} style={{ padding: '8px 16px 24px' }}>\n    <GreetingHeader title=\"Olá! Vamos transformar?\" subtitle=\"Qual serviço você precisa?\"\n      badge={<Badge tone=\"sucesso\" icon=\"check\">Verificado</Badge>} />\n    <SearchField placeholder=\"Buscar serviço\" />\n    <ServiceGrid onSelect={abrirServico} />\n    <PromoCard image={casa} title=\"Sua ideia começa aqui\" text=\"Encontre profissionais para sua obra.\"\n      primaryLabel=\"solicitar orçamento\" primaryVariant=\"secundario\" secondaryLabel=\"Ver profissionais\" />\n    <Card><Stepper current={1} /></Card>\n  </Stack>\n</AppShell>",
+   "html": "",
+   "guide": "## Quando usar\n\n- Referência de como átomos, moléculas e organismos se juntam numa página real.\n\n## Regras\n\n- Ordem da tela segue a leitura: saudação → busca → categorias → destaque → acompanhamento.\n- Entre blocos, 20px (`space-5`); dentro dos blocos, 12px.",
+   "props": null
   },
   {
    "id": "PaginaOrcamento",
@@ -302,7 +1747,12 @@
    "group": "5 · Páginas",
    "height": 800,
    "width": null,
-   "subtitle": "Fluxo de pedido no celular"
+   "subtitle": "Fluxo de pedido no celular",
+   "summary": "Fluxo de pedido de orçamento no celular: AppBar com voltar, Stepper na etapa 1, QuoteForm e Modal de confirmação.",
+   "react": "<AppShell appBar={<AppBar surface title=\"Solicitar orçamento\" onBack={voltar} />}>\n  <div style={{ padding: 16 }}>\n    <Stepper current={0} />\n    <QuoteForm onSubmit={enviar} />\n  </div>\n</AppShell>",
+   "html": "",
+   "guide": "## Quando usar\n\n- Referência para qualquer fluxo de formulário do app.\n\n## Regras\n\n- Tela de fluxo não tem navegação inferior: tem voltar no topo e um único botão principal no fim.\n- Depois de enviar, confirme com Modal ou Toast e mostre o próximo passo.",
+   "props": null
   },
   {
    "id": "PaginaProfissionais",
@@ -310,7 +1760,12 @@
    "group": "5 · Páginas",
    "height": 900,
    "width": 1280,
-   "subtitle": "Versão web em 1280px · 12 colunas"
+   "subtitle": "Versão web em 1280px · 12 colunas",
+   "summary": "Lista de profissionais na versão web, mostrando a grade responsiva: os cartões ocupam 4 de 12 colunas no desktop (3 por linha), 4 de 8 no tablet (2 por linha) e a largura toda no celular.",
+   "react": "<Container>\n  <Grid>\n    <Col sm={4} md={8} lg={12}><h1>Profissionais perto de você</h1></Col>\n    {profissionais.map(p => (\n      <Col key={p.id} sm={4} md={4} lg={4}><ProfessionalCard {...p} /></Col>\n    ))}\n  </Grid>\n</Container>",
+   "html": "",
+   "guide": "## Quando usar\n\n- Referência para páginas web e para telas de tablet.\n\n## Regras\n\n- Topo com logo, busca e o CTA primário; título da página em Manrope 700 32px.\n- Filtros em chips logo acima dos resultados (proximidade).\n- Cartões com a mesma altura de leitura e ações no rodapé (semelhança + continuidade).",
+   "props": null
   }
  ],
  "groups": [

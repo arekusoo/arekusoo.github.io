@@ -8,6 +8,7 @@
 <link rel="icon" href="assets/logo-quero-obras.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
 <link rel="stylesheet" href="tokens.css">
 <style>
 /*
@@ -99,6 +100,72 @@ footer{max-width:1080px;margin:56px auto 0;padding-top:20px;border-top:1px solid
 .pager a{flex:1;max-width:48%;border:1px solid var(--borda);background:var(--superficie);border-radius:14px;padding:12px 16px;text-decoration:none;color:var(--tinta-leitura);font-weight:600}
 .pager a small{display:block;font-weight:400;color:var(--tinta-suave);font-size:12px}
 .pager a.next{text-align:right;margin-left:auto}
+
+/* ── Workspace (estilo Storybook): canvas em cima, painel de código embaixo ── */
+body.ws main{padding:0;height:100vh;display:grid;grid-template-rows:auto minmax(0,1fr) 10px var(--panel-h,44vh);overflow:hidden}
+body.ws main > footer{display:none}
+body.ws .page{max-width:none;margin:0;display:contents}
+.ws-bar{display:flex;align-items:center;gap:16px;padding:10px 20px;background:var(--superficie);border-bottom:1px solid var(--borda);min-height:64px;flex-wrap:wrap}
+.ws-title{flex:1;min-width:200px}
+.ws-title small{display:block;font:600 12px/16px var(--font-sans);color:var(--azul-estrutura)}
+.ws-title h1{margin:0;font:700 20px/26px var(--font-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ws-title p{margin:2px 0 0;font-size:13px;line-height:18px;color:var(--tinta-suave);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg{display:inline-flex;background:var(--superficie-alt);border-radius:10px;padding:3px;gap:2px}
+.seg button{height:34px;padding:0 12px;border:0;border-radius:8px;background:transparent;color:var(--tinta-suave);font:600 13px var(--font-sans);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.seg button[aria-pressed=true]{background:var(--superficie);color:var(--tinta-leitura);box-shadow:var(--sombra-1)}
+.seg button:focus-visible,.tool:focus-visible,.tab:focus-visible{outline:2px solid var(--foco);outline-offset:1px}
+.tool{height:40px;padding:0 14px;border:1px solid var(--borda);border-radius:10px;background:var(--superficie);color:var(--azul-estrutura);font:600 13px var(--font-sans);text-decoration:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.canvas{overflow:auto;background:var(--base-respiro);background-image:radial-gradient(var(--borda) 1px,transparent 1px);background-size:16px 16px;padding:24px}
+.canvas__frame{margin:0 auto;background:var(--base-respiro);border-radius:12px;box-shadow:0 0 0 1px var(--borda);overflow:hidden;position:relative}
+.canvas__frame iframe{display:block;border:0;transform-origin:0 0;background:var(--base-respiro)}
+.canvas__dim{text-align:center;font:500 12px 'JetBrains Mono',monospace;color:var(--tinta-suave);margin:0 0 10px}
+.resizer{background:var(--superficie);border-top:1px solid var(--borda);cursor:row-resize;display:grid;place-items:center;touch-action:none}
+.resizer::before{content:"";width:40px;height:4px;border-radius:2px;background:var(--borda-forte)}
+.resizer:focus-visible{outline:2px solid var(--foco);outline-offset:-2px}
+.panel{background:#0d2230;color:#e6eef3;display:flex;flex-direction:column;min-height:0}
+.tabs{display:flex;align-items:center;gap:4px;padding:0 12px;border-bottom:1px solid rgba(255,255,255,.1);background:#0a1c28;flex:none;overflow-x:auto}
+.tab{position:relative;flex:none;height:48px;padding:0 16px;border:0;background:none;color:#9fb3c1;font:600 14px var(--font-sans);cursor:pointer;white-space:nowrap}
+.tab:hover{color:#fff}
+.tab[aria-selected=true]{color:#fff}
+.tab[aria-selected=true]::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--ambar-apoio)}
+.tabs .spacer{flex:1}
+.cp{height:34px;padding:0 14px;border:0;border-radius:8px;background:var(--cta);color:#fff;font:600 13px var(--font-sans);cursor:pointer;display:inline-flex;align-items:center;gap:6px;flex:none}
+.cp:hover{background:var(--cta-forte)}
+.cp[hidden]{display:none}
+.cp:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.panel__body{flex:1;min-height:0;overflow:auto}
+.codeview{display:grid;grid-template-columns:auto minmax(0,1fr);font:400 14px/1.7 'JetBrains Mono',ui-monospace,monospace;min-width:max-content}
+.codeview .gut{padding:16px 12px 16px 20px;text-align:right;color:#4f6a7c;user-select:none;white-space:pre;border-right:1px solid rgba(255,255,255,.06)}
+.codeview pre{margin:0;padding:16px 24px;white-space:pre;tab-size:2}
+.codeview pre code.hljs{background:none;padding:0}
+.codehint{padding:10px 20px;font-size:13px;color:#9fb3c1;border-bottom:1px solid rgba(255,255,255,.06);background:#0b1f2c}
+.codehint code{color:#ffd29b;font-family:'JetBrains Mono',monospace}
+.props{width:100%;border-collapse:collapse;font-size:14px;min-width:620px}
+.props th{position:sticky;top:0;background:#0a1c28;text-align:left;font:600 12px var(--font-sans);color:#9fb3c1;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+.props td{padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;line-height:1.5}
+.props td:first-child{font:500 14px 'JetBrains Mono',monospace;color:#7fd0ff;white-space:nowrap}
+.props td:nth-child(2) code{font:400 13px 'JetBrains Mono',monospace;color:#ffd29b;overflow-wrap:anywhere}
+.req{display:inline-block;margin-left:6px;font:600 10px var(--font-sans);color:#ffb4a8;vertical-align:middle}
+.guide{padding:8px 24px 32px;max-width:80ch;color:#e6eef3}
+.guide h2{font:700 16px var(--font-display);margin:20px 0 8px;color:#fff}
+.guide li,.guide p{color:#d3dee5;font-size:15px;line-height:1.6}
+.guide code{font:500 .88em 'JetBrains Mono',monospace;background:rgba(255,255,255,.08);padding:1px 5px;border-radius:5px;color:#ffd29b}
+.guide a{color:#7fd0ff}
+nav a .dot{width:6px;height:6px;border-radius:50%;background:var(--borda-forte);margin-right:10px;flex:none}
+nav a[aria-current=page] .dot{background:var(--azul-estrutura)}
+@media (max-width:900px){
+  body.ws main{height:auto;display:block;overflow:visible}
+  .resizer{display:none}
+  .canvas{padding:12px}
+  .panel{min-height:60vh}
+  .panel__body{max-height:none}
+  .ws-bar{padding:12px 16px}
+  .seg button span{display:none}
+  .tab{padding:0 12px;font-size:13px}
+  .tabs{padding:0 4px}
+  .cp{position:fixed;right:16px;bottom:16px;z-index:5;height:44px;box-shadow:var(--sombra-3)}
+}
+
 @media (max-width:900px){
   .layout{grid-template-columns:minmax(0,1fr)}
   aside{position:fixed;inset:0 auto 0 0;width:min(300px,86vw);z-index:20;transform:translateX(-102%);transition:transform .2s;box-shadow:var(--sombra-3)}
@@ -133,6 +200,7 @@ footer{max-width:1080px;margin:56px auto 0;padding-top:20px;border-top:1px solid
   </main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
 {
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -148,7 +216,7 @@ function buildNav(q){
   let h = '<h3>Fundamentos</h3>' + FOUND.filter(f=>!q||f[1].toLowerCase().includes(q)).map(f=>`<a href="#${f[0]}" data-id="${f[0]}">${esc(f[1])}</a>`).join('');
   for (const g of catalog.groups){
     const items = catalog.components.filter(c=>c.group===g && (!q || c.title.toLowerCase().includes(q)));
-    if (items.length) h += `<h3>${esc(g)}</h3>` + items.map(c=>`<a href="#${c.id}" data-id="${c.id}">${esc(c.title)}</a>`).join('');
+    if (items.length) h += `<h3>${esc(g)}</h3>` + items.map(c=>`<a href="#${c.id}" data-id="${c.id}"><span class="dot"></span>${esc(c.title)}</a>`).join('');
   }
   nav.innerHTML = h; mark();
 }
@@ -239,21 +307,101 @@ function grade(){
   page.appendChild(md('## Tokens de layout\n\n| Token | Valor | Uso |\n| --- | --- | --- |\n' + tokens.breakpoint.tokens.concat(tokens.grid.tokens).map(t=>`| \`${t.name}\` | ${t.value} | ${t.usage} |`).join('\n') +
     '\n\n## Exemplo\n\n```jsx\n<Container>\n  <Grid>\n    <Col sm={4} md={8} lg={8}>Conteúdo principal</Col>\n    <Col sm={4} md={8} lg={4}>Barra lateral</Col>\n  </Grid>\n</Container>\n```\n\nVeja o componente **Grid** para a demonstração ao vivo e a página **Profissionais** para a grade aplicada.'));
 }
-async function component(id){
+
+let wsCleanup = null;
+const VPS = [['fit','Ajustar',0],['m','Celular',390],['t','Tablet',768],['d','Desktop',1280]];
+const ICO = {fit:'M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4', m:'M8 3h8v18H8zM11 18h2', t:'M5 4h14v16H5zM11 17h2', d:'M3 5h18v11H3zM8 20h8M12 16v4'};
+function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
+function lines(code){ return code.split('\n').map((_, i) => i + 1).join('\n'); }
+function hl(code, lang){ try { return window.hljs ? hljs.highlight(code, {language: lang}).value : esc(code); } catch(e) { return esc(code); } }
+function codeBlock(code, lang){ return `<div class="codeview"><div class="gut" aria-hidden="true">${lines(code)}</div><pre><code class="hljs language-${lang}">${hl(code, lang)}</code></pre></div>`; }
+function propsTable(c){
+  if (!c.props) return '<div class="guide"><p>Esta é uma página de exemplo, montada com os componentes do sistema. Veja as propriedades de cada componente na lista à esquerda.</p></div>';
+  const rows = c.props.fields.map(f => `<tr><td>${esc(f.name)}${f.required ? '<span class="req">obrigatório</span>' : ''}</td><td><code>${esc(f.type)}</code></td><td>${esc(f.doc || '—')}</td></tr>`).join('');
+  const ext = c.props.extends ? `<div class="codehint">Também aceita todos os atributos de <code>${esc(c.props.extends)}</code> (onClick, disabled, aria-*…).</div>` : '';
+  return ext + `<table class="props"><thead><tr><th>Propriedade</th><th>Tipo</th><th>Descrição</th></tr></thead><tbody>${rows || '<tr><td colspan="3">Sem propriedades.</td></tr>'}</tbody></table>`;
+}
+function component(id){
   const c = catalog.components.find(c=>c.id===id);
-  const src = await (await fetch(`docs/${id}.md`)).text();
-  const lines = src.split('\n'); const summary = (lines.find((l,i)=>i>0 && l.trim()) || '');
-  const rest = src.replace(/^# .*\n+/, '').replace(summary, '');
-  page.innerHTML = `<p class="eyebrow">${esc(c.group.replace(/^\d · /,''))}</p><h1 class="title">${esc(c.title)}</h1>`;
-  const lede = document.createElement('p'); lede.className='lede'; lede.innerHTML = marked.parseInline(summary); page.appendChild(lede);
-  page.appendChild(stage(c));
-  page.appendChild(md(rest));
+  document.body.classList.add('ws');
+  const tabs = [];
+  if (c.react) tabs.push(['react', 'React', c.react]);
+  if (c.html) tabs.push(['html', 'HTML / CSS', c.html]);
+  tabs.push(['props', 'Propriedades']);
+  tabs.push(['guide', 'Guia de uso']);
+  let vp = store('qo-vp') || 'fit';
+  let tab = store('qo-tab'); if (!tabs.some(t => t[0] === tab)) tab = tabs[0][0];
+  page.innerHTML = `
+  <div class="ws-bar">
+    <div class="ws-title"><small>${esc(c.group.replace(/^\d · /,''))}</small><h1>${esc(c.title)}</h1><p>${esc(c.summary.replace(/[*`]/g,''))}</p></div>
+    <div class="seg" role="group" aria-label="Tamanho da tela">${VPS.map(v => `<button type="button" data-vp="${v[0]}" aria-pressed="${v[0]===vp}" title="${v[1]}${v[2] ? ' · ' + v[2] + 'px' : ''}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${ICO[v[0]]}"/></svg><span>${v[1]}</span></button>`).join('')}</div>
+    <a class="tool" href="previews/${c.id}.html" target="_blank" rel="noopener">Tela cheia ↗</a>
+  </div>
+  <div class="canvas" id="canvas"><p class="canvas__dim" id="dim"></p><div class="canvas__frame" id="frame"><iframe title="Visualização de ${esc(c.title)}" src="previews/${c.id}.html"></iframe></div></div>
+  <div class="resizer" id="resizer" role="separator" aria-orientation="horizontal" aria-label="Redimensionar painel de código" tabindex="0"></div>
+  <section class="panel" aria-label="Código e documentação">
+    <div class="tabs" role="tablist">${tabs.map(t => `<button class="tab" role="tab" type="button" data-tab="${t[0]}" aria-selected="${t[0]===tab}">${t[1]}</button>`).join('')}<span class="spacer"></span><button class="cp" id="copy" type="button">Copiar código</button></div>
+    <div class="panel__body" id="pbody" role="tabpanel"></div>
+  </section>`;
+  const canvas = document.getElementById('canvas'), frame = document.getElementById('frame'), fr = frame.querySelector('iframe'), dim = document.getElementById('dim');
+  let h = c.height;
+  function fit(){
+    const avail = canvas.clientWidth - 48;
+    const v = VPS.find(x => x[0] === vp);
+    const want = v[2] || c.width || avail;
+    const s = want > avail ? avail / want : 1;
+    fr.style.width = want + 'px'; fr.style.height = h + 'px';
+    fr.style.transform = s < 1 ? `scale(${s})` : '';
+    frame.style.width = Math.floor(want * s) + 'px'; frame.style.height = Math.ceil(h * s) + 'px';
+    dim.textContent = (v[2] || c.width ? want + ' px' : 'largura livre') + (s < 1 ? ` · ${Math.round(s*100)}%` : '');
+  }
+  const onMsg = e => { if (e.data && e.data.qoPreview === c.id + '.html' && e.data.h > 40) { h = Math.max(e.data.h, 60); fit(); } };
+  addEventListener('message', onMsg);
+  const ro = new ResizeObserver(fit); ro.observe(canvas); fit();
+  page.querySelectorAll('[data-vp]').forEach(b => b.addEventListener('click', () => {
+    vp = b.dataset.vp; store('qo-vp', vp);
+    page.querySelectorAll('[data-vp]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    h = c.height; fr.contentWindow && fr.contentWindow.location.reload(); fit();
+  }));
+  const pbody = document.getElementById('pbody'), copy = document.getElementById('copy');
+  function show(){
+    const t = tabs.find(t => t[0] === tab);
+    page.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+    if (t[2] != null) { pbody.innerHTML = (tab === 'react' ? `<div class="codehint">Carregue <code>tokens.css</code> e <code>bundle.css</code> no projeto. Componentes em <code>window.QueroObras</code> ou copiados de <code>bundle.js</code>.</div>` : `<div class="codehint">Sem React: só <code>tokens.css</code> + <code>bundle.css</code>. Funciona em Vue, Angular, WordPress ou HTML puro.</div>`) + codeBlock(t[2], tab === 'html' ? 'xml' : 'javascript'); copy.hidden = false; }
+    else if (tab === 'props') { pbody.innerHTML = propsTable(c); copy.hidden = true; }
+    else { pbody.innerHTML = '<div class="guide">' + marked.parse(c.guide || '') + '</div>'; copy.hidden = true; }
+    pbody.scrollTop = 0;
+  }
+  page.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => { tab = b.dataset.tab; store('qo-tab', tab); show(); }));
+  page.querySelector('.tabs').addEventListener('keydown', e => {
+    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return;
+    const i = (tabs.findIndex(t => t[0] === tab) + d + tabs.length) % tabs.length; tab = tabs[i][0]; store('qo-tab', tab); show();
+    page.querySelector(`.tab[data-tab="${tab}"]`).focus();
+  });
+  copy.addEventListener('click', () => {
+    const t = tabs.find(t => t[0] === tab);
+    navigator.clipboard.writeText(t[2] || '').then(() => { copy.textContent = 'Copiado ✓'; setTimeout(() => copy.textContent = 'Copiar código', 1500); }).catch(() => { copy.textContent = 'Selecione e copie'; });
+  });
+  show();
+  // painel redimensionável
+  const main = document.querySelector('main'), rz = document.getElementById('resizer');
+  const saved = store('qo-panel'); if (saved) main.style.setProperty('--panel-h', saved + 'px');
+  function setH(px){ px = Math.max(140, Math.min(innerHeight - 200, px)); main.style.setProperty('--panel-h', px + 'px'); store('qo-panel', Math.round(px)); }
+  rz.addEventListener('pointerdown', e => {
+    rz.setPointerCapture(e.pointerId);
+    const move = ev => setH(innerHeight - ev.clientY - 5);
+    const up = () => { rz.removeEventListener('pointermove', move); rz.removeEventListener('pointerup', up); };
+    rz.addEventListener('pointermove', move); rz.addEventListener('pointerup', up);
+  });
+  rz.addEventListener('keydown', e => { const cur = document.querySelector('.panel').getBoundingClientRect().height; if (e.key === 'ArrowUp') setH(cur + 32); if (e.key === 'ArrowDown') setH(cur - 32); });
+  wsCleanup = () => { removeEventListener('message', onMsg); ro.disconnect(); };
 }
 const VIEWS = {introducao:intro, cores, tipografia, espacamento, forma, grade};
 async function render(){
   const id = current();
-  if (VIEWS[id]) VIEWS[id](); else await component(id);
-  page.insertAdjacentHTML('beforeend', pager(id));
+  if (wsCleanup) { wsCleanup(); wsCleanup = null; }
+  document.body.classList.remove('ws');
+  if (VIEWS[id]) { VIEWS[id](); page.insertAdjacentHTML('beforeend', pager(id)); } else component(id);
   document.title = label(id) + ' · Quero Obras DS';
   mark(); document.body.classList.remove('nav-open');
   window.scrollTo(0,0);
