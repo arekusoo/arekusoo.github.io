@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../components/bundle.css"><script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script><script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script><script src="../components/bundle.js"></script><style>body{background:var(--base-respiro)}</style><meta charset="utf-8"><title>Preview</title></head>
+<body>
+<div id="root" class="qo-root"></div>
+<script>
+var Q = window.QueroObras, h = React.createElement, useState = React.useState;
+function Orc() {
+  var st = useState(false);
+  return h('div', { className: 'qo-phone' }, h(Q.AppShell, {
+    appBar: h(Q.AppBar, { surface: true, title: 'Solicitar orçamento', onBack: function () {} }) },
+    h('div', { style: { padding: 16 } },
+      h(Q.Stepper, { steps: ['Pedido', 'Propostas', 'Escolha'], current: 0 }),
+      h('div', { style: { height: 20 } }),
+      h(Q.QuoteForm, { onSubmit: function () { st[1](true); } })),
+    h(Q.Modal, { open: st[0], contained: true, onClose: function () { st[1](false); }, icon: 'check-circle', title: 'Pedido enviado!',
+      actions: h(Q.Button, { variant: 'secundario', onClick: function () { st[1](false); } }, 'Acompanhar pedido') }, 'Em até 24 h você recebe propostas de profissionais verificados.')));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(Orc));
+</script>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+</html>

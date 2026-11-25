@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../components/bundle.css"><script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script><script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script><script src="../components/bundle.js"></script><style>body{background:var(--base-respiro)}</style>
+<meta charset="utf-8">
+<title>Quero Obras</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--base-respiro); color:var(--tinta-leitura); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; height:288px; width:960px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:288px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:288px; }
+  .estrutura { fill:var(--azul-estrutura); }
+  .marca { fill:var(--laranja-marca); }
+  .apoio { fill:var(--ambar-apoio); }
+  .tinta { fill:var(--tinta-leitura); }
+  .suave { fill:var(--cta-suave); }
+  .chao { fill:var(--base-respiro); }
+  .arco { fill:none; stroke:var(--ambar-apoio); stroke-width:12; }
+  .words { position:absolute; left:var(--space-6); bottom:var(--space-6); max-width:440px; }
+  .name { margin:0; font-family:var(--font-display); font-size:96px; line-height:.95; font-weight:700; letter-spacing:-.02em; color:var(--tinta-leitura); }
+  .tag { margin:var(--space-2) 0 0 4px; font-size:14px; line-height:20px; color:var(--tinta-suave); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks      azul-estrutura 176×308 slab bled off the top (estrutura, the largest) · laranja-marca 176×168 bleeding right (marca) · tinta-leitura 96×216 · ambar-apoio 80×48 and cta-suave 80×48 as button-sized chips — ≈38% of 960×288
+  arrangement one tall azul slab flanked by a dark pillar and an orange block, bottoms on one line space-6 above the edge, space-4 gutters
+  pattern     literal motif row: “Acolhimento” doorways — three arches (half-rounds of radius-lg) cut from the slab in base-respiro; “Movimento” ribbon as two quarter-circle arcs in ambar-apoio across the orange block
+  scales      sides in space-4/space-6 multiples; gutters space-4; corners radius-lg (20) on blocks, radius-md (12) on the chips; arches 40 wide (2 × radius-lg)
+-->
+<defs><clipPath id="m"><rect x="320" y="96" width="176" height="168" rx="20"/></clipPath></defs>
+<rect class="tinta" x="16" y="48" width="96" height="216" rx="20"/>
+<rect class="estrutura" x="128" y="-44" width="176" height="308" rx="20"/>
+<path class="chao" d="M152 264V172a20 20 0 0 1 40 0V264Z"/>
+<path class="chao" d="M208 264V132a20 20 0 0 1 40 0V264Z" transform="translate(0 0)"/>
+<rect class="apoio" x="320" y="32" width="80" height="48" rx="12"/>
+<rect class="suave" x="416" y="32" width="80" height="48" rx="12"/>
+<rect class="marca" x="320" y="96" width="176" height="168" rx="20"/>
+<g clip-path="url(#m)">
+<circle class="arco" cx="496" cy="264" r="64"/>
+<circle class="arco" cx="496" cy="264" r="120"/>
+</g>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Quero<br>Obras</h1>
+<p class="tag">Conexão · Clareza · Transformação</p>
+</div>
+</div>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+</html>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../components/bundle.css"><script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script><script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script><script src="../components/bundle.js"></script><style>body{background:var(--base-respiro)}</style><meta charset="utf-8"><title>Preview</title></head>
+<body>
+<div id="root" class="qo-root"></div>
+<script>
+var Q = window.QueroObras, h = React.createElement, useState = React.useState;
+function Demo() { var s = useState(true);
+  return h('div', { style: { position: 'relative', height: 360, background: 'var(--base-respiro)' } },
+    h('div', { style: { padding: 20 } }, h(Q.Button, { onClick: function () { s[1](true); } }, 'Abrir modal')),
+    h(Q.Modal, { open: s[0], contained: true, onClose: function () { s[1](false); }, icon: 'check-circle', title: 'Aceitar proposta de Marcos?',
+      actions: [h(Q.Button, { key: 1, variant: 'link', onClick: function () { s[1](false); } }, 'Agora não'), h(Q.Button, { key: 2, onClick: function () { s[1](false); } }, 'Aceitar proposta')] },
+      'As outras propostas serão recusadas automaticamente.')); }
+ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+</html>

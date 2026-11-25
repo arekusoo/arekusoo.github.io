@@ -1,0 +1,323 @@
+{
+ "components": [
+  {
+   "id": "Icon",
+   "title": "Icon",
+   "group": "1 · Átomos",
+   "height": 220,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Badge",
+   "title": "Badge",
+   "group": "1 · Átomos",
+   "height": 96,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Avatar",
+   "title": "Avatar",
+   "group": "1 · Átomos",
+   "height": 96,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Divider",
+   "title": "Divider",
+   "group": "1 · Átomos",
+   "height": 120,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Spinner",
+   "title": "Spinner",
+   "group": "1 · Átomos",
+   "height": 88,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Checkbox",
+   "title": "Checkbox",
+   "group": "1 · Átomos",
+   "height": 200,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Radio",
+   "title": "Radio",
+   "group": "1 · Átomos",
+   "height": 190,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Switch",
+   "title": "Switch",
+   "group": "1 · Átomos",
+   "height": 150,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Rating",
+   "title": "Rating",
+   "group": "1 · Átomos",
+   "height": 120,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Button",
+   "title": "Button",
+   "group": "2 · Moléculas",
+   "height": 300,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "IconButton",
+   "title": "IconButton",
+   "group": "2 · Moléculas",
+   "height": 100,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "TextField",
+   "title": "TextField",
+   "group": "2 · Moléculas",
+   "height": 380,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Select",
+   "title": "Select",
+   "group": "2 · Moléculas",
+   "height": 190,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "SearchField",
+   "title": "SearchField",
+   "group": "2 · Moléculas",
+   "height": 160,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "ServiceTile",
+   "title": "ServiceTile",
+   "group": "2 · Moléculas",
+   "height": 150,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Chip",
+   "title": "Chip",
+   "group": "2 · Moléculas",
+   "height": 110,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "ListItem",
+   "title": "ListItem",
+   "group": "2 · Moléculas",
+   "height": 250,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Toast",
+   "title": "Toast",
+   "group": "2 · Moléculas",
+   "height": 180,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "AppBar",
+   "title": "AppBar",
+   "group": "3 · Organismos",
+   "height": 230,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "GreetingHeader",
+   "title": "GreetingHeader",
+   "group": "3 · Organismos",
+   "height": 170,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Card",
+   "title": "Card",
+   "group": "3 · Organismos",
+   "height": 220,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "PromoCard",
+   "title": "PromoCard",
+   "group": "3 · Organismos",
+   "height": 330,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "ProfessionalCard",
+   "title": "ProfessionalCard",
+   "group": "3 · Organismos",
+   "height": 320,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Stepper",
+   "title": "Stepper",
+   "group": "3 · Organismos",
+   "height": 200,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "ServiceGrid",
+   "title": "ServiceGrid",
+   "group": "3 · Organismos",
+   "height": 160,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "BottomNav",
+   "title": "BottomNav",
+   "group": "3 · Organismos",
+   "height": 140,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Tabs",
+   "title": "Tabs",
+   "group": "3 · Organismos",
+   "height": 110,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Modal",
+   "title": "Modal",
+   "group": "3 · Organismos",
+   "height": 380,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "BottomSheet",
+   "title": "BottomSheet",
+   "group": "3 · Organismos",
+   "height": 420,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "EmptyState",
+   "title": "EmptyState",
+   "group": "3 · Organismos",
+   "height": 300,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "QuoteForm",
+   "title": "QuoteForm",
+   "group": "3 · Organismos",
+   "height": 720,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Container",
+   "title": "Container",
+   "group": "4 · Layout e templates",
+   "height": 110,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Grid",
+   "title": "Grid",
+   "group": "4 · Layout e templates",
+   "height": 330,
+   "width": 1200,
+   "subtitle": "Preview em 1200px (desktop, 12 colunas)"
+  },
+  {
+   "id": "Col",
+   "title": "Col",
+   "group": "4 · Layout e templates",
+   "height": 90,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "Stack",
+   "title": "Stack",
+   "group": "4 · Layout e templates",
+   "height": 120,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "AppShell",
+   "title": "AppShell",
+   "group": "4 · Layout e templates",
+   "height": 800,
+   "width": null,
+   "subtitle": ""
+  },
+  {
+   "id": "PaginaInicio",
+   "title": "Página · Início",
+   "group": "5 · Páginas",
+   "height": 800,
+   "width": null,
+   "subtitle": "Tela inicial do app, recriada do painel"
+  },
+  {
+   "id": "PaginaOrcamento",
+   "title": "Página · Solicitar orçamento",
+   "group": "5 · Páginas",
+   "height": 800,
+   "width": null,
+   "subtitle": "Fluxo de pedido no celular"
+  },
+  {
+   "id": "PaginaProfissionais",
+   "title": "Página · Profissionais (web responsiva)",
+   "group": "5 · Páginas",
+   "height": 900,
+   "width": 1280,
+   "subtitle": "Versão web em 1280px · 12 colunas"
+  }
+ ],
+ "groups": [
+  "1 · Átomos",
+  "2 · Moléculas",
+  "3 · Organismos",
+  "4 · Layout e templates",
+  "5 · Páginas"
+ ]
+}

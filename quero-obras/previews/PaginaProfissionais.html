@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../components/bundle.css"><script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script><script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script><script src="../components/bundle.js"></script><style>body{background:var(--base-respiro)}</style><meta charset="utf-8"><title>Preview</title></head>
+<body>
+<div id="root" class="qo-root"></div>
+<script>
+var Q = window.QueroObras, h = React.createElement, useState = React.useState;
+var pros = [
+  { name: 'Marcos Ribeiro', role: 'Pintor residencial', verified: true, rating: 4.9, reviews: 126, city: 'São Paulo · 3 km', responseTime: 'Responde em 1 h', tags: ['Pintura', 'Textura'] },
+  { name: 'Ana Souza', role: 'Eletricista', verified: true, rating: 4.8, reviews: 88, city: 'São Paulo · 5 km', responseTime: 'Responde em 2 h', tags: ['Elétrica', 'Quadro de luz'] },
+  { name: 'Carla Lima', role: 'Mestre de obras', verified: false, rating: 4.6, reviews: 41, city: 'Osasco · 12 km', responseTime: 'Responde no dia', tags: ['Reforma', 'Alvenaria'] },
+  { name: 'Pedro Alves', role: 'Encanador', verified: true, rating: 4.7, reviews: 63, city: 'São Paulo · 8 km', responseTime: 'Responde em 3 h', tags: ['Hidráulica'] },
+  { name: 'Joana Prado', role: 'Pintora', verified: true, rating: 5.0, reviews: 19, city: 'São Paulo · 2 km', responseTime: 'Responde em 1 h', tags: ['Pintura', 'Grafiato'] },
+  { name: 'Rafael Costa', role: 'Gesseiro', verified: false, rating: 4.5, reviews: 27, city: 'Guarulhos · 15 km', responseTime: 'Responde no dia', tags: ['Gesso', 'Forro'] }];
+function Pros() {
+  var f = useState({ v: true });
+  function t(k) { var o = Object.assign({}, f[0]); o[k] = !o[k]; f[1](o); }
+  var list = pros.filter(function (p) { return !f[0].v || p.verified; });
+  return h('div', { style: { background: 'var(--base-respiro)', minHeight: 820 } },
+    h('div', { style: { background: 'var(--superficie)', borderBottom: '1px solid var(--borda)' } }, h(Q.Container, null,
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: 24, height: 72 } },
+        h('img', { src: '../assets/logo-quero-obras.png', alt: 'Quero Obras', style: { height: 40 } }),
+        h('div', { style: { flex: 1, maxWidth: 480 } }, h(Q.SearchField, { variant: 'preenchida', defaultValue: 'Reforma em São Paulo' })),
+        h('span', { style: { flex: 1 } }),
+        h(Q.Button, { variant: 'link' }, 'Meus pedidos'), h(Q.Button, null, 'solicitar orçamento')))),
+    h(Q.Container, null, h('div', { style: { padding: '32px 0 48px' } },
+      h(Q.Grid, null,
+        h(Q.Col, { sm: 4, md: 8, lg: 12 },
+          h('h1', { style: { margin: 0, font: '700 32px/36px var(--font-display)' } }, 'Profissionais perto de você'),
+          h('p', { style: { margin: '8px 0 20px', color: 'var(--tinta-suave)' } }, list.length + ' profissionais em São Paulo'),
+          h(Q.Stack, { direction: 'row', gap: 2 },
+            h(Q.Chip, { selected: !!f[0].v, onClick: function () { t('v'); } }, 'Verificados'),
+            h(Q.Chip, { selected: !!f[0].a, icon: 'star', onClick: function () { t('a'); } }, 'Melhor avaliados'),
+            h(Q.Chip, { selected: !!f[0].p, icon: 'map-pin', onClick: function () { t('p'); } }, 'Até 10 km'))),
+        list.map(function (p) { return h(Q.Col, { key: p.name, sm: 4, md: 4, lg: 4 }, h(Q.ProfessionalCard, p)); })))));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(Pros));
+</script>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+</html>

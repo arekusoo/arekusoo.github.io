@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quero Obras — Design System</title>
+<meta name="description" content="Design system da Quero Obras: tokens, grade, componentes React e HTML/CSS organizados por design atômico.">
+<link rel="icon" href="assets/logo-quero-obras.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/*
+VOICE   manual de obra: direto, organizado, acolhedor
+IDEA    a prancheta do projeto — índice à esquerda, prancha de componente à direita
+PICTURE o próprio componente funcionando, grande, no topo de cada prancha
+COLOUR  base-respiro como chão, azul-estrutura como estrutura, laranja só em ação
+TYPE    Manrope 700 títulos, Inter texto, JetBrains Mono no código
+LAYOUT  sidebar fixa 272px ≥ 900px; abaixo vira gaveta; conteúdo até 1080px
+*/
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--base-respiro);color:var(--tinta-leitura);font:16px/1.6 var(--font-sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:var(--azul-estrutura)}
+.layout{display:grid;grid-template-columns:272px minmax(0,1fr);min-height:100vh}
+aside{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--superficie);border-right:1px solid var(--borda);padding:20px 16px 40px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;padding:4px 8px 16px}
+.brand img{height:40px;border-radius:8px}
+.brand b{font:700 15px/1.2 var(--font-display);display:block}
+.brand small{font-size:12px;color:var(--tinta-suave)}
+.filter{width:100%;height:40px;border:1.5px solid var(--borda);border-radius:var(--radius-md);padding:0 12px;font:400 15px var(--font-sans);background:var(--base-respiro);color:var(--tinta-leitura);margin-bottom:12px}
+.filter:focus{outline:2px solid var(--foco);outline-offset:1px}
+nav h3{margin:18px 8px 6px;font:600 12px/16px var(--font-sans);color:var(--tinta-suave)}
+nav a{display:flex;align-items:center;min-height:36px;padding:0 10px;border-radius:10px;text-decoration:none;color:var(--tinta-leitura);font-size:14px}
+nav a:hover{background:var(--superficie-alt)}
+nav a[aria-current=page]{background:var(--azul-suave);color:var(--azul-forte);font-weight:600}
+nav a:focus-visible{outline:2px solid var(--foco);outline-offset:1px}
+.topbar{display:none}
+main{padding:40px clamp(16px,4vw,56px) 80px}
+.page{max-width:1080px;margin:0 auto}
+.eyebrow{font:600 13px/18px var(--font-sans);color:var(--azul-estrutura);margin:0 0 6px}
+h1.title{font:700 clamp(28px,4vw,40px)/1.08 var(--font-display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+.lede{font-size:18px;line-height:1.55;color:var(--tinta-suave);margin:12px 0 28px;max-width:68ch}
+.stage{background:var(--superficie);border:1px solid var(--borda);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:28px}
+.stage__bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--borda);font-size:13px;color:var(--tinta-suave)}
+.stage__bar a{font-weight:600;text-decoration:none}
+.stage__view{position:relative;overflow:hidden;background:var(--base-respiro)}
+.stage iframe{display:block;border:0;width:100%;transform-origin:0 0;background:var(--base-respiro)}
+.md{max-width:76ch}
+.md h1{display:none}
+.md h2{font:700 22px/1.25 var(--font-display);margin:36px 0 10px}
+.md h3{font:700 18px/1.3 var(--font-display);margin:24px 0 8px}
+.md p,.md li{color:var(--tinta-leitura)}
+.md ul{padding-left:20px}
+.md li{margin:4px 0}
+.md code{font:500 .88em var(--mono, 'JetBrains Mono', ui-monospace, monospace);background:var(--superficie-alt);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+.md blockquote{margin:16px 0;padding:12px 16px;background:var(--ambar-suave);border-radius:12px;color:var(--tinta-leitura)}
+.md blockquote p{margin:0}
+.md table{border-collapse:collapse;width:100%;font-size:14px;margin:12px 0;display:block;overflow-x:auto}
+.md th,.md td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--borda);vertical-align:top}
+.md th{font-weight:600;color:var(--tinta-suave);background:var(--superficie)}
+.code{position:relative;margin:12px 0 20px;max-width:none}
+.code pre{margin:0;background:#0d2230;color:#e6eef3;border-radius:14px;padding:18px 18px 18px;overflow-x:auto;font:400 13px/1.6 'JetBrains Mono',ui-monospace,monospace}
+.code pre code{background:none;padding:0;color:inherit;font:inherit}
+.copy{position:absolute;top:10px;right:10px;height:32px;padding:0 12px;border:0;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;font:600 12px var(--font-sans);cursor:pointer}
+.copy:hover{background:rgba(255,255,255,.18)}
+.copy:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr);gap:0;background:var(--superficie);border:1px solid var(--borda);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:28px}
+.hero iframe{width:960px;height:288px;border:0;display:block;transform-origin:0 0}
+.mood{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 28px}
+.mood figure{margin:0;border-radius:var(--radius-lg);overflow:hidden;position:relative;background:var(--superficie)}
+.mood img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.mood figcaption{position:absolute;left:10px;bottom:10px;background:var(--superficie);border-radius:999px;padding:4px 12px;font:600 13px var(--font-sans)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:8px 0 28px}
+.cards a{display:block;background:var(--superficie);border:1px solid var(--borda);border-radius:var(--radius-lg);padding:18px;text-decoration:none;color:inherit;box-shadow:var(--sombra-1)}
+.cards a:hover{box-shadow:var(--sombra-2)}
+.cards b{font:700 16px/1.3 var(--font-display);display:block}
+.cards span{font-size:14px;color:var(--tinta-suave)}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:8px 0 28px}
+.sw div{background:var(--superficie);border:1px solid var(--borda);border-radius:16px;overflow:hidden}
+.sw i{display:block;height:84px;border-bottom:1px solid var(--borda)}
+.sw p{margin:0;padding:10px 12px 12px;font-size:13px;line-height:1.45;color:var(--tinta-suave)}
+.sw b{display:block;color:var(--tinta-leitura);font-size:14px}
+.sw code{font:500 12px 'JetBrains Mono',monospace;color:var(--tinta-leitura)}
+.spec{background:var(--superficie);border:1px solid var(--borda);border-radius:16px;padding:16px 20px;margin-bottom:10px;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:16px;align-items:center}
+.spec small{font-size:12px;color:var(--tinta-suave);line-height:1.5}
+.bar{display:flex;align-items:center;gap:16px;margin:8px 0;font-size:14px}
+.bar i{display:block;height:20px;background:var(--azul-estrutura);border-radius:4px;flex:none}
+.bar code{width:88px;flex:none;font:500 13px 'JetBrains Mono',monospace}
+.bar span{color:var(--tinta-suave)}
+.rad{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:8px 0 28px}
+.rad div{background:var(--superficie);border:1px solid var(--borda);border-radius:16px;padding:16px;font-size:13px;color:var(--tinta-suave)}
+.rad i{display:block;width:72px;height:72px;background:var(--azul-suave);border:2px solid var(--azul-estrutura);margin-bottom:10px}
+.rad b{display:block;color:var(--tinta-leitura)}
+.colsdemo{display:grid;gap:8px;margin:10px 0 24px}
+.colsdemo i{height:44px;background:var(--azul-suave);border-radius:6px}
+footer{max-width:1080px;margin:56px auto 0;padding-top:20px;border-top:1px solid var(--borda);font-size:13px;color:var(--tinta-suave);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:40px}
+.pager a{flex:1;max-width:48%;border:1px solid var(--borda);background:var(--superficie);border-radius:14px;padding:12px 16px;text-decoration:none;color:var(--tinta-leitura);font-weight:600}
+.pager a small{display:block;font-weight:400;color:var(--tinta-suave);font-size:12px}
+.pager a.next{text-align:right;margin-left:auto}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  aside{position:fixed;inset:0 auto 0 0;width:min(300px,86vw);z-index:20;transform:translateX(-102%);transition:transform .2s;box-shadow:var(--sombra-3)}
+  body.nav-open aside{transform:none}
+  body.nav-open .veil{display:block}
+  .veil{display:none;position:fixed;inset:0;background:var(--scrim);z-index:15}
+  .topbar{display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10;height:60px;padding:0 12px;background:var(--superficie);border-bottom:1px solid var(--borda)}
+  .topbar button{width:44px;height:44px;border:0;background:none;border-radius:10px;display:grid;place-items:center;color:var(--tinta-leitura);cursor:pointer}
+  .topbar img{height:32px;border-radius:6px}
+  .topbar b{font:700 15px var(--font-display)}
+  main{padding-top:24px}
+  .spec{grid-template-columns:minmax(0,1fr)}
+  .mood{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){aside{transition:none}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <button id="menu" aria-label="Abrir menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <img src="assets/logo-quero-obras.png" alt=""><b>Design System</b>
+</div>
+<div class="veil" id="veil"></div>
+<div class="layout">
+  <aside>
+    <a class="brand" href="#introducao"><img src="assets/logo-quero-obras.png" alt="Quero Obras"><span><b>Design System</b><small>Conexão · Clareza · Transformação</small></span></a>
+    <input class="filter" id="filter" type="search" placeholder="Buscar componente" aria-label="Buscar componente">
+    <nav id="nav" aria-label="Seções do manual"></nav>
+  </aside>
+  <main><div class="page" id="page" tabindex="-1"></div>
+    <footer><span>Quero Obras · design system v1 · cores aproximadas do painel semântico</span><span><a href="tokens.json">tokens.json</a> · <a href="tokens.css">tokens.css</a> · <a href="components/bundle.css">bundle.css</a> · <a href="components/bundle.js">bundle.js</a> · <a href="components/index.d.ts">index.d.ts</a></span></footer>
+  </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script>
+{
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const FOUND = [['introducao','Introdução'],['cores','Cores'],['tipografia','Tipografia'],['espacamento','Espaçamento'],['forma','Raios e sombras'],['grade','Grade e responsividade']];
+let catalog = null, tokens = null, readme = '';
+const page = document.getElementById('page'), nav = document.getElementById('nav');
+
+function routes(){ return FOUND.map(f=>f[0]).concat(catalog.components.map(c=>c.id)); }
+function label(id){ const f = FOUND.find(f=>f[0]===id); if (f) return f[1]; const c = catalog.components.find(c=>c.id===id); return c ? c.title : id; }
+
+function buildNav(q){
+  q = (q||'').toLowerCase();
+  let h = '<h3>Fundamentos</h3>' + FOUND.filter(f=>!q||f[1].toLowerCase().includes(q)).map(f=>`<a href="#${f[0]}" data-id="${f[0]}">${esc(f[1])}</a>`).join('');
+  for (const g of catalog.groups){
+    const items = catalog.components.filter(c=>c.group===g && (!q || c.title.toLowerCase().includes(q)));
+    if (items.length) h += `<h3>${esc(g)}</h3>` + items.map(c=>`<a href="#${c.id}" data-id="${c.id}">${esc(c.title)}</a>`).join('');
+  }
+  nav.innerHTML = h; mark();
+}
+function mark(){ const id = current(); nav.querySelectorAll('a').forEach(a=>{ if (a.dataset.id===id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); }); }
+function current(){ const h = location.hash.slice(1); return routes().includes(h) ? h : 'introducao'; }
+
+function md(src){
+  const div = document.createElement('div'); div.className = 'md';
+  div.innerHTML = marked.parse(src);
+  div.querySelectorAll('pre').forEach(pre=>{
+    const wrap = document.createElement('div'); wrap.className='code';
+    pre.replaceWith(wrap); wrap.appendChild(pre);
+    const b = document.createElement('button'); b.className='copy'; b.type='button'; b.textContent='Copiar';
+    b.addEventListener('click', ()=>{ navigator.clipboard.writeText(pre.innerText).then(()=>{b.textContent='Copiado';setTimeout(()=>b.textContent='Copiar',1500)}).catch(()=>{b.textContent='Selecione e copie'}); });
+    wrap.appendChild(b);
+  });
+  return div;
+}
+function stage(c){
+  const w = c.width || 0;
+  const el = document.createElement('div'); el.className='stage';
+  el.innerHTML = `<div class="stage__bar"><span>${esc(c.subtitle || 'Visualização ao vivo · interaja com o componente')}</span><a href="previews/${c.id}.html" target="_blank" rel="noopener">Abrir em tela cheia ↗</a></div><div class="stage__view"><iframe title="Visualização de ${esc(c.title)}" src="previews/${c.id}.html" loading="lazy"></iframe></div>`;
+  const view = el.querySelector('.stage__view'), fr = el.querySelector('iframe');
+  let h = c.height;
+  function fit(){
+    const avail = view.clientWidth || 800;
+    const s = w && w > avail ? avail / w : 1;
+    fr.style.width = (w && w > avail ? w : avail) + 'px';
+    fr.style.height = h + 'px';
+    fr.style.transform = s < 1 ? `scale(${s})` : '';
+    view.style.height = Math.ceil(h * s) + 'px';
+  }
+  addEventListener('message', e => { if (e.data && e.data.qoPreview === c.id + '.html' && e.data.h > 40) { h = Math.max(e.data.h, 60); fit(); } });
+  new ResizeObserver(fit).observe(view); fit();
+  return el;
+}
+function pager(id){
+  const r = routes(), i = r.indexOf(id), p = r[i-1], n = r[i+1];
+  return `<div class="pager">${p?`<a href="#${p}"><small>Anterior</small>${esc(label(p))}</a>`:''}${n?`<a class="next" href="#${n}"><small>Próximo</small>${esc(label(n))}</a>`:''}</div>`;
+}
+
+function intro(){
+  const parts = readme.split(/\n(?=## )/);
+  const lead = parts[0].replace(/^# .*\n/, '');
+  page.innerHTML = `<p class="eyebrow">Design system</p><h1 class="title">Quero Obras</h1>
+    <div class="hero" id="hero" style="margin-top:24px"><iframe title="Capa" src="previews/Cover.html"></iframe></div>
+    <div class="mood">${[['acolhimento','Acolhimento'],['colaboracao','Colaboração'],['movimento','Movimento']].map(m=>`<figure><img src="assets/${m[0]}.png" alt=""><figcaption>${m[1]}</figcaption></figure>`).join('')}</div>`;
+  page.appendChild(md(lead));
+  const start = document.createElement('div');
+  start.innerHTML = `<div class="cards">${[['cores','Cores','Papéis, hex e contraste'],['tipografia','Tipografia','Manrope e Inter'],['grade','Grade','4 · 8 · 12 colunas'],['Button','Componentes','36 prontos, com código'],['PaginaInicio','Páginas','Telas completas de exemplo']].map(x=>`<a href="#${x[0]}"><b>${x[1]}</b><span>${x[2]}</span></a>`).join('')}</div>`;
+  page.appendChild(start);
+  page.appendChild(md(parts.slice(1).join('\n')));
+  const hero = document.getElementById('hero'), fr = hero.querySelector('iframe');
+  const fit = () => { const s = Math.min(1, hero.clientWidth / 960); fr.style.transform = `scale(${s})`; hero.style.height = 288 * s + 'px'; };
+  new ResizeObserver(fit).observe(hero); fit();
+}
+function cores(){
+  const t = tokens.color.tokens;
+  const val = v => /^\{/.test(v) ? `var(--${v.slice(1,-1)})` : v;
+  page.innerHTML = `<p class="eyebrow">Fundamentos</p><h1 class="title">Cores</h1><p class="lede">Cada cor tem uma função. Use sempre o token (<code>var(--azul-estrutura)</code>), nunca o hexadecimal solto.</p>
+  <div class="sw">${t.map(c=>`<div><i style="background:${val(c.value)}"></i><p><b>${esc(c.name)}</b><code>${esc(c.value)}</code><br>${esc(c.usage)}</p></div>`).join('')}</div>`;
+}
+function tipografia(){
+  let h = `<p class="eyebrow">Fundamentos</p><h1 class="title">Tipografia</h1><p class="lede">Manrope 700 nos títulos, Inter 400 nos textos e Inter 600 em botões e rótulos. Cada estilo existe como classe em <code>tokens.css</code>.</p>`;
+  for (const g of tokens.type.groups){
+    h += `<h2 style="font:700 20px var(--font-display);margin:28px 0 12px">${esc(g.name)}</h2>`;
+    h += g.styles.map(s=>`<div class="spec"><div class="${s.name}" style="overflow-wrap:anywhere">${esc(s.sample)}</div><small><b style="color:var(--tinta-leitura)">.${esc(s.name)}</b><br>${esc(s.fontSize)} / ${esc(s.lineHeight)} · ${s.fontWeight}<br>${esc(s.usage)}</small></div>`).join('');
+  }
+  page.innerHTML = h;
+}
+function espacamento(){
+  page.innerHTML = `<p class="eyebrow">Fundamentos</p><h1 class="title">Espaçamento</h1><p class="lede">${esc(tokens.spacing.note)}</p>` +
+    tokens.spacing.tokens.map(s=>`<div class="bar"><code>${esc(s.name)}</code><i style="width:${parseInt(s.value)*3}px"></i><span><b style="color:var(--tinta-leitura)">${esc(s.value)}</b> · ${esc(s.usage)}</span></div>`).join('') +
+    `<h2 style="font:700 20px var(--font-display);margin:36px 0 12px">Tamanhos</h2>` + tokens.size.tokens.map(s=>`<div class="bar"><code>${esc(s.name)}</code><span><b style="color:var(--tinta-leitura)">${esc(s.value)}</b> · ${esc(s.usage)}</span></div>`).join('');
+}
+function forma(){
+  page.innerHTML = `<p class="eyebrow">Fundamentos</p><h1 class="title">Raios e sombras</h1><p class="lede">Cartões com 20px, botões e campos com 12px: cantos acolhedores, nunca exagerados.</p>
+  <div class="rad">${tokens.radius.tokens.map(r=>`<div><i style="border-radius:${r.value==='999px'?'50%':r.value}"></i><b>${esc(r.name)} · ${esc(r.value)}</b>${esc(r.usage)}</div>`).join('')}</div>
+  <h2 style="font:700 20px var(--font-display);margin:28px 0 12px">Sombras</h2>
+  <div class="rad">${tokens.shadow.tokens.map(r=>`<div style="box-shadow:${r.value};border-color:transparent"><b>${esc(r.name)}</b>${esc(r.usage)}</div>`).join('')}</div>`;
+}
+function grade(){
+  const g = n => `<div class="colsdemo" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${'<i></i>'.repeat(n)}</div>`;
+  page.innerHTML = `<p class="eyebrow">Fundamentos</p><h1 class="title">Grade e responsividade</h1><p class="lede">Mobile first: o estilo base é o do celular e cresce com <code>min-width</code>. Páginas usam Container, Grid e Col; componentes se adaptam ao espaço que têm.</p>
+  <h2 style="font:700 20px var(--font-display);margin:24px 0 4px">Celular · 0–599px · 4 colunas</h2><p style="margin:0;color:var(--tinta-suave);font-size:14px">margem 16px · gutter 16px</p>${g(4)}
+  <h2 style="font:700 20px var(--font-display);margin:24px 0 4px">Tablet · 600–1023px · 8 colunas</h2><p style="margin:0;color:var(--tinta-suave);font-size:14px">margem 24px · gutter 16px</p>${g(8)}
+  <h2 style="font:700 20px var(--font-display);margin:24px 0 4px">Desktop · 1024px+ · 12 colunas</h2><p style="margin:0;color:var(--tinta-suave);font-size:14px">margem 32px · gutter 24px · conteúdo até 1200px</p>${g(12)}`;
+  page.appendChild(md('## Tokens de layout\n\n| Token | Valor | Uso |\n| --- | --- | --- |\n' + tokens.breakpoint.tokens.concat(tokens.grid.tokens).map(t=>`| \`${t.name}\` | ${t.value} | ${t.usage} |`).join('\n') +
+    '\n\n## Exemplo\n\n```jsx\n<Container>\n  <Grid>\n    <Col sm={4} md={8} lg={8}>Conteúdo principal</Col>\n    <Col sm={4} md={8} lg={4}>Barra lateral</Col>\n  </Grid>\n</Container>\n```\n\nVeja o componente **Grid** para a demonstração ao vivo e a página **Profissionais** para a grade aplicada.'));
+}
+async function component(id){
+  const c = catalog.components.find(c=>c.id===id);
+  const src = await (await fetch(`docs/${id}.md`)).text();
+  const lines = src.split('\n'); const summary = (lines.find((l,i)=>i>0 && l.trim()) || '');
+  const rest = src.replace(/^# .*\n+/, '').replace(summary, '');
+  page.innerHTML = `<p class="eyebrow">${esc(c.group.replace(/^\d · /,''))}</p><h1 class="title">${esc(c.title)}</h1>`;
+  const lede = document.createElement('p'); lede.className='lede'; lede.innerHTML = marked.parseInline(summary); page.appendChild(lede);
+  page.appendChild(stage(c));
+  page.appendChild(md(rest));
+}
+const VIEWS = {introducao:intro, cores, tipografia, espacamento, forma, grade};
+async function render(){
+  const id = current();
+  if (VIEWS[id]) VIEWS[id](); else await component(id);
+  page.insertAdjacentHTML('beforeend', pager(id));
+  document.title = label(id) + ' · Quero Obras DS';
+  mark(); document.body.classList.remove('nav-open');
+  window.scrollTo(0,0);
+}
+document.getElementById('filter').addEventListener('input', e => buildNav(e.target.value));
+document.getElementById('menu').addEventListener('click', () => document.body.classList.add('nav-open'));
+document.getElementById('veil').addEventListener('click', () => document.body.classList.remove('nav-open'));
+addEventListener('keydown', e => { if (e.key === 'Escape') document.body.classList.remove('nav-open'); });
+addEventListener('hashchange', render);
+Promise.all([fetch('docs/catalog.json').then(r=>r.json()), fetch('tokens.json').then(r=>r.json()), fetch('docs/README.md').then(r=>r.text())])
+  .then(([c,t,r]) => { catalog = c; tokens = t; readme = r; buildNav(''); render(); })
+  .catch(() => { page.innerHTML = '<h1 class="title">Não foi possível carregar o manual</h1><p class="lede">Abra esta página por um servidor (GitHub Pages ou <code>npx serve</code>), não direto do arquivo.</p>'; });
+}
+</script>
+</body>
+</html>

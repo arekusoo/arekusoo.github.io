@@ -1,0 +1,79 @@
+/* Quero Obras — gerado a partir de tokens.json */
+:root {
+  --azul-estrutura: #256E97;
+  --azul-forte: #1B5878;
+  --azul-suave: #E3EFF6;
+  --laranja-marca: #F85D31;
+  --ambar-apoio: #F98F24;
+  --ambar-suave: #FEF0DF;
+  --cta: #C84318;
+  --cta-forte: #A63612;
+  --cta-suave: #FDE7DF;
+  --on-cta: #FFFFFF;
+  --tinta-leitura: #102A3A;
+  --tinta-suave: #4D6270;
+  --tinta-desabilitada: #9AA8B1;
+  --base-respiro: #F5F7F8;
+  --superficie: #FFFFFF;
+  --superficie-alt: #EEF2F4;
+  --borda: #DCE3E7;
+  --borda-forte: #7E909B;
+  --sucesso: #1E7A4C;
+  --sucesso-suave: #E2F4EA;
+  --aviso: #8A4B00;
+  --erro: #B42318;
+  --erro-suave: #FDECEA;
+  --foco: var(--azul-estrutura);
+  --scrim: rgba(16, 42, 58, 0.48);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+  --sombra-1: 0 1px 2px rgba(16, 42, 58, 0.06), 0 2px 8px rgba(16, 42, 58, 0.06);
+  --sombra-2: 0 4px 12px rgba(16, 42, 58, 0.08), 0 12px 28px rgba(16, 42, 58, 0.08);
+  --sombra-3: 0 12px 32px rgba(16, 42, 58, 0.16), 0 24px 56px rgba(16, 42, 58, 0.12);
+  --bp-sm: 0px;
+  --bp-md: 600px;
+  --bp-lg: 1024px;
+  --bp-xl: 1440px;
+  --grid-cols-sm: 4;
+  --grid-cols-md: 8;
+  --grid-cols-lg: 12;
+  --grid-gutter-sm: 16px;
+  --grid-gutter-lg: 24px;
+  --grid-margin-sm: 16px;
+  --grid-margin-md: 24px;
+  --grid-margin-lg: 32px;
+  --container-max: 1200px;
+  --toque-min: 48px;
+  --controle-sm: 36px;
+  --controle-md: 48px;
+  --controle-lg: 56px;
+  --icone-sm: 20px;
+  --icone-md: 24px;
+  --icone-lg: 28px;
+  --font-display: "Manrope", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.display { font-family: "Manrope", "Inter", system-ui, sans-serif; font-size: 40px; line-height: 44px; font-weight: 700; letter-spacing: -0.02em; }
+.h1 { font-family: "Manrope", "Inter", system-ui, sans-serif; font-size: 28px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; }
+.h2 { font-family: "Manrope", "Inter", system-ui, sans-serif; font-size: 22px; line-height: 28px; font-weight: 700; }
+.h3 { font-family: "Manrope", "Inter", system-ui, sans-serif; font-size: 18px; line-height: 24px; font-weight: 700; }
+.body-lg { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 18px; line-height: 26px; font-weight: 400; }
+.body { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 24px; font-weight: 400; }
+.body-sm { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 20px; font-weight: 400; }
+.caption { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 12px; line-height: 16px; font-weight: 400; }
+.button { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 20px; font-weight: 600; }
+.button-sm { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; line-height: 18px; font-weight: 600; }
+.label { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 13px; line-height: 18px; font-weight: 600; }

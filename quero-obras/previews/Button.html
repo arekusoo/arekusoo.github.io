@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../components/bundle.css"><script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script><script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script><script src="../components/bundle.js"></script><style>body{background:var(--base-respiro)}</style><meta charset="utf-8"><title>Preview</title></head>
+<body>
+<div id="root" class="qo-root"></div>
+<script>
+var Q = window.QueroObras, h = React.createElement, useState = React.useState;
+function Demo() {
+  var l = useState(false);
+  return h('div', { className: 'qo-demo' },
+    h('span', { className: 'qo-demo__cap' }, 'Variantes'),
+    h(Q.Button, null, 'solicitar orçamento'),
+    h(Q.Button, { variant: 'secundario' }, 'solicitar orçamento'),
+    h(Q.Button, { variant: 'tonal' }, 'Salvar rascunho'),
+    h(Q.Button, { variant: 'contorno', icon: 'chat' }, 'Conversar'),
+    h(Q.Button, { variant: 'link' }, 'Ver profissionais'),
+    h(Q.Button, { variant: 'perigo', icon: 'trash' }, 'Excluir pedido'),
+    h('span', { className: 'qo-demo__cap' }, 'Tamanhos e estados'),
+    h(Q.Button, { size: 'sm' }, 'Pequeno'), h(Q.Button, null, 'Médio'), h(Q.Button, { size: 'lg', iconRight: 'chevron-right' }, 'Grande'),
+    h(Q.Button, { loading: l[0], onClick: function () { l[1](true); setTimeout(function () { l[1](false); }, 1500); } }, 'Clique: carregando'),
+    h(Q.Button, { disabled: true }, 'Desabilitado'));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(Demo));
+</script>
+<script>(function(){function s(){parent.postMessage({qoPreview:location.pathname.split("/").pop(),h:document.documentElement.scrollHeight},"*")}new ResizeObserver(s).observe(document.body);addEventListener("load",s);setTimeout(s,300)})();</script></body>
+</html>
