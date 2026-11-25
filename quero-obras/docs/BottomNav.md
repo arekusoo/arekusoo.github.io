@@ -8,7 +8,7 @@ Navegação principal do app no celular, com 3 a 5 destinos.
 
 ## Regras
 
-- Ícone + rótulo sempre visíveis. Ativo: pílula azul-suave, ícone e texto azul-forte em negrito.
+- Ícone + rótulo sempre visíveis. Ativo: pílula azul-suave, ícone **preenchido** e texto azul-forte em negrito; inativos ficam em contorno.
 - A partir de 1024px, troque por navegação no topo ou na lateral.
 - Respeita a área segura do iPhone (`env(safe-area-inset-bottom)`).
 

@@ -1,12 +1,13 @@
 import type * as React from 'react';
 
-export type IconName = 'home' | 'search' | 'pintura' | 'reforma' | 'eletrica' | 'hidraulica' | 'grid' | 'chat' | 'bell' | 'user' | 'check' | 'check-circle' | 'shield' | 'chevron-right' | 'chevron-left' | 'chevron-down' | 'arrow-left' | 'close' | 'plus' | 'star' | 'map-pin' | 'calendar' | 'clock' | 'filter' | 'heart' | 'menu' | 'more' | 'pedidos' | 'image' | 'info' | 'alert' | 'camera' | 'phone' | 'edit' | 'trash' | 'send';
+/** Atalhos da Quero Obras. Qualquer nome do Material Symbols (ex.: 'roofing', 'carpenter') também funciona. */
+export type IconName = 'home' | 'search' | 'pintura' | 'reforma' | 'eletrica' | 'hidraulica' | 'grid' | 'chat' | 'bell' | 'user' | 'check' | 'check-circle' | 'shield' | 'verificado' | 'chevron-right' | 'chevron-left' | 'chevron-down' | 'arrow-left' | 'close' | 'plus' | 'star' | 'map-pin' | 'calendar' | 'clock' | 'filter' | 'heart' | 'menu' | 'more' | 'pedidos' | 'image' | 'info' | 'alert' | 'camera' | 'phone' | 'edit' | 'trash' | 'send' | 'ferramentas' | 'casa' | 'orcamento' | 'pagamento' | 'foto' | 'compartilhar' | (string & {});
 export type Tone = 'neutro' | 'sucesso' | 'marca' | 'info' | 'aviso' | 'erro';
 
 /* Átomos */
-export interface IconProps { /** Nome do ícone */ name: IconName; /** Tamanho em px. Padrão 24 */ size?: number; /** Texto para leitores de tela; sem ele o ícone é decorativo */ label?: string; strokeWidth?: number; className?: string; style?: React.CSSProperties }
+export interface IconProps { /** Atalho da Quero Obras ou nome do Material Symbols */ name: IconName; /** Versão preenchida (FILL 1). Padrão: contorno (FILL 0) */ filled?: boolean; /** Tamanho em px. Padrão 24 (ou o do componente pai) */ size?: number; /** Peso do traço, 100–700. Padrão 400 */ weight?: number; /** Ênfase, -25 a 200. Padrão 0 */ grade?: number; /** Texto para leitores de tela; sem ele o ícone é decorativo */ label?: string; className?: string; style?: React.CSSProperties }
 export declare function Icon(props: IconProps): React.ReactElement;
-export interface BadgeProps { /** Padrão 'neutro' */ tone?: Tone; icon?: IconName; /** Mostra um contador vermelho (notificações) no lugar do texto */ count?: number; children?: React.ReactNode; className?: string }
+export interface BadgeProps { /** Padrão 'neutro' */ tone?: Tone; icon?: IconName; /** Ícone preenchido */ iconFilled?: boolean; /** Mostra um contador vermelho (notificações) no lugar do texto */ count?: number; children?: React.ReactNode; className?: string }
 export declare function Badge(props: BadgeProps): React.ReactElement;
 export interface AvatarProps { /** Nome da pessoa: gera as iniciais e o texto alternativo */ name?: string; src?: string; /** Padrão 'md' (40px) */ size?: 'sm' | 'md' | 'lg'; className?: string }
 export declare function Avatar(props: AvatarProps): React.ReactElement;

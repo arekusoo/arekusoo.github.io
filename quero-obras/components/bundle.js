@@ -15,62 +15,34 @@
     return o;
   }
 
-  /* ───────── Ícones (traço 2px, grade 24) ───────── */
+  /* ───────── Ícones: Material Symbols Rounded (Google Fonts) ─────────
+     Padrão: FILL 0 · wght 400 · GRAD 0 · opsz 24. Use filled para a versão preenchida.
+     Os nomes abaixo são atalhos da Quero Obras; qualquer nome do Material Symbols também funciona. */
   var I = {
-    home: [['p', 'M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z']],
-    search: [['c', 11, 11, 6.5], ['p', 'm20 20-4.2-4.2']],
-    pintura: [['r', 4, 4, 13, 5, 1.5], ['p', 'M17 6.5h2.5V11H11v3'], ['r', 9.5, 14, 3, 6.5, 1]],
-    reforma: [['p', 'M12.5 9.5 4.5 17.5a1.6 1.6 0 0 0 2.3 2.3l8-8'], ['p', 'M10 6.5 13.5 3l7 7-3.5 3.5z'], ['p', 'm13.5 3 2-1']],
-    eletrica: [['p', 'M13 3 5 13.5h6L10 21l8-10.5h-6z']],
-    hidraulica: [['p', 'M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z']],
-    grid: [['r', 4, 4, 6.5, 6.5, 1.5], ['r', 13.5, 4, 6.5, 6.5, 1.5], ['r', 4, 13.5, 6.5, 6.5, 1.5], ['r', 13.5, 13.5, 6.5, 6.5, 1.5]],
-    chat: [['p', 'M5 5h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3.5V6a1 1 0 0 1 1-1z'], ['d', 9, 11], ['d', 12, 11], ['d', 15, 11]],
-    bell: [['p', 'M6 9.5a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15.5 6 9.5z'], ['p', 'M10 20a2.2 2.2 0 0 0 4 0']],
-    user: [['c', 12, 8, 4], ['p', 'M4.5 20.5a7.5 7.5 0 0 1 15 0']],
-    check: [['p', 'm5 12.5 4.5 4.5L19 7.5']],
-    'check-circle': [['c', 12, 12, 9], ['p', 'm8 12.3 2.8 2.8L16.2 9.5']],
-    shield: [['p', 'M12 3 5 6v5.5c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z'], ['p', 'm9 12 2.2 2.2L15.5 10']],
-    'chevron-right': [['p', 'm9.5 6 6 6-6 6']],
-    'chevron-left': [['p', 'm14.5 6-6 6 6 6']],
-    'chevron-down': [['p', 'm6 9.5 6 6 6-6']],
-    'arrow-left': [['p', 'M19 12H5m6.5-6.5L5 12l6.5 6.5']],
-    close: [['p', 'M6.5 6.5l11 11m0-11-11 11']],
-    plus: [['p', 'M12 5v14M5 12h14']],
-    star: [['p', 'm12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9l-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z']],
-    'map-pin': [['p', 'M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z'], ['c', 12, 10, 2.3]],
-    calendar: [['r', 4, 5.5, 16, 14.5, 2], ['p', 'M8 3.5v4M16 3.5v4M4 10h16']],
-    clock: [['c', 12, 12, 8.5], ['p', 'M12 7.5V12l3 2']],
-    filter: [['p', 'M4 6h16M7 12h10M10 18h4']],
-    heart: [['p', 'M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z']],
-    menu: [['p', 'M4 7h16M4 12h16M4 17h16']],
-    more: [['d', 12, 5.5], ['d', 12, 12], ['d', 12, 18.5]],
-    pedidos: [['r', 5, 4.5, 14, 16.5, 2], ['p', 'M9 3h6v3H9z'], ['p', 'M9 11h6M9 15h4']],
-    image: [['r', 3.5, 5, 17, 14, 2], ['c', 9, 10, 1.8], ['p', 'm20.5 16-5-5-8.5 8']],
-    info: [['c', 12, 12, 9], ['p', 'M12 11v5.5'], ['d', 12, 7.8]],
-    alert: [['p', 'M12 4 2.8 19.5h18.4z'], ['p', 'M12 10v4.5'], ['d', 12, 17]],
-    camera: [['p', 'M4 8h3l1.5-2.5h7L17 8h3v11H4z'], ['c', 12, 13, 3.5]],
-    phone: [['p', 'M6.5 4h3l1.5 4-2 1.5a10 10 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A15.5 15.5 0 0 1 4.5 6a2 2 0 0 1 2-2z']],
-    edit: [['p', 'M4.5 19.5h4l10-10-4-4-10 10z'], ['p', 'm13 7 4 4']],
-    trash: [['p', 'M4.5 7h15M10 11v6M14 11v6M6.5 7l1 13h9l1-13M9 7V4.5h6V7']],
-    send: [['p', 'M4 12 20 4l-5 16-3.5-6.5z'], ['p', 'M11.5 13.5 20 4']]
+    home: 'home', search: 'search', pintura: 'format_paint', reforma: 'construction', eletrica: 'bolt', hidraulica: 'water_drop',
+    grid: 'grid_view', chat: 'chat', bell: 'notifications', user: 'person', check: 'check', 'check-circle': 'check_circle',
+    shield: 'verified_user', verificado: 'verified', 'chevron-right': 'chevron_right', 'chevron-left': 'chevron_left', 'chevron-down': 'expand_more',
+    'arrow-left': 'arrow_back', close: 'close', plus: 'add', star: 'star', 'map-pin': 'location_on', calendar: 'calendar_month',
+    clock: 'schedule', filter: 'tune', heart: 'favorite', menu: 'menu', more: 'more_vert', pedidos: 'assignment', image: 'image',
+    info: 'info', alert: 'error', camera: 'photo_camera', phone: 'call', edit: 'edit', trash: 'delete', send: 'send',
+    ferramentas: 'handyman', casa: 'house', orcamento: 'request_quote', pagamento: 'payments', foto: 'add_a_photo', compartilhar: 'share'
   };
   var ICON_NAMES = Object.keys(I);
 
   function Icon(props) {
-    var name = props.name, size = props.size || 24, spec = I[name] || I.info;
-    var kids = spec.map(function (s, i) {
-      if (s[0] === 'p') return h('path', { key: i, d: s[1] });
-      if (s[0] === 'c') return h('circle', { key: i, cx: s[1], cy: s[2], r: s[3] });
-      if (s[0] === 'r') return h('rect', { key: i, x: s[1], y: s[2], width: s[3], height: s[4], rx: s[5] });
-      return h('circle', { key: i, cx: s[1], cy: s[2], r: 1.1, fill: 'currentColor', stroke: 'none' });
-    });
-    return h('svg', {
-      className: cx('qo-icon', props.className), width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor',
-      strokeWidth: props.strokeWidth || 2, strokeLinecap: 'round', strokeLinejoin: 'round',
-      role: props.label ? 'img' : undefined, 'aria-label': props.label, 'aria-hidden': props.label ? undefined : true, style: props.style
-    }, kids);
+    var glyph = I[props.name] || String(props.name || 'help').replace(/-/g, '_');
+    var style = Object.assign({}, props.style);
+    if (props.size) { style.fontSize = props.size + 'px'; }
+    if (props.weight || props.grade != null) {
+      style.fontVariationSettings = "'FILL' " + (props.filled ? 1 : 0) + ", 'wght' " + (props.weight || 400) + ", 'GRAD' " + (props.grade || 0) + ", 'opsz' 24";
+    }
+    return h('span', {
+      className: cx('qo-icon', props.filled && 'qo-icon--filled', props.className), style: style, translate: 'no',
+      role: props.label ? 'img' : undefined, 'aria-label': props.label, 'aria-hidden': props.label ? undefined : true
+    }, glyph);
   }
   Icon.names = ICON_NAMES;
+  Icon.glyphs = I;
 
   /* ───────── Átomos ───────── */
   function Badge(props) {
@@ -80,7 +52,7 @@
       return h('span', { className: cx('qo-badge qo-badge--count', props.className), 'aria-label': n + ' novas' }, n);
     }
     return h('span', { className: cx('qo-badge', tone !== 'neutro' && 'qo-badge--' + tone, props.className) },
-      props.icon ? h(Icon, { name: props.icon }) : null, props.children);
+      props.icon ? h(Icon, { name: props.icon, filled: props.iconFilled }) : null, props.children);
   }
 
   function initials(name) {
@@ -121,9 +93,9 @@
 
   function Rating(props) {
     var v = Math.max(0, Math.min(5, Number(props.value) || 0)), stars = [];
-    for (var i = 1; i <= 5; i++) stars.push(h(Icon, { key: i, name: 'star', className: i <= Math.round(v) ? '' : 'qo-rating__off', style: i <= Math.round(v) ? { fill: 'currentColor' } : null }));
+    for (var i = 1; i <= 5; i++) stars.push(h(Icon, { key: i, name: 'star', filled: true, className: i <= Math.round(v) ? '' : 'qo-rating__off' }));
     return h('span', { className: cx('qo-rating', props.className), role: 'img', 'aria-label': 'Nota ' + v.toFixed(1).replace('.', ',') + ' de 5' + (props.count != null ? ', ' + props.count + ' avaliações' : '') },
-      props.compact ? h(Icon, { name: 'star', style: { fill: 'currentColor' } }) : stars,
+      props.compact ? h(Icon, { name: 'star', filled: true }) : stars,
       h('span', { className: 'qo-rating__value', style: props.compact ? { marginLeft: 4 } : null }, v.toFixed(1).replace('.', ',')),
       props.count != null ? h('span', { className: 'qo-rating__count' }, '(' + props.count + ')') : null);
   }
@@ -338,7 +310,7 @@
   function ServiceTile(props) {
     var other = rest(props, ['icon', 'label', 'selected', 'className']);
     return h('button', Object.assign({ type: 'button', className: cx('qo-tile', props.className), 'aria-pressed': props.selected == null ? undefined : !!props.selected }, other),
-      h(Icon, { name: props.icon }), h('span', null, props.label));
+      h(Icon, { name: props.icon, filled: !!props.selected }), h('span', null, props.label));
   }
 
   function Chip(props) {
@@ -364,7 +336,7 @@
     var tone = props.tone || 'neutro';
     var icon = tone === 'sucesso' ? 'check-circle' : tone === 'erro' ? 'alert' : 'info';
     return h('div', { className: cx('qo-toast', 'qo-toast--' + tone, props.className), role: tone === 'erro' ? 'alert' : 'status' },
-      h(Icon, { name: icon, className: 'qo-toast__icon' }),
+      h(Icon, { name: icon, filled: true, className: 'qo-toast__icon' }),
       h('span', { className: 'qo-toast__msg' }, props.message),
       props.actionLabel ? h('button', { type: 'button', className: 'qo-toast__action', onClick: props.onAction }, props.actionLabel) : null,
       props.onClose ? h(IconButton, { icon: 'close', label: 'Fechar', onClick: props.onClose }) : null);
@@ -418,7 +390,7 @@
           h('div', { style: { flex: 1, minWidth: 0 } },
             h('h3', { className: 'qo-pro__name' }, props.name),
             h('p', { className: 'qo-pro__role' }, props.role)),
-          props.verified ? h(Badge, { tone: 'sucesso', icon: 'check' }, 'Verificado') : null),
+          props.verified ? h(Badge, { tone: 'sucesso', icon: 'verificado', iconFilled: true }, 'Verificado') : null),
         h('div', { className: 'qo-pro__meta' },
           props.rating != null ? h(Rating, { value: props.rating, count: props.reviews, compact: true }) : null,
           props.city ? h('span', null, h(Icon, { name: 'map-pin' }), props.city) : null,
@@ -435,7 +407,7 @@
       steps.map(function (s, i) {
         var st = i < cur ? 'feito' : i === cur ? 'atual' : 'futuro';
         return h('li', { key: i, className: 'qo-step qo-step--' + st, 'aria-current': st === 'atual' ? 'step' : undefined },
-          h('span', { className: 'qo-step__dot' }, st === 'feito' ? h(Icon, { name: 'check', strokeWidth: 3.5 }) : null),
+          h('span', { className: 'qo-step__dot' }, st === 'feito' ? h(Icon, { name: 'check', weight: 700 }) : null),
           h('span', { className: 'qo-step__label' }, s));
       }));
   }
@@ -454,7 +426,7 @@
       items.map(function (it, i) {
         var active = props.value === i || props.value === it.label;
         return h('button', { key: it.label, type: 'button', className: 'qo-navbar__item', 'aria-current': active ? 'page' : undefined, onClick: function () { if (props.onChange) props.onChange(i, it.label); } },
-          h('span', { className: 'qo-navbar__pill' }, h(Icon, { name: it.icon }), it.badge ? h(Badge, { count: it.badge }) : null),
+          h('span', { className: 'qo-navbar__pill' }, h(Icon, { name: it.icon, filled: active }), it.badge ? h(Badge, { count: it.badge }) : null),
           h('span', null, it.label));
       }));
   }

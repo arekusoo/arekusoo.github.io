@@ -18,7 +18,7 @@ A tela inicial do painel “Da marca à interface” montada só com componentes
   bottomNav={<BottomNav value={0} items={itens} />}>
   <Stack gap={5} style={{ padding: '8px 16px 24px' }}>
     <GreetingHeader title="Olá! Vamos transformar?" subtitle="Qual serviço você precisa?"
-      badge={<Badge tone="sucesso" icon="check">Verificado</Badge>} />
+      badge={<Badge tone="sucesso" icon="verificado" iconFilled>Verificado</Badge>} />
     <SearchField placeholder="Buscar serviço" />
     <ServiceGrid onSelect={abrirServico} />
     <PromoCard image={casa} title="Sua ideia começa aqui" text="Encontre profissionais para sua obra."

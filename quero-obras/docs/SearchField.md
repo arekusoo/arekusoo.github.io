@@ -23,7 +23,7 @@ Usa só `tokens.css` + `bundle.css`, sem React. Serve para Vue, Angular, Svelte,
 
 ```html
 <form role="search" class="qo-search">
-  <svg class="qo-icon">…lupa…</svg>
+  <span class="qo-icon" aria-hidden="true">search</span>
   <input class="qo-field__input" type="search" placeholder="Buscar serviço" aria-label="Buscar serviço" />
 </form>
 ```

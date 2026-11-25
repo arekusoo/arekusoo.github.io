@@ -4,13 +4,13 @@
    "id": "Icon",
    "title": "Icon",
    "group": "1 · Átomos",
-   "height": 220,
+   "height": 760,
    "width": null,
    "subtitle": "",
-   "summary": "Ícones de traço (2px, grade 24×24, pontas arredondadas) desenhados para a Quero Obras — os mesmos dos tiles Pintura, Reforma e Elétrica do painel.",
-   "react": "import { Icon } from './queroobras';\n\n<Icon name=\"pintura\" />\n<Icon name=\"eletrica\" size={28} />\n<Icon name=\"bell\" label=\"Notificações\" />",
-   "html": "<!-- Copie o <svg> do ícone; a cor vem de \"color\" -->\n<svg class=\"qo-icon\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\"\n     stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\">\n  <path d=\"M13 3 5 13.5h6L10 21l8-10.5h-6z\"/>\n</svg>",
-   "guide": "## Quando usar\n\n- Sempre ao lado de um texto, ou dentro de um IconButton com `label`.\n- Para reforçar a categoria de um serviço (pintura, reforma, elétrica, hidráulica).\n\n## Regras\n\n- Tamanhos: `icone-sm` 20px (em botões e campos), `icone-md` 24px (barras e navegação), `icone-lg` 28px (tiles de serviço).\n- Cor herdada do texto (`currentColor`): tinta-leitura por padrão, azul-estrutura quando ativo.\n- Ícone sozinho precisa de `label` (lido pelo leitor de tela); ao lado de texto fica decorativo.\n\n## Propriedades\n\nNomes disponíveis: home, search, pintura, reforma, eletrica, hidraulica, grid, chat, bell, user, check, check-circle, shield, chevron-right, chevron-left, chevron-down, arrow-left, close, plus, star, map-pin, calendar, clock, filter, heart, menu, more, pedidos, image, info, alert, camera, phone, edit, trash, send.",
+   "summary": "Ícones da biblioteca **Material Symbols Rounded** do Google Fonts, com a configuração padrão da Quero Obras: Fill 0, Weight 400, Grade 0 e Optical size 24. Todo ícone tem a versão de contorno (padrão) e a preenchida (`filled`).",
+   "react": "import { Icon } from './queroobras';\n\n<Icon name=\"pintura\" />               {/* contorno (padrão) */}\n<Icon name=\"pintura\" filled />        {/* preenchido */}\n<Icon name=\"roofing\" size={28} />     {/* qualquer nome do Material Symbols */}\n<Icon name=\"bell\" label=\"Notificações\" />",
+   "html": "<!-- 1. Carregue a fonte (uma vez, no <head>) -->\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block\">\n\n<!-- 2. Use o nome do ícone como texto -->\n<span class=\"qo-icon\" aria-hidden=\"true\">format_paint</span>\n<span class=\"qo-icon qo-icon--filled\" aria-hidden=\"true\">format_paint</span>\n\n<!-- CSS equivalente, sem bundle.css -->\n<style>\n  .qo-icon { font-family: 'Material Symbols Rounded'; font-size: 24px; line-height: 1;\n    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }\n  .qo-icon--filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }\n</style>",
+   "guide": "## Quando usar\n\n- Sempre ao lado de um texto, ou dentro de um IconButton com `label`.\n- Para reforçar a categoria de um serviço (pintura, reforma, elétrica, hidráulica).\n- **Contorno** é o padrão em toda a interface. **Preenchido** marca estado ativo ou selecionado: item atual da navegação inferior, tile de serviço escolhido, estrelas da avaliação, selo Verificado e ícones de aviso.\n\n## Regras\n\n- Fonte: Material Symbols Rounded (variável), carregada do Google Fonts.\n- Configuração padrão: `FILL 0` · `wght 400` · `GRAD 0` · `opsz 24`. Preenchido: `FILL 1`, com o resto igual.\n- Tamanhos: 20px em botões e campos, 24px em barras e navegação, 28px em tiles de serviço. O tamanho é o `font-size`.\n- Cor herdada do texto (`currentColor`): tinta-leitura em repouso, azul-estrutura quando ativo.\n- Use os atalhos em português (`pintura`, `reforma`…) ou qualquer nome da biblioteca (`roofing`, `carpenter`, `foundation`…), procurados em fonts.google.com/icons.\n- Ícone sozinho precisa de `label` (lido pelo leitor de tela); ao lado de texto fica decorativo.\n\n## Propriedades\n\n`name` (atalho ou nome do Material Symbols) · `filled` · `size` · `weight` (100–700) · `grade` (-25 a 200) · `label`.\n\nCada cartão mostra o ícone nas duas versões: a primeira na cor de texto, a segunda em azul-estrutura com o estilo oposto.\n\n| Atalho | Material Symbols |\n| --- | --- |\n| pintura | format_paint |\n| reforma | construction |\n| eletrica | bolt |\n| hidraulica | water_drop |\n| ferramentas | handyman |\n| verificado | verified |\n| pedidos | assignment |\n| orcamento | request_quote |\n| map-pin | location_on |\n| calendar | calendar_month |\n| bell | notifications |\n| chevron-down | expand_more |",
    "props": {
     "extends": "",
     "fields": [
@@ -18,19 +18,31 @@
       "name": "name",
       "required": true,
       "type": "IconName",
-      "doc": "Nome do ícone"
+      "doc": "Atalho da Quero Obras ou nome do Material Symbols"
+     },
+     {
+      "name": "filled",
+      "required": false,
+      "type": "boolean",
+      "doc": "Versão preenchida (FILL 1). Padrão: contorno (FILL 0)"
      },
      {
       "name": "size",
       "required": false,
       "type": "number",
-      "doc": "Tamanho em px. Padrão 24"
+      "doc": "Tamanho em px. Padrão 24 (ou o do componente pai)"
      },
      {
-      "name": "strokeWidth",
+      "name": "weight",
       "required": false,
       "type": "number",
-      "doc": ""
+      "doc": "Peso do traço, 100–700. Padrão 400"
+     },
+     {
+      "name": "grade",
+      "required": false,
+      "type": "number",
+      "doc": "Ênfase, -25 a 200. Padrão 0"
      },
      {
       "name": "className",
@@ -55,8 +67,8 @@
    "width": null,
    "subtitle": "",
    "summary": "Selo curto de status, como o “Verificado” do painel. Também serve de contador de notificações.",
-   "react": "<Badge tone=\"sucesso\" icon=\"check\">Verificado</Badge>\n<Badge tone=\"aviso\">Aguardando</Badge>\n<Badge count={3} />",
-   "html": "<span class=\"qo-badge qo-badge--sucesso\">✓ Verificado</span>\n<span class=\"qo-badge qo-badge--aviso\">Aguardando</span>\n<span class=\"qo-badge qo-badge--count\">3</span>",
+   "react": "<Badge tone=\"sucesso\" icon=\"verificado\" iconFilled>Verificado</Badge>\n<Badge tone=\"aviso\">Aguardando</Badge>\n<Badge count={3} />",
+   "html": "<span class=\"qo-badge qo-badge--sucesso\"><span class=\"qo-icon qo-icon--filled\">verified</span> Verificado</span>\n<span class=\"qo-badge qo-badge--aviso\">Aguardando</span>\n<span class=\"qo-badge qo-badge--count\">3</span>",
    "guide": "## Quando usar\n\n- Status de um profissional ou de um pedido: Verificado, Novo, Aguardando, Recusado.\n- Contador sobre ícones (sino, navegação).\n\n## Regras\n\n- Uma ou duas palavras, com inicial maiúscula.\n- A cor tem significado: sucesso = verificado/concluído, marca = novidade, info = categoria, aviso = pendente, erro = problema. Nunca decorativa.\n- Sempre `radius-full`, 24px de altura, Inter 600 12px.\n\n## Propriedades\n\n`tone`: neutro · sucesso · marca · info · aviso · erro · `icon` · `count`",
    "props": {
     "extends": "",
@@ -72,6 +84,12 @@
       "required": false,
       "type": "IconName",
       "doc": ""
+     },
+     {
+      "name": "iconFilled",
+      "required": false,
+      "type": "boolean",
+      "doc": "Ícone preenchido"
      },
      {
       "name": "count",
@@ -395,7 +413,7 @@
    "subtitle": "",
    "summary": "Botão só com ícone, para ações recorrentes em barras: voltar, notificações, favoritar, mais opções.",
    "react": "<IconButton icon=\"bell\" label=\"Notificações\" badge={2} />\n<IconButton icon=\"heart\" label=\"Favoritar\" variant=\"contorno\" />",
-   "html": "<button class=\"qo-iconbtn\" aria-label=\"Notificações\"><svg class=\"qo-icon\">…</svg></button>",
+   "html": "<button class=\"qo-iconbtn\" aria-label=\"Notificações\"><span class=\"qo-icon\" aria-hidden=\"true\">notifications</span></button>",
    "guide": "## Quando usar\n\n- Barras do topo, cartões e campos.\n\n## Regras\n\n- `label` é obrigatório: vira o nome lido pelo leitor de tela e a dica ao passar o mouse.\n- Área de toque de 48×48px, mesmo com ícone de 24px.\n- `badge` mostra um contador.",
    "props": {
     "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
@@ -489,7 +507,7 @@
    "subtitle": "",
    "summary": "Lista de escolha única com menu próprio no padrão da marca, como os campos “Serviço” e “Cidade” do painel. Substitui o select nativo do sistema, que muda de cara em cada aparelho.",
    "react": "<Select label=\"Serviço\" value={servico} onChange={e => setServico(e.target.value)}\n  options={[\n    { value: 'pintura', label: 'Pintura', icon: 'pintura' },\n    { value: 'reforma', label: 'Reforma', icon: 'reforma' },\n    { value: 'eletrica', label: 'Elétrica', icon: 'eletrica' },\n  ]} />\n\n<Select label=\"Cidade\" icon=\"map-pin\" placeholder=\"Escolha a cidade\"\n  options={['São Paulo', 'Rio de Janeiro', 'Manaus']} />",
-   "html": "<!-- Fechado -->\n<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"servico\">Serviço</label>\n  <div class=\"qo-select\">\n    <button id=\"servico\" class=\"qo-field__box qo-select__trigger\" aria-haspopup=\"listbox\" aria-expanded=\"false\">\n      <span class=\"qo-select__value\">Pintura</span>\n      <svg class=\"qo-icon qo-select__chev\">…chevron-down…</svg>\n    </button>\n    <!-- Aberto: adicione qo-select__trigger--open no botão e mostre a lista -->\n    <ul class=\"qo-menu\" role=\"listbox\">\n      <li class=\"qo-menu__opt qo-menu__opt--sel\" role=\"option\" aria-selected=\"true\"><span class=\"qo-menu__label\">Pintura</span>✓</li>\n      <li class=\"qo-menu__opt\" role=\"option\"><span class=\"qo-menu__label\">Reforma</span></li>\n    </ul>\n  </div>\n</div>",
+   "html": "<!-- Fechado -->\n<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"servico\">Serviço</label>\n  <div class=\"qo-select\">\n    <button id=\"servico\" class=\"qo-field__box qo-select__trigger\" aria-haspopup=\"listbox\" aria-expanded=\"false\">\n      <span class=\"qo-select__value\">Pintura</span>\n      <span class=\"qo-icon qo-select__chev\" aria-hidden=\"true\">expand_more</span>\n    </button>\n    <!-- Aberto: adicione qo-select__trigger--open no botão e mostre a lista -->\n    <ul class=\"qo-menu\" role=\"listbox\">\n      <li class=\"qo-menu__opt qo-menu__opt--sel\" role=\"option\" aria-selected=\"true\"><span class=\"qo-menu__label\">Pintura</span>✓</li>\n      <li class=\"qo-menu__opt\" role=\"option\"><span class=\"qo-menu__label\">Reforma</span></li>\n    </ul>\n  </div>\n</div>",
    "guide": "## Quando usar\n\n- Mais de 5 opções conhecidas: serviço, cidade, tipo de imóvel.\n- Com até 5 opções, prefira Radio (todas visíveis de uma vez).\n\n## Regras\n\n- Fechado, tem o mesmo visual do TextField: 48px de altura, raio de 12px e rótulo acima.\n- Aberto: menu branco com raio de 12px e sombra-3, itens de 44px. O item escolhido fica em azul-suave, com texto azul-forte e um check.\n- Teclado: ↑ ↓ navegam, Enter escolhe, Esc fecha, e digitar uma letra pula para a opção que começa com ela.\n- Opções podem ter ícone (`{ value, label, icon }`). Campos relacionados ficam lado a lado (Gestalt: proximidade).\n\n## Propriedades\n\n`options` (texto ou `{ value, label, icon }`), `value`, `defaultValue`, `onChange(e)` com `e.target.value`, `placeholder`, `icon`, `label`, `helper`, `error`, `disabled`, `name`, `defaultOpen`.",
    "props": {
     "extends": "",
@@ -590,7 +608,7 @@
    "subtitle": "",
    "summary": "Campo de data com calendário próprio no padrão da marca, em português e no formato dd/mm/aaaa. Substitui o seletor de data nativo, que é diferente em cada navegador.",
    "react": "const hoje = new Date().toISOString().slice(0, 10);\nconst [data, setData] = useState('');\n\n<DatePicker label=\"Data preferida para a visita\" value={data} onChange={setData}\n  min={hoje} helper=\"Opcional. O profissional confirma com você.\" />",
-   "html": "<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"visita\">Data da visita</label>\n  <div class=\"qo-select\">\n    <button id=\"visita\" class=\"qo-field__box qo-select__trigger\" aria-haspopup=\"dialog\">\n      <svg class=\"qo-icon\">…calendar…</svg><span class=\"qo-select__value\">28/11/2026</span>\n    </button>\n    <div class=\"qo-cal\" role=\"dialog\" aria-label=\"Escolher data\">\n      <div class=\"qo-cal__head\">…‹ <span class=\"qo-cal__title\">novembro de 2026</span> ›…</div>\n      <div class=\"qo-cal__week\"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>\n      <div class=\"qo-cal__grid\">\n        <button class=\"qo-cal__day qo-cal__day--out\">26</button> …\n        <button class=\"qo-cal__day qo-cal__day--today\">25</button>\n        <button class=\"qo-cal__day qo-cal__day--sel\">28</button> …\n      </div>\n    </div>\n  </div>\n</div>",
+   "html": "<div class=\"qo-field\">\n  <label class=\"qo-field__label\" for=\"visita\">Data da visita</label>\n  <div class=\"qo-select\">\n    <button id=\"visita\" class=\"qo-field__box qo-select__trigger\" aria-haspopup=\"dialog\">\n      <span class=\"qo-icon\" aria-hidden=\"true\">calendar_month</span><span class=\"qo-select__value\">28/11/2026</span>\n    </button>\n    <div class=\"qo-cal\" role=\"dialog\" aria-label=\"Escolher data\">\n      <div class=\"qo-cal__head\">…‹ <span class=\"qo-cal__title\">novembro de 2026</span> ›…</div>\n      <div class=\"qo-cal__week\"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>\n      <div class=\"qo-cal__grid\">\n        <button class=\"qo-cal__day qo-cal__day--out\">26</button> …\n        <button class=\"qo-cal__day qo-cal__day--today\">25</button>\n        <button class=\"qo-cal__day qo-cal__day--sel\">28</button> …\n      </div>\n    </div>\n  </div>\n</div>",
    "guide": "## Quando usar\n\n- Escolher a data da visita, do início da obra ou de um prazo.\n\n## Regras\n\n- Fechado, tem o mesmo visual do Select, com ícone de calendário e a data em dd/mm/aaaa.\n- Calendário: cartão branco com raio de 20px e sombra-3. Semana começa no domingo. Hoje tem um anel azul; o dia escolhido fica em azul-estrutura com texto branco.\n- Use `min` e `max` para bloquear datas impossíveis (ex.: visita no passado). Datas bloqueadas ficam apagadas.\n- Teclado: setas andam pelos dias, PageUp e PageDown trocam de mês, Enter escolhe e Esc fecha.\n- O valor é sempre `AAAA-MM-DD`, pronto para enviar ao servidor. Só a exibição é em formato brasileiro.\n\n## Propriedades\n\n`value` e `defaultValue` (AAAA-MM-DD), `onChange(iso)`, `min`, `max`, `label`, `helper`, `error`, `placeholder`, `disabled`, `name`, `defaultOpen`.",
    "props": {
     "extends": "",
@@ -697,7 +715,7 @@
    "subtitle": "",
    "summary": "Busca de serviços com ícone de lupa e botão de limpar, como “Buscar serviço” no painel.",
    "react": "<SearchField placeholder=\"Buscar serviço\" onSubmit={buscar} />",
-   "html": "<form role=\"search\" class=\"qo-search\">\n  <svg class=\"qo-icon\">…lupa…</svg>\n  <input class=\"qo-field__input\" type=\"search\" placeholder=\"Buscar serviço\" aria-label=\"Buscar serviço\" />\n</form>",
+   "html": "<form role=\"search\" class=\"qo-search\">\n  <span class=\"qo-icon\" aria-hidden=\"true\">search</span>\n  <input class=\"qo-field__input\" type=\"search\" placeholder=\"Buscar serviço\" aria-label=\"Buscar serviço\" />\n</form>",
    "guide": "## Quando usar\n\n- Topo da tela inicial e listas longas de profissionais ou pedidos.\n\n## Regras\n\n- Padrão: superfície branca com sombra-1, para parecer uma figura sobre o fundo. `preenchida`: dentro de cartões e barras.\n- O placeholder diz o que se busca: “Buscar serviço”, “Buscar profissional”.",
    "props": {
     "extends": "",
@@ -762,8 +780,8 @@
    "subtitle": "",
    "summary": "Bloco de categoria com ícone e nome (Pintura, Reforma, Elétrica), do painel “Da marca à interface”.",
    "react": "<ServiceTile icon=\"pintura\" label=\"Pintura\" onClick={() => abrir(\"pintura\")} />",
-   "html": "<button class=\"qo-tile\"><svg class=\"qo-icon\">…</svg><span>Pintura</span></button>",
-   "guide": "## Quando usar\n\n- Atalhos para categorias de serviço na tela inicial e para escolher o serviço num pedido.\n\n## Regras\n\n- Mesma forma, tamanho e cor para todos os tiles (Gestalt: semelhança). Função igual, aparência igual.\n- Raio de 12px, borda `borda`, ícone de 28px em tinta-leitura e rótulo em Inter 600 14px.\n- Selecionado (`selected`): borda azul-estrutura, fundo azul-suave e ícone azul.",
+   "html": "<button class=\"qo-tile\"><span class=\"qo-icon\" aria-hidden=\"true\">format_paint</span><span>Pintura</span></button>\n<!-- selecionado: aria-pressed=\"true\" e ícone preenchido -->\n<button class=\"qo-tile\" aria-pressed=\"true\"><span class=\"qo-icon qo-icon--filled\" aria-hidden=\"true\">construction</span><span>Reforma</span></button>",
+   "guide": "## Quando usar\n\n- Atalhos para categorias de serviço na tela inicial e para escolher o serviço num pedido.\n\n## Regras\n\n- Mesma forma, tamanho e cor para todos os tiles (Gestalt: semelhança). Função igual, aparência igual.\n- Raio de 12px, borda `borda`, ícone de 28px em tinta-leitura e rótulo em Inter 600 14px.\n- Selecionado (`selected`): borda azul-estrutura, fundo azul-suave e ícone azul **preenchido**.",
    "props": {
     "extends": "React.ButtonHTMLAttributes<HTMLButtonElement>",
     "fields": [
@@ -832,7 +850,7 @@
    "subtitle": "",
    "summary": "Linha de lista com elemento à esquerda, título, subtítulo e informação ou seta à direita.",
    "react": "<ListItem leadingIcon=\"pintura\" title=\"Pintura · Apartamento\" subtitle=\"3 propostas recebidas\" trailing=\"Hoje\" chevron onClick={abrir} />",
-   "html": "<button class=\"qo-listitem\">\n  <span class=\"qo-listitem__lead qo-listitem__lead--box\"><svg class=\"qo-icon\">…</svg></span>\n  <span class=\"qo-listitem__text\"><span class=\"qo-listitem__title\">Pintura · Apartamento</span><span class=\"qo-listitem__sub\">3 propostas recebidas</span></span>\n  <span class=\"qo-listitem__trail\">Hoje</span>\n</button>",
+   "html": "<button class=\"qo-listitem\">\n  <span class=\"qo-listitem__lead qo-listitem__lead--box\"><span class=\"qo-icon\" aria-hidden=\"true\">format_paint</span></span>\n  <span class=\"qo-listitem__text\"><span class=\"qo-listitem__title\">Pintura · Apartamento</span><span class=\"qo-listitem__sub\">3 propostas recebidas</span></span>\n  <span class=\"qo-listitem__trail\">Hoje</span>\n</button>",
    "guide": "## Quando usar\n\n- Pedidos, propostas, notificações, configurações.\n\n## Regras\n\n- Altura mínima de 64px. Título em Inter 600 16px e subtítulo em tinta-suave 14px; textos longos são cortados com reticências.\n- Com `onClick` vira botão e ganha a cor de hover. Use `chevron` quando abre outra tela.",
    "props": {
     "extends": "",
@@ -1020,7 +1038,7 @@
    "width": null,
    "subtitle": "",
    "summary": "Saudação de abertura da tela inicial: “Olá! Vamos transformar?” com a pergunta-guia e um selo opcional.",
-   "react": "<GreetingHeader title=\"Olá! Vamos transformar?\" subtitle=\"Qual serviço você precisa?\"\n  badge={<Badge tone=\"sucesso\" icon=\"check\">Verificado</Badge>} />",
+   "react": "<GreetingHeader title=\"Olá! Vamos transformar?\" subtitle=\"Qual serviço você precisa?\"\n  badge={<Badge tone=\"sucesso\" icon=\"verificado\" iconFilled>Verificado</Badge>} />",
    "html": "<div class=\"qo-greeting\"><div class=\"qo-greeting__text\">\n  <h1 class=\"qo-greeting__title\">Olá! Vamos transformar?</h1>\n  <p class=\"qo-greeting__sub\">Qual serviço você precisa?</p>\n</div><span class=\"qo-badge qo-badge--sucesso\">Verificado</span></div>",
    "guide": "## Quando usar\n\n- Topo da tela inicial, acima da busca.\n\n## Regras\n\n- Título em Manrope 700 28px no celular e 32px a partir de 600px.\n- Subtítulo em forma de pergunta, conduzindo à próxima ação (“Qual serviço você precisa?”).",
    "props": {
@@ -1346,7 +1364,7 @@
    "summary": "Navegação principal do app no celular, com 3 a 5 destinos.",
    "react": "<BottomNav value={aba} onChange={setAba} items={[\n  { icon: 'home', label: 'Início' }, { icon: 'pedidos', label: 'Pedidos' },\n  { icon: 'chat', label: 'Mensagens', badge: 2 }, { icon: 'user', label: 'Perfil' }]} />",
    "html": "<nav class=\"qo-navbar\" aria-label=\"Navegação principal\">\n  <button class=\"qo-navbar__item\" aria-current=\"page\"><span class=\"qo-navbar__pill\">…</span><span>Início</span></button>\n  …\n</nav>",
-   "guide": "## Quando usar\n\n- Telas de primeiro nível: Início, Pedidos, Mensagens, Perfil.\n\n## Regras\n\n- Ícone + rótulo sempre visíveis. Ativo: pílula azul-suave, ícone e texto azul-forte em negrito.\n- A partir de 1024px, troque por navegação no topo ou na lateral.\n- Respeita a área segura do iPhone (`env(safe-area-inset-bottom)`).",
+   "guide": "## Quando usar\n\n- Telas de primeiro nível: Início, Pedidos, Mensagens, Perfil.\n\n## Regras\n\n- Ícone + rótulo sempre visíveis. Ativo: pílula azul-suave, ícone **preenchido** e texto azul-forte em negrito; inativos ficam em contorno.\n- A partir de 1024px, troque por navegação no topo ou na lateral.\n- Respeita a área segura do iPhone (`env(safe-area-inset-bottom)`).",
    "props": {
     "extends": "",
     "fields": [
@@ -1891,7 +1909,7 @@
    "width": null,
    "subtitle": "Tela inicial do app, recriada do painel",
    "summary": "A tela inicial do painel “Da marca à interface” montada só com componentes do sistema: AppShell + AppBar + GreetingHeader + SearchField + ServiceGrid + PromoCard + Stepper + BottomNav.",
-   "react": "<AppShell appBar={<AppBar logo={logo} actions={[{ icon: 'bell', label: 'Notificações', badge: 2 }]} />}\n  bottomNav={<BottomNav value={0} items={itens} />}>\n  <Stack gap={5} style={{ padding: '8px 16px 24px' }}>\n    <GreetingHeader title=\"Olá! Vamos transformar?\" subtitle=\"Qual serviço você precisa?\"\n      badge={<Badge tone=\"sucesso\" icon=\"check\">Verificado</Badge>} />\n    <SearchField placeholder=\"Buscar serviço\" />\n    <ServiceGrid onSelect={abrirServico} />\n    <PromoCard image={casa} title=\"Sua ideia começa aqui\" text=\"Encontre profissionais para sua obra.\"\n      primaryLabel=\"solicitar orçamento\" primaryVariant=\"secundario\" secondaryLabel=\"Ver profissionais\" />\n    <Card><Stepper current={1} /></Card>\n  </Stack>\n</AppShell>",
+   "react": "<AppShell appBar={<AppBar logo={logo} actions={[{ icon: 'bell', label: 'Notificações', badge: 2 }]} />}\n  bottomNav={<BottomNav value={0} items={itens} />}>\n  <Stack gap={5} style={{ padding: '8px 16px 24px' }}>\n    <GreetingHeader title=\"Olá! Vamos transformar?\" subtitle=\"Qual serviço você precisa?\"\n      badge={<Badge tone=\"sucesso\" icon=\"verificado\" iconFilled>Verificado</Badge>} />\n    <SearchField placeholder=\"Buscar serviço\" />\n    <ServiceGrid onSelect={abrirServico} />\n    <PromoCard image={casa} title=\"Sua ideia começa aqui\" text=\"Encontre profissionais para sua obra.\"\n      primaryLabel=\"solicitar orçamento\" primaryVariant=\"secundario\" secondaryLabel=\"Ver profissionais\" />\n    <Card><Stepper current={1} /></Card>\n  </Stack>\n</AppShell>",
    "html": "",
    "guide": "## Quando usar\n\n- Referência de como átomos, moléculas e organismos se juntam numa página real.\n\n## Regras\n\n- Ordem da tela segue a leitura: saudação → busca → categorias → destaque → acompanhamento.\n- Entre blocos, 20px (`space-5`); dentro dos blocos, 12px.",
    "props": null

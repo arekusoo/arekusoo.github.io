@@ -20,7 +20,7 @@ Selo curto de status, como o “Verificado” do painel. Também serve de contad
 ## Código — React
 
 ```jsx
-<Badge tone="sucesso" icon="check">Verificado</Badge>
+<Badge tone="sucesso" icon="verificado" iconFilled>Verificado</Badge>
 <Badge tone="aviso">Aguardando</Badge>
 <Badge count={3} />
 ```
@@ -30,7 +30,7 @@ Selo curto de status, como o “Verificado” do painel. Também serve de contad
 Usa só `tokens.css` + `bundle.css`, sem React. Serve para Vue, Angular, Svelte, Webflow, WordPress ou HTML puro.
 
 ```html
-<span class="qo-badge qo-badge--sucesso">✓ Verificado</span>
+<span class="qo-badge qo-badge--sucesso"><span class="qo-icon qo-icon--filled">verified</span> Verificado</span>
 <span class="qo-badge qo-badge--aviso">Aguardando</span>
 <span class="qo-badge qo-badge--count">3</span>
 ```

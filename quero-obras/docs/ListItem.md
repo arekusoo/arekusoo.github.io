@@ -23,7 +23,7 @@ Usa só `tokens.css` + `bundle.css`, sem React. Serve para Vue, Angular, Svelte,
 
 ```html
 <button class="qo-listitem">
-  <span class="qo-listitem__lead qo-listitem__lead--box"><svg class="qo-icon">…</svg></span>
+  <span class="qo-listitem__lead qo-listitem__lead--box"><span class="qo-icon" aria-hidden="true">format_paint</span></span>
   <span class="qo-listitem__text"><span class="qo-listitem__title">Pintura · Apartamento</span><span class="qo-listitem__sub">3 propostas recebidas</span></span>
   <span class="qo-listitem__trail">Hoje</span>
 </button>

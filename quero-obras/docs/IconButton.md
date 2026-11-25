@@ -24,5 +24,5 @@ Botão só com ícone, para ações recorrentes em barras: voltar, notificaçõe
 Usa só `tokens.css` + `bundle.css`, sem React. Serve para Vue, Angular, Svelte, Webflow, WordPress ou HTML puro.
 
 ```html
-<button class="qo-iconbtn" aria-label="Notificações"><svg class="qo-icon">…</svg></button>
+<button class="qo-iconbtn" aria-label="Notificações"><span class="qo-icon" aria-hidden="true">notifications</span></button>
 ```

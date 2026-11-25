@@ -15,7 +15,7 @@ Saudação de abertura da tela inicial: “Olá! Vamos transformar?” com a per
 
 ```jsx
 <GreetingHeader title="Olá! Vamos transformar?" subtitle="Qual serviço você precisa?"
-  badge={<Badge tone="sucesso" icon="check">Verificado</Badge>} />
+  badge={<Badge tone="sucesso" icon="verificado" iconFilled>Verificado</Badge>} />
 ```
 
 ## Código — HTML/CSS (qualquer stack)

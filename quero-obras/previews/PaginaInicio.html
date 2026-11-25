@@ -11,7 +11,7 @@ function Home() {
     appBar: h(Q.AppBar, { logo: '../assets/logo-quero-obras.png', actions: [{ icon: 'bell', label: 'Notificações', badge: 2 }] }),
     bottomNav: h(Q.BottomNav, { value: nav[0], onChange: nav[1], items: [{ icon: 'home', label: 'Início' }, { icon: 'pedidos', label: 'Pedidos' }, { icon: 'chat', label: 'Mensagens', badge: 2 }, { icon: 'user', label: 'Perfil' }] }) },
     h(Q.Stack, { gap: 5, style: { padding: '8px 16px 24px' } },
-      h(Q.GreetingHeader, { title: 'Olá! Vamos transformar?', subtitle: 'Qual serviço você precisa?', badge: h(Q.Badge, { tone: 'sucesso', icon: 'check' }, 'Verificado') }),
+      h(Q.GreetingHeader, { title: 'Olá! Vamos transformar?', subtitle: 'Qual serviço você precisa?', badge: h(Q.Badge, { tone: 'sucesso', icon: 'verificado', iconFilled: true }, 'Verificado') }),
       h(Q.SearchField, { placeholder: 'Buscar serviço' }),
       h(Q.ServiceGrid, { value: sel[0], onSelect: sel[1] }),
       h(Q.PromoCard, { image: '../assets/casa-promo.png', imageAlt: 'Fachada de casa reformada', title: 'Sua ideia começa aqui', text: 'Encontre profissionais para sua obra.', primaryLabel: 'solicitar orçamento', primaryVariant: 'secundario', secondaryLabel: 'Ver profissionais' }),

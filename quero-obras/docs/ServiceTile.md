@@ -10,7 +10,7 @@ Bloco de categoria com ícone e nome (Pintura, Reforma, Elétrica), do painel �
 
 - Mesma forma, tamanho e cor para todos os tiles (Gestalt: semelhança). Função igual, aparência igual.
 - Raio de 12px, borda `borda`, ícone de 28px em tinta-leitura e rótulo em Inter 600 14px.
-- Selecionado (`selected`): borda azul-estrutura, fundo azul-suave e ícone azul.
+- Selecionado (`selected`): borda azul-estrutura, fundo azul-suave e ícone azul **preenchido**.
 
 ## Código — React
 
@@ -23,5 +23,7 @@ Bloco de categoria com ícone e nome (Pintura, Reforma, Elétrica), do painel �
 Usa só `tokens.css` + `bundle.css`, sem React. Serve para Vue, Angular, Svelte, Webflow, WordPress ou HTML puro.
 
 ```html
-<button class="qo-tile"><svg class="qo-icon">…</svg><span>Pintura</span></button>
+<button class="qo-tile"><span class="qo-icon" aria-hidden="true">format_paint</span><span>Pintura</span></button>
+<!-- selecionado: aria-pressed="true" e ícone preenchido -->
+<button class="qo-tile" aria-pressed="true"><span class="qo-icon qo-icon--filled" aria-hidden="true">construction</span><span>Reforma</span></button>
 ```

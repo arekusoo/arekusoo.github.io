@@ -37,7 +37,7 @@ Usa só `tokens.css` + `bundle.css`, sem React. Serve para Vue, Angular, Svelte,
   <label class="qo-field__label" for="visita">Data da visita</label>
   <div class="qo-select">
     <button id="visita" class="qo-field__box qo-select__trigger" aria-haspopup="dialog">
-      <svg class="qo-icon">…calendar…</svg><span class="qo-select__value">28/11/2026</span>
+      <span class="qo-icon" aria-hidden="true">calendar_month</span><span class="qo-select__value">28/11/2026</span>
     </button>
     <div class="qo-cal" role="dialog" aria-label="Escolher data">
       <div class="qo-cal__head">…‹ <span class="qo-cal__title">novembro de 2026</span> ›…</div>

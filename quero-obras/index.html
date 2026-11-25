@@ -8,6 +8,7 @@
 <link rel="icon" href="assets/logo-quero-obras.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
 <link rel="stylesheet" href="tokens.css">
 <style>
@@ -20,6 +21,7 @@ TYPE    Manrope 700 títulos, Inter texto, JetBrains Mono no código
 LAYOUT  sidebar fixa 272px ≥ 900px; abaixo vira gaveta; conteúdo até 1080px
 */
 :root{color-scheme:light}
+.ms{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;font-size:20px;line-height:1;width:1em;height:1em;overflow:hidden;display:inline-block;white-space:nowrap;direction:ltr;user-select:none;font-feature-settings:'liga';font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;flex:none}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:72px}
 body{margin:0;background:var(--base-respiro);color:var(--tinta-leitura);font:16px/1.6 var(--font-sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
@@ -195,7 +197,7 @@ nav a[aria-current=page] .dot{background:var(--azul-estrutura)}
 </head>
 <body>
 <div class="topbar">
-  <button id="menu" aria-label="Abrir menu" aria-expanded="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <button id="menu" aria-label="Abrir menu" aria-expanded="false"><span class="ms" style="font-size:24px" aria-hidden="true">menu</span></button>
   <img src="assets/logo-quero-obras.png" alt=""><b>Design System</b>
 </div>
 <div class="veil" id="veil"></div>
@@ -248,7 +250,7 @@ function md(src){
 function stage(c){
   const w = c.width || 0;
   const el = document.createElement('div'); el.className='stage';
-  el.innerHTML = `<div class="stage__bar"><span>${esc(c.subtitle || 'Visualização ao vivo · interaja com o componente')}</span><a href="previews/${c.id}.html" target="_blank" rel="noopener">Abrir em tela cheia ↗</a></div><div class="stage__view"><iframe title="Visualização de ${esc(c.title)}" src="previews/${c.id}.html" loading="lazy"></iframe></div>`;
+  el.innerHTML = `<div class="stage__bar"><span>${esc(c.subtitle || 'Visualização ao vivo · interaja com o componente')}</span><a href="previews/${c.id}.html" target="_blank" rel="noopener">Abrir em tela cheia</a></div><div class="stage__view"><iframe title="Visualização de ${esc(c.title)}" src="previews/${c.id}.html" loading="lazy"></iframe></div>`;
   const view = el.querySelector('.stage__view'), fr = el.querySelector('iframe');
   let h = c.height;
   function fit(){
@@ -276,7 +278,7 @@ function intro(){
     <div class="mood">${[['acolhimento','Acolhimento'],['colaboracao','Colaboração'],['movimento','Movimento']].map(m=>`<figure><img src="assets/${m[0]}.png" alt=""><figcaption>${m[1]}</figcaption></figure>`).join('')}</div>`;
   page.appendChild(md(lead));
   const start = document.createElement('div');
-  start.innerHTML = `<div class="cards">${[['cores','Cores','Papéis, hex e contraste'],['tipografia','Tipografia','Manrope e Inter'],['grade','Grade','4 · 8 · 12 colunas'],['Button','Componentes','36 prontos, com código'],['PaginaInicio','Páginas','Telas completas de exemplo']].map(x=>`<a href="#${x[0]}"><b>${x[1]}</b><span>${x[2]}</span></a>`).join('')}</div>`;
+  start.innerHTML = `<div class="cards">${[['cores','Cores','Papéis, hex e contraste'],['tipografia','Tipografia','Manrope e Inter'],['grade','Grade','4 · 8 · 12 colunas'],['Button','Componentes','37 prontos, com código'],['Icon','Ícones','Material Symbols Rounded'],['PaginaInicio','Páginas','Telas completas de exemplo']].map(x=>`<a href="#${x[0]}"><b>${x[1]}</b><span>${x[2]}</span></a>`).join('')}</div>`;
   page.appendChild(start);
   page.appendChild(md(parts.slice(1).join('\n')));
   const hero = document.getElementById('hero'), fr = hero.querySelector('iframe');
@@ -320,7 +322,7 @@ function grade(){
 
 let wsCleanup = null;
 const VPS = [['fit','Ajustar',0],['m','Celular',390],['t','Tablet',768],['d','Desktop',1280]];
-const ICO = {fit:'M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4', m:'M8 3h8v18H8zM11 18h2', t:'M5 4h14v16H5zM11 17h2', d:'M3 5h18v11H3zM8 20h8M12 16v4'};
+const ICO = {fit:'fit_screen', m:'smartphone', t:'tablet_mac', d:'desktop_windows'};
 function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e) { return null; } }
 function lines(code){ return code.split('\n').map((_, i) => i + 1).join('\n'); }
 function hl(code, lang){ try { return window.hljs ? hljs.highlight(code, {language: lang}).value : esc(code); } catch(e) { return esc(code); } }
@@ -344,8 +346,8 @@ function component(id){
   page.innerHTML = `
   <div class="ws-bar">
     <div class="ws-title"><small>${esc(c.group.replace(/^\d · /,''))}</small><h1>${esc(c.title)}</h1><p>${esc(c.summary.replace(/[*`]/g,''))}</p></div>
-    <div class="seg" role="group" aria-label="Tamanho da tela">${VPS.map(v => `<button type="button" data-vp="${v[0]}" aria-pressed="${v[0]===vp}" title="${v[1]}${v[2] ? ' · ' + v[2] + 'px' : ''}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${ICO[v[0]]}"/></svg><span>${v[1]}</span></button>`).join('')}</div>
-    <a class="tool" href="previews/${c.id}.html" target="_blank" rel="noopener">Tela cheia ↗</a>
+    <div class="seg" role="group" aria-label="Tamanho da tela">${VPS.map(v => `<button type="button" data-vp="${v[0]}" aria-pressed="${v[0]===vp}" title="${v[1]}${v[2] ? ' · ' + v[2] + 'px' : ''}"><span class="ms" aria-hidden="true">${ICO[v[0]]}</span><span>${v[1]}</span></button>`).join('')}</div>
+    <a class="tool" href="previews/${c.id}.html" target="_blank" rel="noopener"><span class="ms" aria-hidden="true">open_in_new</span>Tela cheia</a>
   </div>
   <div class="canvas" id="canvas"><p class="canvas__dim" id="dim"></p><div class="canvas__frame" id="frame"><iframe title="Visualização de ${esc(c.title)}" src="previews/${c.id}.html"></iframe></div></div>
   <div class="resizer" id="resizer" role="separator" aria-orientation="horizontal" aria-label="Redimensionar painel de código" tabindex="0"></div>
@@ -383,8 +385,8 @@ function component(id){
     pbody.scrollTop = 0;
   }
   const col = document.getElementById('collapse');
-  const ICMIN = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></svg>';
-  const ICMAX = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+  const ICMIN = '<span class="ms" aria-hidden="true">close_fullscreen</span>';
+  const ICMAX = '<span class="ms" aria-hidden="true">open_in_full</span>';
   function setCollapsed(v){
     document.body.classList.toggle('collapsed', v); store('qo-collapsed', v ? '1' : '0');
     col.innerHTML = v ? ICMAX : ICMIN;

@@ -8,9 +8,9 @@
 
 | Nível | O que é | Na Quero Obras |
 | --- | --- | --- |
-| **Tokens** | As decisões básicas de estilo | Cores, tipografia, espaçamento, raios, sombras, grade, breakpoints, tamanhos |
+| **Tokens** | As decisões básicas de estilo | Cores, tipografia, ícones, espaçamento, raios, sombras, grade, breakpoints, tamanhos |
 | **Átomos** | Os menores elementos | Icon, Badge, Avatar, Divider, Spinner, Checkbox, Radio, Switch, Rating |
-| **Moléculas** | Átomos combinados | Button, IconButton, TextField, Select, SearchField, ServiceTile, Chip, ListItem, Toast |
+| **Moléculas** | Átomos combinados | Button, IconButton, TextField, Select, DatePicker, SearchField, ServiceTile, Chip, ListItem, Toast |
 | **Organismos** | Blocos completos de interface | AppBar, GreetingHeader, Card, PromoCard, ProfessionalCard, Stepper, ServiceGrid, BottomNav, Tabs, Modal, BottomSheet, EmptyState, QuoteForm |
 | **Layout e templates** | Estrutura de tela | Container, Grid, Col, Stack, AppShell |
 | **Páginas** | Templates com conteúdo real | Início (app), Solicitar orçamento (app), Profissionais (web) |
@@ -88,7 +88,27 @@ Mobile first: o estilo base é o do celular e cresce com `min-width`.
 
 ## Iconografia
 
-Traço de 2px, grade 24×24, pontas arredondadas, sem preenchimento (o mesmo estilo dos tiles Pintura, Reforma e Elétrica). Use o componente `Icon` com o `name` (lista completa no cartão Icon). Os tamanhos são 20px em botões e campos, 24px em barras e 28px em tiles. A cor vem do texto: `tinta-leitura` em repouso e `azul-estrutura` quando ativo.
+Os ícones vêm da biblioteca **Material Symbols Rounded** do Google Fonts (fonts.google.com/icons), com esta configuração padrão:
+
+| Eixo | Valor | O que faz |
+| --- | --- | --- |
+| Fill | 0 (contorno) · 1 (preenchido) | Contorno é o padrão; preenchido marca estado ativo ou selecionado |
+| Weight | 400 | Espessura do traço, combinando com Inter 400 |
+| Grade | 0 | Ênfase normal |
+| Optical size | 24 | Desenho otimizado para 24px |
+
+- **Contorno** em toda a interface. **Preenchido** no item ativo da navegação inferior, no tile de serviço escolhido, nas estrelas da avaliação, no selo Verificado e nos ícones de aviso (toast).
+- Tamanhos: 20px em botões e campos, 24px em barras e navegação, 28px em tiles de serviço.
+- A cor vem do texto: `tinta-leitura` em repouso e `azul-estrutura` quando ativo.
+- O componente `Icon` aceita os atalhos em português (`pintura` → format_paint, `reforma` → construction, `eletrica` → bolt, `hidraulica` → water_drop) ou qualquer nome da biblioteca.
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
+<span class="qo-icon">format_paint</span>
+<span class="qo-icon qo-icon--filled">format_paint</span>
+```
+
+Em apps nativos: no **Flutter**, use o pacote `material_symbols_icons` (`Symbols.format_paint_rounded`, com `fill: 0` ou `1`, `weight: 400`, `grade: 0`, `opticalSize: 24`). No **React Native**, use a mesma fonte variável com `fontVariationSettings` ou exporte os SVGs pelo site do Google Fonts com essa configuração.
 
 ## Voz e conteúdo
 
@@ -108,7 +128,7 @@ Traço de 2px, grade 24×24, pontas arredondadas, sem preenchimento (o mesmo est
 
 ## Como usar em React
 
-1. Copie para o projeto: `tokens.css`, `components/bundle.css` e as fontes (Manrope e Inter, do Google Fonts).
+1. Copie para o projeto: `tokens.css` e `components/bundle.css`. O `bundle.css` já importa as fontes do Google Fonts: Manrope, Inter e Material Symbols Rounded.
 2. Use os componentes de duas formas:
    - **Rápida:** carregue React 18 e `components/bundle.js`, que expõe tudo em `window.QueroObras`.
    - **Recomendada:** copie o código de cada componente do `bundle.js` para arquivos `.jsx` seus. Eles não têm dependências além do React, e os tipos estão em `components/index.d.ts`.

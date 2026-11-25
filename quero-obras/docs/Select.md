@@ -43,7 +43,7 @@ Usa só `tokens.css` + `bundle.css`, sem React. Serve para Vue, Angular, Svelte,
   <div class="qo-select">
     <button id="servico" class="qo-field__box qo-select__trigger" aria-haspopup="listbox" aria-expanded="false">
       <span class="qo-select__value">Pintura</span>
-      <svg class="qo-icon qo-select__chev">…chevron-down…</svg>
+      <span class="qo-icon qo-select__chev" aria-hidden="true">expand_more</span>
     </button>
     <!-- Aberto: adicione qo-select__trigger--open no botão e mostre a lista -->
     <ul class="qo-menu" role="listbox">
